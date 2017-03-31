@@ -32,10 +32,10 @@ public class Chorbi extends Actor {
 
 	private String				picture;
 	private String				description;
-	private String				genre;
+	private Genre				genre;
 	private Boolean				banned;
 	private Date				birthDate;
-	private RelationshipKind	relationshipKind;
+	private RelationshipType	relationshipType;
 	private Coordinates			coordinates;
 	private CreditCard			creditCard;
 
@@ -59,12 +59,12 @@ public class Chorbi extends Actor {
 		this.description = description;
 	}
 
-	@NotBlank
-	public String getGenre() {
+	@NotNull
+	public Genre getGenre() {
 		return this.genre;
 	}
 
-	public void setGenre(final String genre) {
+	public void setGenre(final Genre genre) {
 		this.genre = genre;
 	}
 
@@ -91,12 +91,12 @@ public class Chorbi extends Actor {
 
 	@NotNull
 	@Valid
-	public RelationshipKind getRelationshipKind() {
-		return this.relationshipKind;
+	public RelationshipType getRelationshipType() {
+		return this.relationshipType;
 	}
 
-	public void setRelationshipKind(final RelationshipKind relationshipKind) {
-		this.relationshipKind = relationshipKind;
+	public void setRelationshipType(final RelationshipType relationshipType) {
+		this.relationshipType = relationshipType;
 	}
 
 	@NotNull
