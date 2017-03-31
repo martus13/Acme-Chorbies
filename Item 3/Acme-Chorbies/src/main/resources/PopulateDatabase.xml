@@ -85,6 +85,10 @@
 	
 	<!-- Configuration -->
 	
+	<bean id="configuration1" class="domain.Configuration">
+		<property name="cachedTime" value="12:00:00"/>
+	</bean>
+	
 	<!-- RelationshipType -->
 	
 	<!-- Administrator -->
@@ -94,6 +98,44 @@
 	<!-- Coordinates -->
 	
 	<!-- CreditCard -->
+	
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holderName" value="Pedro González Gordillo" />
+		<property name="brandName" value="BBVA" />
+		<property name="number" value="4015224727093842" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2016" />
+		<property name="cvv" value="290" />
+	</bean>
+		
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holderName" value="Hugo Delgado Sánchez" />
+		<property name="brandName" value="Bankia" />
+		<property name="number" value="4810100212629307" />
+		<property name="expirationMonth" value="11" />
+		<property name="expirationYear" value="2018" />
+		<property name="cvv" value="270" />
+	</bean>
+	
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holderName" value="Hugo Delgado Sánchez" />
+		<property name="brandName" value="LaCaixa" />
+		<property name="number" value="6011179219437494" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2020" />
+		<property name="cvv" value="270" />
+	</bean>
+	
+	<bean id="creditCard4" class="domain.CreditCard">
+		<property name="holderName" value="María Jesús Palma Guerrero" />
+		<property name="brandName" value="Evo" />
+		<property name="number" value="5499511710445761" />
+		<property name="expirationMonth" value="05" />
+		<property name="expirationYear" value="2017" />
+		<property name="cvv" value="270" />
+	</bean>
+	
+	
 	
 	<!-- Chorbi -->
 	
