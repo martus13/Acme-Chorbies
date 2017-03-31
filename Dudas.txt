@@ -1,0 +1,3 @@
+DUDAS:
+
+- Como se ponen los enumerados en el diagrama?
