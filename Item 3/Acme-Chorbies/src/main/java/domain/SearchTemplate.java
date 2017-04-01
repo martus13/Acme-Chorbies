@@ -7,11 +7,15 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,6 +40,7 @@ public class SearchTemplate extends DomainEntity {
 
 
 	@Valid
+	@ManyToOne(optional = true)
 	public RelationshipType getRelationshipType() {
 		return this.relationshipType;
 	}
@@ -61,6 +66,7 @@ public class SearchTemplate extends DomainEntity {
 	}
 
 	@Valid
+	@Enumerated(EnumType.STRING)
 	public Genre getGenre() {
 		return this.genre;
 	}
@@ -96,6 +102,7 @@ public class SearchTemplate extends DomainEntity {
 	private Collection<Chorbi>	results;
 
 
+	@NotNull
 	@Valid
 	@OneToOne(optional = false)
 	public Chorbi getChorbi() {
@@ -106,6 +113,7 @@ public class SearchTemplate extends DomainEntity {
 		this.chorbi = chorbi;
 	}
 
+	@NotNull
 	@Valid
 	@ManyToMany()
 	public Collection<Chorbi> getResults() {

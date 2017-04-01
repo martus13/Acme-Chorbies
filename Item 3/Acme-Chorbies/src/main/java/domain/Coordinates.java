@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -11,49 +12,55 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Coordinates {
 
 	//Constructor----------------------------------------------------
-	
-	public Coordinates(){
+
+	public Coordinates() {
 		super();
 	}
-	
+
+
 	//Attributes -------------------------------------------------
-	
-	private String country;
-	private String state;
-	private String provice;
-	private String city;
-	
+
+	private String	country;
+	private String	state;
+	private String	provice;
+	private String	city;
+
+
 	@NotBlank
 	public String getCountry() {
-		return country;
+		return this.country;
 	}
-	public void setCountry(String country) {
+	public void setCountry(final String country) {
 		this.country = country;
 	}
-	
-	
+
 	public String getState() {
-		return state;
+		return this.state;
 	}
-	public void setState(String state) {
+	public void setState(final String state) {
 		this.state = state;
 	}
-	
+
 	public String getProvice() {
-		return provice;
+		return this.provice;
 	}
-	public void setProvice(String provice) {
+	public void setProvice(final String provice) {
 		this.provice = provice;
 	}
-	
+
 	@NotBlank
 	public String getCity() {
-		return city;
+		return this.city;
 	}
-	public void setCity(String city) {
+	public void setCity(final String city) {
 		this.city = city;
 	}
-	
-	
-	
+
+	// toString ---------------------------------------------------------------
+
+	@Override
+	public String toString() {
+		return "Coordinates [country=" + this.country + ", state=" + this.state + ", provice=" + this.provice + ", city=" + this.city + "]";
+	}
+
 }

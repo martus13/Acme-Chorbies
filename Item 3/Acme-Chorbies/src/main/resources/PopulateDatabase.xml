@@ -179,10 +179,14 @@
 		<property name="creditCard" ref="creditCard1" />
 		<property name="givenLikes">
 			<list>
+				<bean name="like1" />
+				<bean name="like2" />
+				<bean name="like3" />
 			</list>
 		</property>
 		<property name="receivedLikes">
 			<list>
+				<bean name="like4" />
 			</list>
 		</property>
 		<property name="sentChirps">
@@ -216,6 +220,8 @@
 		</property>
 		<property name="receivedLikes">
 			<list>
+				<bean name="like1" />
+				<bean name="like5" />
 			</list>
 		</property>
 		<property name="sentChirps">
@@ -245,6 +251,8 @@
 		<property name="creditCard" ref="creditCard3" />
 		<property name="givenLikes">
 			<list>
+				<bean name="like4" />
+				<bean name="like5" />
 			</list>
 		</property>
 		<property name="receivedLikes">
@@ -281,6 +289,7 @@
 		</property>
 		<property name="receivedLikes">
 			<list>
+				<bean name="like3" />
 			</list>
 		</property>
 		<property name="sentChirps">
@@ -314,6 +323,7 @@
 		</property>
 		<property name="receivedLikes">
 			<list>
+				<bean name="like2" />
 			</list>
 		</property>
 		<property name="sentChirps">
@@ -330,6 +340,39 @@
 	<!-- SearchTemplate -->
 	
 	<!-- Like -->
+	
+	<bean id="like1" class="domain.Like">
+		<property name="likeMoment" value="05/05/2017 12:30" />
+		<property name="givenBy" ref="chorbi1" />
+		<property name="givenTo" ref="chorbi2" />
+	</bean>
+	
+	<bean id="like2" class="domain.Like">
+		<property name="likeMoment" value="03/08/2017 16:15" />
+		<property name="comment" value="Hola he visto tu perfil y me interesa conocerte." />
+		<property name="givenBy" ref="chorbi1" />
+		<property name="givenTo" ref="chorbi5" />
+	</bean>
+	
+	<bean id="like3" class="domain.Like">
+		<property name="likeMoment" value="02/28/2017 00:00" />
+		<property name="comment" value="He visto que te gustan los animales como a mí, ¿quieres que paseemos algún dia al perro juntos? ;)" />
+		<property name="givenBy" ref="chorbi1" />
+		<property name="givenTo" ref="chorbi4" />
+	</bean>
+	
+	<bean id="like4" class="domain.Like">
+		<property name="likeMoment" value="01/02/2017 13:59" />
+		<property name="comment" value="Tu libro favorito es el último que leí, ¿me recomendarías alguno mas?. Me gusta la lectura, podríamos hacer una quedada para hablar de los libros y lo que surja jeje" />
+		<property name="givenBy" ref="chorbi3" />
+		<property name="givenTo" ref="chorbi1" />
+	</bean>
+	
+	<bean id="like5" class="domain.Like">
+		<property name="likeMoment" value="01/20/2017 16:30" />
+		<property name="givenBy" ref="chorbi3" />
+		<property name="givenTo" ref="chorbi2" />
+	</bean>
 	
 	<!-- Chirp -->
 </beans>

@@ -7,6 +7,9 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,7 +38,7 @@ public class Chorbi extends Actor {
 	private Genre				genre;
 	private Boolean				banned;
 	private Date				birthDate;
-	private RelationshipType	relationshipType;
+	private RelationshipType	relationshipEngage;
 	private Coordinates			coordinates;
 	private CreditCard			creditCard;
 
@@ -60,6 +63,8 @@ public class Chorbi extends Actor {
 	}
 
 	@NotNull
+	@Valid
+	@Enumerated(EnumType.STRING)
 	public Genre getGenre() {
 		return this.genre;
 	}
@@ -91,12 +96,13 @@ public class Chorbi extends Actor {
 
 	@NotNull
 	@Valid
-	public RelationshipType getRelationshipType() {
-		return this.relationshipType;
+	@ManyToOne(optional = false)
+	public RelationshipType getRelationshipEngage() {
+		return this.relationshipEngage;
 	}
 
-	public void setRelationshipType(final RelationshipType relationshipType) {
-		this.relationshipType = relationshipType;
+	public void setRelationshipEngage(final RelationshipType relationshipEngage) {
+		this.relationshipEngage = relationshipEngage;
 	}
 
 	@NotNull
