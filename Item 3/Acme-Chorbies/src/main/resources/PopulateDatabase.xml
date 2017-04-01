@@ -65,8 +65,32 @@
 			</list>
 		</property>
 	</bean>
-
+	
 	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="chorbi4" />
+		<property name="password" value="5a22ce0729edc9a9a7f895165286b141" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHORBI" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="chorbi5" />
+		<property name="password" value="7e062f6f2a4c0f7ec5abacef2917e033" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHORBI" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount7" class="security.UserAccount">
 		<property name="username" value="super" />
 		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
 		<property name="authorities">
@@ -86,7 +110,7 @@
 	<!-- Configuration -->
 	
 	<bean id="configuration1" class="domain.Configuration">
-		<property name="cachedTime" value="12:00:00"/>
+		<property name="cachedTime" value="01/01/2017 12:00:00" />
 	</bean>
 	
 	<!-- RelationshipType -->
@@ -100,17 +124,17 @@
 	<!-- CreditCard -->
 	
 	<bean id="creditCard1" class="domain.CreditCard">
-		<property name="holderName" value="Pedro González Gordillo" />
-		<property name="brandName" value="BBVA" />
+		<property name="holderName" value="Gloria Bustos Cuéllar" />
+		<property name="brandName" value="VISA" />
 		<property name="number" value="4015224727093842" />
 		<property name="expirationMonth" value="12" />
-		<property name="expirationYear" value="2016" />
+		<property name="expirationYear" value="2017" />
 		<property name="cvv" value="290" />
 	</bean>
 		
 	<bean id="creditCard2" class="domain.CreditCard">
-		<property name="holderName" value="Hugo Delgado Sánchez" />
-		<property name="brandName" value="Bankia" />
+		<property name="holderName" value="Rafael Raimundo Rana" />
+		<property name="brandName" value="MASTERCARD" />
 		<property name="number" value="4810100212629307" />
 		<property name="expirationMonth" value="11" />
 		<property name="expirationYear" value="2018" />
@@ -118,8 +142,8 @@
 	</bean>
 	
 	<bean id="creditCard3" class="domain.CreditCard">
-		<property name="holderName" value="Hugo Delgado Sánchez" />
-		<property name="brandName" value="LaCaixa" />
+		<property name="holderName" value="Silvia Sánchez Casal" />
+		<property name="brandName" value="DISCOVER" />
 		<property name="number" value="6011179219437494" />
 		<property name="expirationMonth" value="12" />
 		<property name="expirationYear" value="2020" />
@@ -127,17 +151,181 @@
 	</bean>
 	
 	<bean id="creditCard4" class="domain.CreditCard">
-		<property name="holderName" value="María Jesús Palma Guerrero" />
-		<property name="brandName" value="Evo" />
+		<property name="holderName" value="Luis Jimeno Castilla" />
+		<property name="brandName" value="AMEX" />
 		<property name="number" value="5499511710445761" />
 		<property name="expirationMonth" value="05" />
-		<property name="expirationYear" value="2017" />
+		<property name="expirationYear" value="2019" />
 		<property name="cvv" value="270" />
 	</bean>
 	
 	
-	
 	<!-- Chorbi -->
+	
+	<bean id="chorbi1" class="domain.Chorbi">
+		<property name="name" value="Gloria" />
+		<property name="surname" value="Bustos Cuéllar" />
+		<property name="email" value="globuscue@gmail.com" />
+		<property name="phoneNumber" value="+34 (21) 1234" />
+		<property name="userAccount" ref="userAccount2" />
+		
+		<property name="picture" value="https://s-media-cache-ak0.pinimg.com/736x/09/34/a8/0934a8927d94439aaf1e123e91875ce0.jpg" />
+		<property name="description" value="Soy to guapa, lista y simpática. Quien que esté conmigo será muy afortunado, ¿quiéres ser tu? ;)" />
+		<property name="genre" value="woman" />
+		<property name="banned" value="false" />
+		<property name="birthDate" value="10/31/1992" />
+		<property name="relationshipEngage" ref="relationshipType2" />
+		<property name="coordinates" ref="coordinates1" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="givenLikes">
+			<list>
+			</list>
+		</property>
+		<property name="receivedLikes">
+			<list>
+			</list>
+		</property>
+		<property name="sentChirps">
+			<list>
+			</list>
+		</property>
+		<property name="receivedChirps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="chorbi2" class="domain.Chorbi">
+		<property name="name" value="Luis" />
+		<property name="surname" value="Jimeno Castilla" />
+		<property name="email" value="luijimcas@gmail.com" />
+		<property name="phoneNumber" value="1415" />
+		<property name="userAccount" ref="userAccount3" />
+		
+		<property name="picture" value="http://backstage-pickcrew.s3.amazonaws.com/wp-content/uploads/2016/04/06232104/Joshua-Earle-in-Switzerland-1024x683.jpeg" />
+		<property name="description" value="Soy un científico de cohetes. He aparecido en la portada de GQ dos veces. Y después de dominar el italiano, me convertí en un superespía internacional. En este momento, voy navegando por el Caribe, robando información secreta y bebiendo martinis ... sacudidos, no revueltos...Bueno vale. Sólo exageraba un poquito jeje. Pero me gusta un buen martini y tengo un B + en mi clase de ciencias de 5º de la ESO. Mándame un mensaje y podremos hablar más profundamente, te enviaré fotos de mis trofeos de ciencia y mucho más...." />
+		<property name="genre" value="man" />
+		<property name="banned" value="false" />
+		<property name="birthDate" value="12/12/1989" />
+		<property name="relationshipEngage" ref="relationshipType1" />
+		<property name="coordinates" ref="coordinates2" />
+		<property name="creditCard" ref="creditCard4" />
+		<property name="givenLikes">
+			<list>
+			</list>
+		</property>
+		<property name="receivedLikes">
+			<list>
+			</list>
+		</property>
+		<property name="sentChirps">
+			<list>
+			</list>
+		</property>
+		<property name="receivedChirps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="chorbi3" class="domain.Chorbi">
+		<property name="name" value="Silvia" />
+		<property name="surname" value="Sánchez Casal" />
+		<property name="email" value="silsancas@gmail.com" />
+		<property name="phoneNumber" value="91011" />
+		<property name="userAccount" ref="userAccount4" />
+		
+		<property name="picture" value="https://s-media-cache-ak0.pinimg.com/originals/be/cf/32/becf3289fa39ff5cf1240f2b6252f8fa.jpg" />
+		<property name="description" value="Hola! soy divertida, romántica y soñadora. Me encanta la naturaleza y viajar a cualquier parte del mundo. Quisiera encontrar el amor de mi vida. Abstenerse pervertidos." />
+		<property name="genre" value="woman" />
+		<property name="banned" value="false" />
+		<property name="birthDate" value="11/04/1995" />
+		<property name="relationshipEngage" ref="relationshipType1" />
+		<property name="coordinates" ref="coordinates2" />
+		<property name="creditCard" ref="creditCard3" />
+		<property name="givenLikes">
+			<list>
+			</list>
+		</property>
+		<property name="receivedLikes">
+			<list>
+			</list>
+		</property>
+		<property name="sentChirps">
+			<list>
+			</list>
+		</property>
+		<property name="receivedChirps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="chorbi4" class="domain.Chorbi">
+		<property name="name" value="Mateo" />
+		<property name="surname" value="Ashakura Elurriaga" />
+		<property name="email" value="matashelu@gmail.com" />
+		<property name="phoneNumber" value="1213" />
+		<property name="userAccount" ref="userAccount5" />
+		
+		<property name="picture" value="http://backstage-pickcrew.s3.amazonaws.com/wp-content/uploads/2016/04/06232104/Joshua-Earle-in-Switzerland-1024x683.jpeg" />
+		<property name="description" value="Me encanta la aventura y viajar, soy amante de los animales y busco amistad o una relación estable con alguien que tenga los mismos gustos que yo." />
+		<property name="genre" value="man" />
+		<property name="banned" value="false" />
+		<property name="birthDate" value="10/21/1991" />
+		<property name="relationshipEngage" ref="relationshipType1" />
+		<property name="coordinates" ref="coordinates2" />
+		<property name="givenLikes">
+			<list>
+			</list>
+		</property>
+		<property name="receivedLikes">
+			<list>
+			</list>
+		</property>
+		<property name="sentChirps">
+			<list>
+			</list>
+		</property>
+		<property name="receivedChirps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="chorbi5" class="domain.Chorbi">
+		<property name="name" value="Rafael" />
+		<property name="surname" value="Raimundo Rana" />
+		<property name="email" value="rafrairan@gmail.com" />
+		<property name="phoneNumber" value="5678" />
+		<property name="userAccount" ref="userAccount6" />
+		
+		<property name="picture" value="http://cdn01.cdn.justjared.com/wp-content/uploads/2013/04/hammer-uncle/armie-hammer-joins-tom-cruise-in-man-from-uncle-05.jpg" />
+		<property name="description" value="Hola chic@s! soy un tío muy tierno y cariñoso, estoy buscando una persona para amistad.....o lo que surja jejeje" />
+		<property name="genre" value="man" />
+		<property name="banned" value="false" />
+		<property name="birthDate" value="12/11/1990" />
+		<property name="relationshipEngage" ref="relationshipType2" />
+		<property name="coordinates" ref="coordinates1" />
+		<property name="creditCard" ref="creditCard2" />
+		<property name="givenLikes">
+			<list>
+			</list>
+		</property>
+		<property name="receivedLikes">
+			<list>
+			</list>
+		</property>
+		<property name="sentChirps">
+			<list>
+			</list>
+		</property>
+		<property name="receivedChirps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
 	
 	<!-- SearchTemplate -->
 	
