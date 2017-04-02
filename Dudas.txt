@@ -1,3 +1,5 @@
 DUDAS:
 
 - Como se ponen los enumerados en el diagrama?
+- B2: the min, max and avg number of likes per chorbi -> que chorbi? el que da o el que recibe?
+- 
