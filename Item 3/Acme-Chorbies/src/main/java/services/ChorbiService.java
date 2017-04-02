@@ -15,6 +15,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Chirp;
 import domain.Chorbi;
+import domain.CreditCard;
 import domain.Like;
 import domain.SearchTemplate;
 
@@ -95,8 +96,22 @@ public class ChorbiService {
 		calendar.setTimeInMillis(currentMilliseconds - birthMilliseconds);
 		Assert.isTrue(calendar.get(Calendar.YEAR) >= 18); // TODO: comprobar!!
 
-		if (chorbi.getCreditCard() != null) {
+		if (chorbi.getCreditCard() != null) { // TODO: comprobar!!
 			// si añade tarjeta de credito -> comprobar que es valida
+			CreditCard creditCard;
+			final String brandName;
+
+			creditCard = chorbi.getCreditCard();
+			brandName = creditCard.getBrandName();
+			calendar = Calendar.getInstance();
+
+			// brand name
+			Assert.isTrue(brandName == "VISA" || brandName == "MASTERCARD" || brandName == "DISCOVER" || brandName == "DINNERS" || brandName == "AMEX");
+
+			// expiration date -> al menos un día más
+			Assert.isTrue(creditCard.getExpirationYear() >= calendar.get(Calendar.YEAR));
+			if (creditCard.getExpirationYear() == calendar.get(Calendar.YEAR))
+				Assert.isTrue(creditCard.getExpirationMonth() > (calendar.get(Calendar.MONTH) + 1));
 		}
 
 		// TODO: descomentar cuando se haga el servicio de searchTemplate
@@ -108,7 +123,6 @@ public class ChorbiService {
 
 		return chorbi;
 	}
-
 	public Chorbi ban(Chorbi chorbi) {
 		Assert.notNull(chorbi);
 

@@ -113,4 +113,12 @@ public class LikeService {
 
 		return result;
 	}
+
+	public Long[] findMinMaxAvgReceivedPerChorbi() {
+		Long[] result;
+
+		result = this.likeRepository.findMinMaxAvgReceivedPerChorbi();
+
+		return result;
+	}
 }
