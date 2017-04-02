@@ -118,6 +118,17 @@
 	
 	<!-- Coordinates -->
 	
+	<bean id="coordinates1" class="domain.Coordinates">
+		<property name="country" value="España" />
+		<property name="provice" value="Sevilla" />
+		<property name="city" value="Sevilla" />
+	</bean>
+	
+	<bean id="coordinates2" class="domain.Coordinates">
+		<property name="country" value="España" />
+		<property name="city" value="Córdoba" />
+	</bean>
+	
 	<!-- CreditCard -->
 	
 	<bean id="creditCard1" class="domain.CreditCard">
@@ -176,14 +187,14 @@
 		<property name="creditCard" ref="creditCard1" />
 		<property name="givenLikes">
 			<list>
-				<bean name="like1" />
-				<bean name="like2" />
-				<bean name="like3" />
+				<ref bean="like1" /> 
+				<ref bean="like2" /> 
+				<ref bean="like3" /> 
 			</list>
 		</property>
 		<property name="receivedLikes">
 			<list>
-				<bean name="like4" />
+				<ref bean="like4" /> 
 			</list>
 		</property>
 		<property name="sentChirps">
@@ -204,7 +215,7 @@
 		<property name="userAccount" ref="userAccount3" />
 		
 		<property name="picture" value="http://backstage-pickcrew.s3.amazonaws.com/wp-content/uploads/2016/04/06232104/Joshua-Earle-in-Switzerland-1024x683.jpeg" />
-		<property name="description" value="Soy un científico de cohetes. He aparecido en la portada de GQ dos veces. Y después de dominar el italiano, me convertí en un superespía internacional. En este momento, voy navegando por el Caribe, robando información secreta y bebiendo martinis ... sacudidos, no revueltos...Bueno vale. Sólo exageraba un poquito jeje. Pero me gusta un buen martini y tengo un B + en mi clase de ciencias de 5º de la ESO. Mándame un mensaje y podremos hablar más profundamente, te enviaré fotos de mis trofeos de ciencia y mucho más...." />
+		<property name="description" value="Soy un superespía internacional. Ahora, estoy navegando por el Caribe, robando información secreta y bebiendo un martini mezclado, no agitado. Bueno vale, es broma jeje. Pero me gusta un buen martini y navegar. ¿Te gustaría conocerme?" />
 		<property name="genre" value="man" />
 		<property name="banned" value="false" />
 		<property name="birthDate" value="12/12/1989" />
@@ -217,8 +228,8 @@
 		</property>
 		<property name="receivedLikes">
 			<list>
-				<bean name="like1" />
-				<bean name="like5" />
+				<ref bean="like1" /> 
+				<ref bean="like5" /> 
 			</list>
 		</property>
 		<property name="sentChirps">
@@ -248,8 +259,8 @@
 		<property name="creditCard" ref="creditCard3" />
 		<property name="givenLikes">
 			<list>
-				<bean name="like4" />
-				<bean name="like5" />
+				<ref bean="like4" /> 
+				<ref bean="like5" /> 
 			</list>
 		</property>
 		<property name="receivedLikes">
@@ -286,7 +297,7 @@
 		</property>
 		<property name="receivedLikes">
 			<list>
-				<bean name="like3" />
+				<ref bean="like3" /> 
 			</list>
 		</property>
 		<property name="sentChirps">
@@ -320,7 +331,7 @@
 		</property>
 		<property name="receivedLikes">
 			<list>
-				<bean name="like2" />
+				<ref bean="like2" /> 
 			</list>
 		</property>
 		<property name="sentChirps">
@@ -339,24 +350,24 @@
 	<bean id="searchTemplate1" class="domain.SearchTemplate">
 		<property name="approximateAge" value="25" />
 		<property name="genre" value="woman" />
-		<property name="searchtime" value="02/02/2017 12:30" />
+		<property name="searchTime" value="02/02/2017 12:30" />
 		<property name="chorbi" ref="chorbi2" />
 		<property name="results">
 			<list>
-				<bean name="chorbi3" />
-				<bean name="chorbi1" />
+				<ref bean="chorbi3" /> 
+				<ref bean="chorbi1" /> 
 			</list>
 		</property>
 	</bean>
 	
 	<bean id="searchTemplate2" class="domain.SearchTemplate">
 		<property name="genre" value="woman" />
-		<property name="searchtime" value="02/03/2017 19:20" />
+		<property name="searchTime" value="02/03/2017 19:20" />
 		<property name="chorbi" ref="chorbi4" />
 		<property name="results">
 			<list>
-				<bean name="chorbi3" />
-				<bean name="chorbi1" />
+				<ref bean="chorbi3" /> 
+				<ref bean="chorbi1" /> 
 			</list>
 		</property>
 	</bean>
@@ -365,11 +376,11 @@
 		<property name="chorbi" ref="chorbi1" />
 		<property name="results">
 			<list>
-				<bean name="chorbi1" />
-				<bean name="chorbi2" />
-				<bean name="chorbi3" />
-				<bean name="chorbi4" />
-				<bean name="chorbi5" />
+				<ref bean="chorbi1" /> 
+				<ref bean="chorbi2" /> 
+				<ref bean="chorbi3" /> 
+				<ref bean="chorbi4" /> 
+				<ref bean="chorbi5" /> 
 			</list>
 		</property>
 	</bean>
@@ -378,34 +389,27 @@
 		<property name="approximateAge" value="31" />
 		<property name="singleKeyword" value="aventura" />
 		<property name="genre" value="man" />
-		<property name="searchtime" value="01/03/2017 12:30" />
+		<property name="searchTime" value="01/03/2017 12:30" />
 		<property name="chorbi" ref="chorbi3" />
 		<property name="results">
 			<list>
-				<bean name="chorbi4" />
+				<ref bean="chorbi4" /> 
 			</list>
 		</property>
 	</bean>
 	
-	<!-- <bean id="searchTemplate1" class="domain.SearchTemplate">
-		<property name="approximateAge" value="25" />
-		<property name="singleKeyword" value="" />
-		<property name="genre" value="woman" />
-		<property name="coordinates" ref="" />
-		<property name="searchtime" value="02/02/2017 12:30" />
-		<property name="chorbi" ref="chorbi1" />
+	<bean id="searchTemplate5" class="domain.SearchTemplate">
+		<property name="chorbi" ref="chorbi5" />
 		<property name="results">
 			<list>
-				<bean name="chorbi3" />
-				<bean name="chorbi1" />
 			</list>
 		</property>
-	</bean> -->
+	</bean>
 	
 	<!-- Like -->
 	
 	<bean id="like1" class="domain.Like">
-		<property name="likeMoment" value="05/05/2017 12:30" />
+		<property name="likeMoment" value="04/01/2017 10:30" />
 		<property name="givenBy" ref="chorbi1" />
 		<property name="givenTo" ref="chorbi2" />
 	</bean>

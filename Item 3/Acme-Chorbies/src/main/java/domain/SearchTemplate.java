@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -48,6 +49,7 @@ public class SearchTemplate extends DomainEntity {
 		this.relationshipType = relationshipType;
 	}
 
+	@Min(18)
 	public Integer getApproximateAge() {
 		return this.approximateAge;
 	}
