@@ -13,8 +13,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- User accounts -->
 
@@ -113,8 +112,6 @@
 		<property name="cachedTime" value="01/01/2017 12:00:00" />
 	</bean>
 	
-	<!-- RelationshipType -->
-	
 	<!-- Administrator -->
 	
 	<!-- Banner -->
@@ -174,7 +171,7 @@
 		<property name="genre" value="woman" />
 		<property name="banned" value="false" />
 		<property name="birthDate" value="10/31/1992" />
-		<property name="relationshipEngage" ref="relationshipType2" />
+		<property name="relationshipEngage" value="love" />
 		<property name="coordinates" ref="coordinates1" />
 		<property name="creditCard" ref="creditCard1" />
 		<property name="givenLikes">
@@ -211,7 +208,7 @@
 		<property name="genre" value="man" />
 		<property name="banned" value="false" />
 		<property name="birthDate" value="12/12/1989" />
-		<property name="relationshipEngage" ref="relationshipType1" />
+		<property name="relationshipEngage" value="activities" />
 		<property name="coordinates" ref="coordinates2" />
 		<property name="creditCard" ref="creditCard4" />
 		<property name="givenLikes">
@@ -246,7 +243,7 @@
 		<property name="genre" value="woman" />
 		<property name="banned" value="false" />
 		<property name="birthDate" value="11/04/1995" />
-		<property name="relationshipEngage" ref="relationshipType1" />
+		<property name="relationshipEngage" value="love" />
 		<property name="coordinates" ref="coordinates2" />
 		<property name="creditCard" ref="creditCard3" />
 		<property name="givenLikes">
@@ -281,7 +278,7 @@
 		<property name="genre" value="man" />
 		<property name="banned" value="false" />
 		<property name="birthDate" value="10/21/1991" />
-		<property name="relationshipEngage" ref="relationshipType1" />
+		<property name="relationshipEngage" value="friendship" />
 		<property name="coordinates" ref="coordinates2" />
 		<property name="givenLikes">
 			<list>
@@ -314,7 +311,7 @@
 		<property name="genre" value="man" />
 		<property name="banned" value="false" />
 		<property name="birthDate" value="12/11/1990" />
-		<property name="relationshipEngage" ref="relationshipType2" />
+		<property name="relationshipEngage" value="love" />
 		<property name="coordinates" ref="coordinates1" />
 		<property name="creditCard" ref="creditCard2" />
 		<property name="givenLikes">
@@ -338,6 +335,72 @@
 	
 	
 	<!-- SearchTemplate -->
+	
+	<bean id="searchTemplate1" class="domain.SearchTemplate">
+		<property name="approximateAge" value="25" />
+		<property name="genre" value="woman" />
+		<property name="searchtime" value="02/02/2017 12:30" />
+		<property name="chorbi" ref="chorbi2" />
+		<property name="results">
+			<list>
+				<bean name="chorbi3" />
+				<bean name="chorbi1" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="searchTemplate2" class="domain.SearchTemplate">
+		<property name="genre" value="woman" />
+		<property name="searchtime" value="02/03/2017 19:20" />
+		<property name="chorbi" ref="chorbi4" />
+		<property name="results">
+			<list>
+				<bean name="chorbi3" />
+				<bean name="chorbi1" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="searchTemplate3" class="domain.SearchTemplate">
+		<property name="chorbi" ref="chorbi1" />
+		<property name="results">
+			<list>
+				<bean name="chorbi1" />
+				<bean name="chorbi2" />
+				<bean name="chorbi3" />
+				<bean name="chorbi4" />
+				<bean name="chorbi5" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="searchTemplate4" class="domain.SearchTemplate">
+		<property name="approximateAge" value="31" />
+		<property name="singleKeyword" value="aventura" />
+		<property name="genre" value="man" />
+		<property name="searchtime" value="01/03/2017 12:30" />
+		<property name="chorbi" ref="chorbi3" />
+		<property name="results">
+			<list>
+				<bean name="chorbi4" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- <bean id="searchTemplate1" class="domain.SearchTemplate">
+		<property name="approximateAge" value="25" />
+		<property name="singleKeyword" value="" />
+		<property name="genre" value="woman" />
+		<property name="coordinates" ref="" />
+		<property name="searchtime" value="02/02/2017 12:30" />
+		<property name="chorbi" ref="chorbi1" />
+		<property name="results">
+			<list>
+				<bean name="chorbi3" />
+				<bean name="chorbi1" />
+			</list>
+		</property>
+	</bean> -->
 	
 	<!-- Like -->
 	
