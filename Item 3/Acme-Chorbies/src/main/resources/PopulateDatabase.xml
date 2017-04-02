@@ -374,6 +374,7 @@
 	
 	<bean id="searchTemplate3" class="domain.SearchTemplate">
 		<property name="chorbi" ref="chorbi1" />
+		<property name="searchTime" value="04/01/2017 11:00" />
 		<property name="results">
 			<list>
 				<ref bean="chorbi1" /> 
