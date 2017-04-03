@@ -87,8 +87,17 @@ public class Chirp extends DomainEntity {
 
 	private Chorbi	sender;
 	private Chorbi	recipient;
+	private Folder folder;
 
-
+	@Valid
+	@NotNull
+	@ManyToOne(optional=false)
+	public Folder getFolder() {
+		return folder;
+	}
+	public void setFolder(Folder folder) {
+		this.folder = folder;
+	}
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)

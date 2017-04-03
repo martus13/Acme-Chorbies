@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -130,6 +131,7 @@ public class Chorbi extends Actor {
 	private Collection<Like>	receivedLikes;
 	private Collection<Chirp>	sentChirps;
 	private Collection<Chirp>	receivedChirps;
+	private Collection<Folder>  folders;
 
 
 	@Valid
@@ -175,5 +177,18 @@ public class Chorbi extends Actor {
 	public void setReceivedChirps(final Collection<Chirp> receivedChirps) {
 		this.receivedChirps = receivedChirps;
 	}
+
+	@Valid
+	@NotEmpty
+	@OneToMany(mappedBy="chorbi")
+	public Collection<Folder> getFolders() {
+		return folders;
+	}
+
+	public void setFolders(Collection<Folder> folders) {
+		this.folders = folders;
+	}
+	
+	
 
 }

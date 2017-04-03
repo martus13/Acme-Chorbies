@@ -477,7 +477,7 @@
 	<bean id="chirp1" class="domain.Chirp">
 		<property name="sentMoment" value="04/02/2017 4:00" />
 		<property name="subject" value="Hola :)"/>
-		<property name="text" value="Te gustaría ser mi chorba? :)"/>
+		<property name="text" value="Te gustaría ser mi chorbo? :)"/>
 		<property name="attachments">
 			<list>
 			</list>
@@ -488,10 +488,10 @@
 		<property name="recipient" ref="chorbi2"/>		
 	</bean>
 	
-		<bean id="chirp2" class="domain.Chirp">
+	<bean id="chirp2" class="domain.Chirp">
 		<property name="sentMoment" value="04/02/2017 4:00" />
 		<property name="subject" value="Hola :)"/>
-		<property name="text" value="Te gustaría ser mi chorba? :)"/>
+		<property name="text" value="Te gustaría ser mi chorbo? :)"/>
 		<property name="attachments">
 			<list>
 			</list>
@@ -500,6 +500,122 @@
 		
 		<property name="sender" ref="chorbi1"/>
 		<property name="recipient" ref="chorbi2"/>		
+	</bean>
+	
+	<bean id="chirp3" class="domain.Chirp">
+		<property name="sentMoment" value="02/02/2017 17:47" />
+		<property name="subject" value="Qué tal?"/>
+		<property name="text" value="Hola, qué tal estás?"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		<property name="copy" value="false"/>
+		
+		<property name="sender" ref="chorbi3"/>
+		<property name="recipient" ref="chorbi4"/>		
+	</bean>
+	
+
+	<!-- Folder -->
+	<bean id="folder1" class="domain.Folder">
+		<property name="name" value="inbox"/>
+		<property name="chorbi" ref="chorbi1"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder2" class="domain.Folder">
+		<property name="name" value="outbox"/>
+		<property name="chorbi" ref="chorbi1"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder3" class="domain.Folder">
+		<property name="name" value="inbox"/>
+		<property name="chorbi" ref="chorbi2"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder4" class="domain.Folder">
+		<property name="name" value="outbox"/>
+		<property name="chorbi" ref="chorbi2"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder5" class="domain.Folder">
+		<property name="name" value="inbox"/>
+		<property name="chorbi" ref="chorbi3"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder6" class="domain.Folder">
+		<property name="name" value="outbox"/>
+		<property name="chorbi" ref="chorbi3"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder7" class="domain.Folder">
+		<property name="name" value="inbox"/>
+		<property name="chorbi" ref="chorbi4"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder8" class="domain.Folder">
+		<property name="name" value="outbox"/>
+		<property name="chorbi" ref="chorbi4"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder9" class="domain.Folder">
+		<property name="name" value="inbox"/>
+		<property name="chorbi" ref="chorbi5"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder10" class="domain.Folder">
+		<property name="name" value="outbox"/>
+		<property name="chorbi" ref="chorbi5"/>
+		<property name="chirps">
+			<list>
+			
+			</list>
+		</property>
 	</bean>
 	
 </beans>

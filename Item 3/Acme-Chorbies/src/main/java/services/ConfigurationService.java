@@ -21,7 +21,7 @@ public class ConfigurationService {
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private AdministratorRepository	administratorRepository;
+	private AdministratorService	administratorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -51,7 +51,7 @@ public class ConfigurationService {
 	public Configuration save(Configuration configuration) {
 		Assert.notNull(configuration);
 
-		Assert.notNull(this.administratorRepository.findByPrincipal());
+		Assert.notNull(this.administratorService.findByPrincipal());
 
 		configuration = this.configurationRepository.save(configuration);
 
