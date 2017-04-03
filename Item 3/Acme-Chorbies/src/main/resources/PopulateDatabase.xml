@@ -154,11 +154,6 @@
 		<property name="city" value="Córdoba" />
 	</bean>
 	
-	<bean id="coordinates3" class="domain.Coordinates">
-		<property name="country" value="Portugal" />
-		<property name="city" value="Lisboa" />
-	</bean>
-	
 	<!-- CreditCard -->
 	
 	<bean id="creditCard1" class="domain.CreditCard">
@@ -197,35 +192,7 @@
 		<property name="cvv" value="270" />
 	</bean>
 	
-	<!-- Chirp -->
 	
-	<bean id="chirp1" class="domain.Chirp">
-		<property name="sentMoment" value="04/02/2017 4:00" />
-		<property name="subject" value="Hola :)"/>
-		<property name="text" value="Te gustaría ser mi chorba? :)"/>
-		<property name="attachments">
-			<list>
-			</list>
-		</property>
-		<property name="copy" value="false"/>
-		
-		<property name="sender" ref="chorbi1"/>
-		<property name="recipient" ref="chorbi2"/>		
-	</bean>
-	
-		<bean id="chirp2" class="domain.Chirp">
-		<property name="sentMoment" value="04/02/2017 4:00" />
-		<property name="subject" value="Hola :)"/>
-		<property name="text" value="Te gustaría ser mi chorba? :)"/>
-		<property name="attachments">
-			<list>
-			</list>
-		</property>
-		<property name="copy" value="true"/>
-		
-		<property name="sender" ref="chorbi1"/>
-		<property name="recipient" ref="chorbi2"/>		
-	</bean>
 	
 	<!-- Chorbi -->
 	
@@ -505,6 +472,34 @@
 		<property name="givenTo" ref="chorbi2" />
 	</bean>
 	
-
+	<!-- Chirp -->
+	
+	<bean id="chirp1" class="domain.Chirp">
+		<property name="sentMoment" value="04/02/2017 4:00" />
+		<property name="subject" value="Hola :)"/>
+		<property name="text" value="Te gustaría ser mi chorba? :)"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		<property name="copy" value="false"/>
+		
+		<property name="sender" ref="chorbi1"/>
+		<property name="recipient" ref="chorbi2"/>		
+	</bean>
+	
+		<bean id="chirp2" class="domain.Chirp">
+		<property name="sentMoment" value="04/02/2017 4:00" />
+		<property name="subject" value="Hola :)"/>
+		<property name="text" value="Te gustaría ser mi chorba? :)"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		<property name="copy" value="true"/>
+		
+		<property name="sender" ref="chorbi1"/>
+		<property name="recipient" ref="chorbi2"/>		
+	</bean>
 	
 </beans>
