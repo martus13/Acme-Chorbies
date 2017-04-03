@@ -4,3 +4,4 @@ DUDAS:
 - B2: the min, max and avg number of likes per chorbi -> que chorbi? el que da o el que recibe?
 - Pagina 2: en la comprobación de la tarjeta de crédito pone que: its expiration date (which is expected to be at least one day ahead). -> como va a ser un dia?
 - Item 4: como saco los tests de los servicios?
+- El driver de los servicios no vale pa na
