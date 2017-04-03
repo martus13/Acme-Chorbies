@@ -20,5 +20,5 @@ public interface LikeRepository extends JpaRepository<Like, Integer> {
 
 	// B2: The minimum, the maximum, and the average number of likes per chorbi.
 	@Query("select min(c.receivedLikes.size), max(c.receivedLikes.size), avg(c.receivedLikes.size) from Chorbi c")
-	Long[] findMinMaxAvgReceivedPerChorbi();
+	Object[] findMinMaxAvgReceivedPerChorbi();
 }

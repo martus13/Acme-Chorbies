@@ -59,6 +59,7 @@ public class LikeService {
 
 		principal = this.chorbiService.findByPrincipal();
 		Assert.notNull(principal);
+		Assert.isTrue(!principal.equals(givenTo));
 
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.MILLISECOND, -10);
@@ -114,8 +115,8 @@ public class LikeService {
 		return result;
 	}
 
-	public Long[] findMinMaxAvgReceivedPerChorbi() {
-		Long[] result;
+	public Object[] findMinMaxAvgReceivedPerChorbi() {
+		Object[] result;
 
 		result = this.likeRepository.findMinMaxAvgReceivedPerChorbi();
 
