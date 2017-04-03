@@ -207,4 +207,24 @@ public class ChorbiService {
 		return results;
 	}
 
+	public Double findRatioCreditCard() {
+		Double result;
+		Calendar calendar;
+
+		calendar = Calendar.getInstance();
+		result = this.chorbiRepository.findRatioCreditCard(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
+
+		return result;
+	}
+
+	public Double[] findRatioActivitiesLoveFriendship() {
+		final Double[] result = new Double[3];
+
+		result[0] = this.chorbiRepository.findRatioActivities();
+		result[1] = this.chorbiRepository.findRatioLove();
+		result[2] = this.chorbiRepository.findRatioFriendship();
+
+		return result;
+	}
+
 }
