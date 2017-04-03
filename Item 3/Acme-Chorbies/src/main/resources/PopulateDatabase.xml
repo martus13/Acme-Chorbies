@@ -114,7 +114,32 @@
 	
 	<!-- Administrator -->
 	
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="Admin 1"/>
+		<property name="surname" value="Surname Admin 1"/>
+		<property name="email" value="admin1@gmail.com"/>
+		<property name="phoneNumber" value="+34 (954) 596093"/>
+		
+		<property name="userAccount" ref="userAccount1"/>
+		
+	</bean>
+	
 	<!-- Banner -->
+	
+	<bean id="banner1" class="domain.Banner">
+		<property name="title" value="Acme Pad-Thai"/>
+		<property name="picture" value="https://pbs.twimg.com/media/C8Pj_l8XcAAOyjG.jpg"/>
+	</bean>
+	
+	<bean id="banner2" class="domain.Banner">
+		<property name="title" value="Acme BnB"/>
+		<property name="picture" value="https://pbs.twimg.com/media/C8PjXs6XsAI1qoi.png"/>
+	</bean>
+	
+	<bean id="banner3" class="domain.Banner">
+		<property name="title" value="Acme CnG"/>
+		<property name="picture" value="https://pbs.twimg.com/media/C8PjEe9XoAAeJC6.jpg"/>
+	</bean>
 	
 	<!-- Coordinates -->
 	
@@ -127,6 +152,11 @@
 	<bean id="coordinates2" class="domain.Coordinates">
 		<property name="country" value="España" />
 		<property name="city" value="Córdoba" />
+	</bean>
+	
+	<bean id="coordinates3" class="domain.Coordinates">
+		<property name="country" value="Portugal" />
+		<property name="city" value="Lisboa" />
 	</bean>
 	
 	<!-- CreditCard -->
@@ -167,6 +197,35 @@
 		<property name="cvv" value="270" />
 	</bean>
 	
+	<!-- Chirp -->
+	
+	<bean id="chirp1" class="domain.Chirp">
+		<property name="sentMoment" value="04/02/2017 4:00" />
+		<property name="subject" value="Hola :)"/>
+		<property name="text" value="Te gustaría ser mi chorba? :)"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		<property name="copy" value="false"/>
+		
+		<property name="sender" ref="chorbi1"/>
+		<property name="recipient" ref="chorbi2"/>		
+	</bean>
+	
+		<bean id="chirp2" class="domain.Chirp">
+		<property name="sentMoment" value="04/02/2017 4:00" />
+		<property name="subject" value="Hola :)"/>
+		<property name="text" value="Te gustaría ser mi chorba? :)"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		<property name="copy" value="true"/>
+		
+		<property name="sender" ref="chorbi1"/>
+		<property name="recipient" ref="chorbi2"/>		
+	</bean>
 	
 	<!-- Chorbi -->
 	
@@ -199,6 +258,8 @@
 		</property>
 		<property name="sentChirps">
 			<list>
+			 	<ref bean="chirp1"/>
+			 	<ref bean="chirp2"/>
 			</list>
 		</property>
 		<property name="receivedChirps">
@@ -238,6 +299,8 @@
 		</property>
 		<property name="receivedChirps">
 			<list>
+				<ref bean="chirp1"/>
+				<ref bean="chirp2"/>
 			</list>
 		</property>
 	</bean>
@@ -442,5 +505,6 @@
 		<property name="givenTo" ref="chorbi2" />
 	</bean>
 	
-	<!-- Chirp -->
+
+	
 </beans>
