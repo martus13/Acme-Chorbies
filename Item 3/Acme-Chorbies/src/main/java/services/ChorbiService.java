@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 import repositories.ChorbiRepository;
 import security.LoginService;
 import security.UserAccount;
-import domain.Chirp;
 import domain.Chorbi;
 import domain.CreditCard;
 import domain.Like;
@@ -25,10 +24,12 @@ public class ChorbiService {
 
 	// Managed repository -----------------------------------------------------
 	@Autowired
-	private ChorbiRepository	chorbiRepository;
-
+	private ChorbiRepository		chorbiRepository;
 
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private SearchTemplateService	searchTemplateService;
+
 
 	// Constructors -----------------------------------------------------------
 	public ChorbiService() {
@@ -59,29 +60,23 @@ public class ChorbiService {
 		Chorbi chorbi;
 		Collection<Like> givenLikes;
 		Collection<Like> receivedLikes;
-		Collection<Chirp> sentChirps;
-		Collection<Chirp> receivedChirps;
 
 		chorbi = new Chorbi();
 
 		givenLikes = new ArrayList<Like>();
 		receivedLikes = new ArrayList<Like>();
-		sentChirps = new ArrayList<Chirp>();
-		receivedChirps = new ArrayList<Chirp>();
 
 		chorbi.setBanned(false);
 		chorbi.setGivenLikes(givenLikes);
 		chorbi.setReceivedLikes(receivedLikes);
-		chorbi.setSentChirps(sentChirps);
-		chorbi.setReceivedChirps(receivedChirps);
 
 		return chorbi;
 	}
 
-	public Chorbi save(Chorbi chorbi) {
+	public Chorbi save(final Chorbi chorbi) {
 		Assert.notNull(chorbi);
 
-		final SearchTemplate searchTemplate;
+		final Chorbi result;
 		long currentMilliseconds;
 		long birthMilliseconds;
 		Calendar calendar;
@@ -114,14 +109,17 @@ public class ChorbiService {
 				Assert.isTrue(creditCard.getExpirationMonth() > (calendar.get(Calendar.MONTH) + 1));
 		}
 
-		// TODO: descomentar cuando se haga el servicio de searchTemplate
-		// crear searchTemplate:
-		// searchTemplate = searchTemplateService.create(chorbi);
-		// searchTemplateService.save(searchTemplate);
+		result = this.chorbiRepository.save(chorbi);
 
-		chorbi = this.chorbiRepository.save(chorbi);
+		if (chorbi.getId() == 0) { // TODO: comprobar
+			// crear searchTemplate:
+			final SearchTemplate searchTemplate;
 
-		return chorbi;
+			searchTemplate = this.searchTemplateService.create(result);
+			this.searchTemplateService.save(searchTemplate);
+		}
+
+		return result;
 	}
 	public Chorbi ban(Chorbi chorbi) {
 		Assert.notNull(chorbi);
@@ -175,18 +173,10 @@ public class ChorbiService {
 		return results;
 	}
 
-	public Collection<Chorbi> findGroupByCountry() {
-		Collection<Chorbi> results;
+	public Collection<Object[]> findGroupByCountryAndCity() {
+		Collection<Object[]> results;
 
-		results = this.chorbiRepository.findGroupByCountry();
-
-		return results;
-	}
-
-	public Collection<Chorbi> findGroupByCity() {
-		Collection<Chorbi> results;
-
-		results = this.chorbiRepository.findGroupByCity();
+		results = this.chorbiRepository.findGroupByCountryAndCity();
 
 		return results;
 	}

@@ -1,3 +1,4 @@
+
 package services;
 
 import javax.transaction.Transactional;
@@ -10,58 +11,56 @@ import repositories.AdministratorRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Administrator;
-import domain.Chorbi;
-
 
 @Service
 @Transactional
 public class AdministratorService {
-	
+
 	// Managed repository -----------------------------------------------------
-		@Autowired
-		private AdministratorRepository	administratorRepository;
+	@Autowired
+	private AdministratorRepository	administratorRepository;
 
 
-		// Supporting services ----------------------------------------------------
+	// Supporting services ----------------------------------------------------
 
-		// Constructors -----------------------------------------------------------
-		public AdministratorService() {
-			super();
-		}
+	// Constructors -----------------------------------------------------------
+	public AdministratorService() {
+		super();
+	}
 
-		// Simple CRUD methods ----------------------------------------------------
-		
-		public Administrator findOne(int adminId){
-			Assert.notNull(adminId);
-			Assert.isTrue(adminId!=0);
-			
-			Administrator result = this.administratorRepository.findOne(adminId);
-			
-			return result;
-		}
-		
-		// Other business methods -------------------------------------------------
-		
-		public Administrator findByPrincipal(){
-			Administrator result;
-			UserAccount userAccount;
+	// Simple CRUD methods ----------------------------------------------------
 
-			userAccount = LoginService.getPrincipal();
-			Assert.notNull(userAccount);
-			result = this.findByUserAccountId(userAccount.getId());
-			Assert.notNull(result);
+	public Administrator findOne(final int adminId) {
+		Assert.notNull(adminId);
+		Assert.isTrue(adminId != 0);
 
-			return result;
-		}
-		
-		public Administrator findByUserAccountId(final int userAccountId) {
-			Assert.notNull(userAccountId);
+		final Administrator result = this.administratorRepository.findOne(adminId);
 
-			Administrator result;
+		return result;
+	}
 
-			result = this.administratorRepository.findByUserAccountId(userAccountId);
+	// Other business methods -------------------------------------------------
 
-			return result;
-		}
+	public Administrator findByPrincipal() {
+		Administrator result;
+		UserAccount userAccount;
+
+		userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		result = this.findByUserAccountId(userAccount.getId());
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Administrator findByUserAccountId(final int userAccountId) {
+		Assert.notNull(userAccountId);
+
+		Administrator result;
+
+		result = this.administratorRepository.findByUserAccountId(userAccountId);
+
+		return result;
+	}
 
 }

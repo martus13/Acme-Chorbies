@@ -21,7 +21,7 @@ import domain.Like;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class LikeServiceTest extends AbstractTest {
+public class ChorbiServiceTest extends AbstractTest {
 
 	// System under test ------------------------------------------------------
 
@@ -34,95 +34,22 @@ public class LikeServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 	/////////////// Con driver:
-	@Test
-	public void driver() {
-		final Object testingData[][] = {
-			{
-				"like1", 52, null
-			}, {
-				"chorbi1", 43, null
-			}
-		};
-
-		for (int i = 0; i < testingData.length; i++) {
-			this.testFindOne((int) testingData[i][1], (Class<?>) testingData[i][2]);
-			this.testFindAll((Class<?>) testingData[i][2]);
-			this.testCreate((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
-		}
-	}
-
-	protected void testFindOne(final int likeId, final Class<?> expected) {
-		Class<?> caught;
-
-		caught = null;
-		try {
-			Like like;
-
-			like = this.likeService.findOne(likeId);
-			Assert.notNull(like);
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-
-		this.checkExceptions(expected, caught);
-	}
-
-	protected void testFindAll(final Class<?> expected) {
-		Class<?> caught;
-
-		caught = null;
-		try {
-			Collection<Like> likes;
-
-			likes = this.likeService.findAll();
-			Assert.isTrue(likes.size() == 5);
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-
-		this.checkExceptions(expected, caught);
-
-	}
-
-	protected void testCreate(final String username, final int chrobiId, final Class<?> expected) {
-		Class<?> caught;
-
-		caught = null;
-		try {
-			this.authenticate(username);
-
-			Like like;
-			Chorbi chorbi;
-
-			chorbi = this.chorbiService.findOne(chrobiId);
-			like = this.likeService.create(chorbi);
-			Assert.notNull(like);
-
-			this.unauthenticate();
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-
-		this.checkExceptions(expected, caught);
-
-	}
-
 	/////////////// Sin driver:
-	//	@Test
-	//	public void testFindOne() {
-	//		Like like;
-	//
-	//		like = this.likeService.findOne(52);
-	//		Assert.notNull(like);
-	//	}
+	@Test
+	public void testFindOne() {
+		Like like;
 
-	//	@Test
-	//	public void testFindAll() {
-	//		Collection<Like> likes;
-	//
-	//		likes = this.likeService.findAll();
-	//		Assert.isTrue(likes.size() == 5);
-	//	}
+		like = this.likeService.findOne(52);
+		Assert.notNull(like);
+	}
+
+	@Test
+	public void testFindAll() {
+		Collection<Like> likes;
+
+		likes = this.likeService.findAll();
+		Assert.isTrue(likes.size() == 5);
+	}
 
 	@Test
 	public void testCreate() {

@@ -35,7 +35,6 @@ public class Chirp extends DomainEntity {
 	private String				subject;
 	private String				text;
 	private Collection<String>	attachments;
-	private boolean				copy;
 
 
 	@NotNull
@@ -74,28 +73,21 @@ public class Chirp extends DomainEntity {
 		this.attachments = attachments;
 	}
 
-	@NotNull
-	public boolean isCopy() {
-		return this.copy;
-	}
-	public void setCopy(final boolean copy) {
-		this.copy = copy;
-	}
-
 
 	//Relationships --------------------------------------------------
 
 	private Chorbi	sender;
 	private Chorbi	recipient;
-	private Folder folder;
+	private Folder	folder;
+
 
 	@Valid
 	@NotNull
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Folder getFolder() {
-		return folder;
+		return this.folder;
 	}
-	public void setFolder(Folder folder) {
+	public void setFolder(final Folder folder) {
 		this.folder = folder;
 	}
 	@NotNull
