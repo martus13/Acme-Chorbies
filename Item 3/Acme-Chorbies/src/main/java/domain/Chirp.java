@@ -90,6 +90,7 @@ public class Chirp extends DomainEntity {
 	public void setFolder(final Folder folder) {
 		this.folder = folder;
 	}
+
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)

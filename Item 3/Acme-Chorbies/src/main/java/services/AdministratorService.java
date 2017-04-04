@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,14 @@ public class AdministratorService {
 		Assert.isTrue(adminId != 0);
 
 		final Administrator result = this.administratorRepository.findOne(adminId);
+
+		return result;
+	}
+
+	public Collection<Administrator> findAll() {
+		Collection<Administrator> result;
+
+		result = this.administratorRepository.findAll();
 
 		return result;
 	}

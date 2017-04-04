@@ -460,96 +460,8 @@
 		<property name="givenTo" ref="chorbi2" />
 	</bean>
 	
-	<!-- Chirp -->
-	
-	<bean id="chirp1" class="domain.Chirp">
-		<property name="sentMoment" value="04/02/2017 4:00" />
-		<property name="subject" value="Hola :)"/>
-		<property name="text" value="Te gustaría ser mi chorba? :)"/>
-		<property name="attachments">
-			<list>
-			</list>
-		</property>
-		
-		<property name="sender" ref="chorbi2"/>
-		<property name="recipient" ref="chorbi1"/>
-		<property name="folder" ref="folder4"/>		
-	</bean>
-	
-	<bean id="chirp2" class="domain.Chirp">
-		<property name="sentMoment" value="04/02/2017 4:00" />
-		<property name="subject" value="Hola :)"/>
-		<property name="text" value="Te gustaría ser mi chorba? :)"/>
-		<property name="attachments">
-			<list>
-			</list>
-		</property>
-		
-		<property name="sender" ref="chorbi2"/>
-		<property name="recipient" ref="chorbi1"/>	
-		<property name="folder" ref="folder1"/>
-			
-	</bean>
-	
-	
-	
-	<bean id="chirp3" class="domain.Chirp">
-		<property name="sentMoment" value="02/02/2017 17:47" />
-		<property name="subject" value="Qué tal?"/>
-		<property name="text" value="Hola, qué tal estás?"/>
-		<property name="attachments">
-			<list>
-			</list>
-		</property>
-		
-		<property name="sender" ref="chorbi3"/>
-		<property name="recipient" ref="chorbi4"/>		
-		<property name="folder" ref="folder6"/>
-	</bean>
-	
-	<bean id="chirp4" class="domain.Chirp">
-		<property name="sentMoment" value="02/02/2017 17:47" />
-		<property name="subject" value="Qué tal?"/>
-		<property name="text" value="Hola, qué tal estás?"/>
-		<property name="attachments">
-			<list>
-			</list>
-		</property>
-		
-		<property name="sender" ref="chorbi3"/>
-		<property name="recipient" ref="chorbi4"/>		
-		<property name="folder" ref="folder7"/>
-	</bean>
-	
-	<bean id="chirp5" class="domain.Chirp">
-		<property name="sentMoment" value="03/02/2017 14:24" />
-		<property name="subject" value="Quiero conocerte"/>
-		<property name="text" value="Hola, qué te parece si quedamos para tomar un café y conocernos? ;)"/>
-		<property name="attachments">
-			<list>
-			</list>
-		</property>
-		
-		<property name="sender" ref="chorbi3"/>
-		<property name="recipient" ref="chorbi5"/>		
-		<property name="folder" ref="folder6"/>
-	</bean>
-	
-	<bean id="chirp6" class="domain.Chirp">
-		<property name="sentMoment" value="02/02/2017 17:47" />
-		<property name="subject" value="Qué tal?"/>
-		<property name="text" value="Hola, qué tal estás?"/>
-		<property name="attachments">
-			<list>
-			</list>
-		</property>
-		
-		<property name="sender" ref="chorbi3"/>
-		<property name="recipient" ref="chorbi5"/>		
-		<property name="folder" ref="folder9"/>
-	</bean>
-
 	<!-- Folder -->
+	
 	<bean id="folder1" class="domain.Folder">
 		<property name="name" value="inbox"/>
 		<property name="chorbi" ref="chorbi1"/>
@@ -651,4 +563,89 @@
 		</property>
 	</bean>
 	
+	<!-- Chirp -->
+	
+	<bean id="chirp1" class="domain.Chirp">
+		<property name="sentMoment" value="04/02/2017 4:00" />
+		<property name="subject" value="Hola :)"/>
+		<property name="text" value="Te gustaría ser mi chorba? :)"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		
+		<property name="sender" ref="chorbi2"/>
+		<property name="recipient" ref="chorbi1"/>
+		<property name="folder" ref="folder4"/>		
+	</bean>
+	
+	<bean id="chirp2" class="domain.Chirp">
+		<property name="sentMoment" value="04/02/2017 4:00" />
+		<property name="subject" value="Hola :)"/>
+		<property name="text" value="Te gustaría ser mi chorba? :)"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		
+		<property name="sender" ref="chorbi2"/>
+		<property name="recipient" ref="chorbi1"/>	
+		<property name="folder" ref="folder1"/>
+			
+	</bean>
+	
+	<bean id="chirp3" class="domain.Chirp">
+		<property name="sentMoment" value="02/02/2017 17:47" />
+		<property name="subject" value="Qué tal?"/>
+		<property name="text" value="Hola, qué tal estás?"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		
+		<property name="sender" ref="chorbi3"/>
+		<property name="recipient" ref="chorbi4"/>		
+		<property name="folder" ref="folder6"/>
+	</bean>
+	<bean id="chirp4" class="domain.Chirp">
+		<property name="sentMoment" value="02/02/2017 17:47" />
+		<property name="subject" value="Qué tal?"/>
+		<property name="text" value="Hola, qué tal estás?"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		
+		<property name="sender" ref="chorbi3"/>
+		<property name="recipient" ref="chorbi4"/>		
+		<property name="folder" ref="folder7"/>
+	</bean>
+	
+	<bean id="chirp5" class="domain.Chirp">
+		<property name="sentMoment" value="03/02/2017 14:24" />
+		<property name="subject" value="Quiero conocerte"/>
+		<property name="text" value="Hola, qué te parece si quedamos para tomar un café y conocernos? ;)"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		
+		<property name="sender" ref="chorbi3"/>
+		<property name="recipient" ref="chorbi5"/>		
+		<property name="folder" ref="folder6"/>
+	</bean>
+	<bean id="chirp6" class="domain.Chirp">
+		<property name="sentMoment" value="02/02/2017 17:47" />
+		<property name="subject" value="Qué tal?"/>
+		<property name="text" value="Hola, qué tal estás?"/>
+		<property name="attachments">
+			<list>
+			</list>
+		</property>
+		
+		<property name="sender" ref="chorbi3"/>
+		<property name="recipient" ref="chorbi5"/>		
+		<property name="folder" ref="folder9"/>
+	</bean>
+
 </beans>

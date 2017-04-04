@@ -93,20 +93,22 @@ public class ChorbiService {
 
 		if (chorbi.getCreditCard() != null) { // TODO: comprobar!!
 			// si añade tarjeta de credito -> comprobar que es valida
-			CreditCard creditCard;
+			final CreditCard creditCard;
 			final String brandName;
+			final Calendar expirationCalendar;
 
 			creditCard = chorbi.getCreditCard();
 			brandName = creditCard.getBrandName();
 			calendar = Calendar.getInstance();
+			expirationCalendar = Calendar.getInstance();
 
 			// brand name
 			Assert.isTrue(brandName == "VISA" || brandName == "MASTERCARD" || brandName == "DISCOVER" || brandName == "DINNERS" || brandName == "AMEX");
 
 			// expiration date -> al menos un día más
-			Assert.isTrue(creditCard.getExpirationYear() >= calendar.get(Calendar.YEAR));
-			if (creditCard.getExpirationYear() == calendar.get(Calendar.YEAR))
-				Assert.isTrue(creditCard.getExpirationMonth() > (calendar.get(Calendar.MONTH) + 1));
+			expirationCalendar.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
+			expirationCalendar.set(Calendar.DAY_OF_MONTH, expirationCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) - 1); // cogemos el último día del mes menos uno, porque tiene que ser un día más
+			Assert.isTrue(calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
 		}
 
 		result = this.chorbiRepository.save(chorbi);

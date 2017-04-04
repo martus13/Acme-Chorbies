@@ -7,20 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.ChirpRepository;
-import domain.Chirp;
+import repositories.FolderRepository;
+import domain.Folder;
 
 @Component
 @Transactional
-public class StringToChirpConverter implements Converter<String, Chirp> {
+public class StringToFolderConverter implements Converter<String, Folder> {
 
 	@Autowired
-	ChirpRepository	chirpRepository;
+	FolderRepository	folderRepository;
 
 
 	@Override
-	public Chirp convert(final String text) {
-		Chirp result;
+	public Folder convert(final String text) {
+		Folder result;
 		int id;
 
 		try {
@@ -28,7 +28,7 @@ public class StringToChirpConverter implements Converter<String, Chirp> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.chirpRepository.findOne(id);
+				result = this.folderRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
