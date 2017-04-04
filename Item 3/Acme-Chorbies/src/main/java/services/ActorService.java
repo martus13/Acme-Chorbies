@@ -49,7 +49,7 @@ public class ActorService {
 		return result;
 	}
 
-	public void save(final Actor actor) {
+	public Actor save(Actor actor) {
 
 		if (actor.getId() == 0) {
 			String password;
@@ -61,7 +61,9 @@ public class ActorService {
 			actor.getUserAccount().setPassword(encryptedPassword);
 
 		}
-		this.actorRepository.save(actor);
+		actor = this.actorRepository.save(actor);
+
+		return actor;
 	}
 
 	// Other business methods -------------------------------------------------

@@ -50,10 +50,22 @@ public class BannerService {
 		return result;
 	}
 
+	public Banner create() {
+		Banner result;
+		Administrator administrator;
+
+		administrator = this.administratorService.findByPrincipal();
+		Assert.notNull(administrator);
+
+		result = new Banner();
+
+		return result;
+	}
+
 	public Banner save(Banner banner) {
 		Assert.notNull(banner);
 
-		final Administrator administrator;
+		Administrator administrator;
 
 		administrator = this.administratorService.findByPrincipal();
 		Assert.notNull(administrator);
@@ -64,7 +76,7 @@ public class BannerService {
 	}
 
 	public void delete(final Banner banner) {
-		final Administrator administrator;
+		Administrator administrator;
 
 		administrator = this.administratorService.findByPrincipal();
 		Assert.notNull(administrator);
