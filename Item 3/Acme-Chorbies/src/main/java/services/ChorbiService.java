@@ -11,10 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ChorbiRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Administrator;
 import domain.Chorbi;
 import domain.CreditCard;
+import domain.Folder;
 import domain.Like;
 import domain.SearchTemplate;
 
@@ -29,6 +32,13 @@ public class ChorbiService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private SearchTemplateService	searchTemplateService;
+
+	// TODO: descomentar cuando se haga el servicio de folder
+	//@Autowired
+	//private FolderService			folderService;
+
+	@Autowired
+	private AdministratorService	administratorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -57,53 +67,56 @@ public class ChorbiService {
 	}
 
 	public Chorbi create() {
-		Chorbi chorbi;
+		Chorbi result;
+		UserAccount userAccount;
+		Authority authority;
 		Collection<Like> givenLikes;
 		Collection<Like> receivedLikes;
+		Collection<Folder> folders;
 
-		chorbi = new Chorbi();
+		result = new Chorbi();
 
+		userAccount = new UserAccount();
+		authority = new Authority();
 		givenLikes = new ArrayList<Like>();
 		receivedLikes = new ArrayList<Like>();
+		folders = new ArrayList<Folder>();
 
-		chorbi.setBanned(false);
-		chorbi.setGivenLikes(givenLikes);
-		chorbi.setReceivedLikes(receivedLikes);
+		authority.setAuthority("CHORBI");
+		userAccount.getAuthorities().add(authority);
 
-		return chorbi;
+		result.setUserAccount(userAccount);
+		result.setBanned(false);
+		result.setGivenLikes(givenLikes);
+		result.setReceivedLikes(receivedLikes);
+		result.setFolders(folders);
+
+		return result;
 	}
 
 	public Chorbi save(final Chorbi chorbi) {
 		Assert.notNull(chorbi);
 
 		final Chorbi result;
-		long currentMilliseconds;
-		long birthMilliseconds;
 		Calendar calendar;
 
 		// comprobar que es mayor de edad:
 		calendar = Calendar.getInstance();
-		currentMilliseconds = calendar.get(Calendar.MILLISECOND);
+		calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 18);
+		Assert.isTrue(chorbi.getBirthDate().before(calendar.getTime()) || chorbi.getBirthDate() == calendar.getTime());
 
-		calendar.setTime(chorbi.getBirthDate());
-		birthMilliseconds = calendar.get(Calendar.MILLISECOND);
-
-		calendar.setTimeInMillis(currentMilliseconds - birthMilliseconds);
-		Assert.isTrue(calendar.get(Calendar.YEAR) >= 18); // TODO: comprobar!!
-
-		if (chorbi.getCreditCard() != null) { // TODO: comprobar!!
+		if (chorbi.getCreditCard() != null) {
 			// si añade tarjeta de credito -> comprobar que es valida
 			final CreditCard creditCard;
-			final String brandName;
 			final Calendar expirationCalendar;
 
 			creditCard = chorbi.getCreditCard();
-			brandName = creditCard.getBrandName();
 			calendar = Calendar.getInstance();
 			expirationCalendar = Calendar.getInstance();
 
 			// brand name
-			Assert.isTrue(brandName == "VISA" || brandName == "MASTERCARD" || brandName == "DISCOVER" || brandName == "DINNERS" || brandName == "AMEX");
+			Assert
+				.isTrue(creditCard.getBrandName().equals("VISA") || creditCard.getBrandName().equals("MASTERCARD") || creditCard.getBrandName().equals("DISCOVER") || creditCard.getBrandName().equals("DINNERS") || creditCard.getBrandName().equals("AMEX"));
 
 			// expiration date -> al menos un día más
 			expirationCalendar.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
@@ -111,9 +124,34 @@ public class ChorbiService {
 			Assert.isTrue(calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
 		}
 
-		result = this.chorbiRepository.save(chorbi);
+		//		// TODO: descomentar cuando se haga el servicio de folder
+		//		if (chorbi.getFolders().isEmpty()) {
+		//			// Folders
+		//			Folder f1;
+		//			Folder f2;
+		//
+		//			f1 = this.folderService.create(chorbi);
+		//			f1.setName("inbox");
+		//
+		//			f2 = this.folderService.create(chorbi);
+		//			f2.setName("outbox");
+		//
+		//			chorbi.addFolder(f1);
+		//			chorbi.addFolder(f2);
+		//
+		//			result = this.chorbiRepository.save(chorbi);
+		//
+		//			f1.setChorbi(result);
+		//			f2.setChorbi(result);
+		//
+		//			f1 = this.folderService.save(f1);
+		//			f2 = this.folderService.save(f2);
+		//		} else
+		//			result = this.chorbiRepository.save(chorbi);
 
-		if (chorbi.getId() == 0) { // TODO: comprobar
+		result = this.chorbiRepository.save(chorbi); // TODO: quitar cuando se haga el servicio de Folder
+
+		if (chorbi.getId() == 0) {
 			// crear searchTemplate:
 			final SearchTemplate searchTemplate;
 
@@ -126,6 +164,11 @@ public class ChorbiService {
 	public Chorbi ban(Chorbi chorbi) {
 		Assert.notNull(chorbi);
 
+		Administrator administrator;
+
+		administrator = this.administratorService.findByPrincipal();
+		Assert.notNull(administrator);
+
 		chorbi.setBanned(true);
 
 		chorbi = this.chorbiRepository.save(chorbi);
@@ -135,6 +178,11 @@ public class ChorbiService {
 
 	public Chorbi unban(Chorbi chorbi) {
 		Assert.notNull(chorbi);
+
+		Administrator administrator;
+
+		administrator = this.administratorService.findByPrincipal();
+		Assert.notNull(administrator);
 
 		chorbi.setBanned(false);
 
@@ -183,8 +231,8 @@ public class ChorbiService {
 		return results;
 	}
 
-	public Long[] findMinMaxAvgAges() {
-		Long[] results;
+	public Object[] findMinMaxAvgAges() {
+		Object[] results;
 
 		results = this.chorbiRepository.findMinMaxAvgAges();
 

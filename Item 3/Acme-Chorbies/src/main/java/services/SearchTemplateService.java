@@ -91,4 +91,13 @@ public class SearchTemplateService {
 
 	// Other business methods -------------------------------------------------
 
+	public SearchTemplate findByChorbiId(final Chorbi chorbi) {
+		Assert.notNull(chorbi);
+
+		SearchTemplate result;
+
+		result = this.searchTemplateRepository.findByChorbiId(chorbi.getId());
+
+		return result;
+	}
 }

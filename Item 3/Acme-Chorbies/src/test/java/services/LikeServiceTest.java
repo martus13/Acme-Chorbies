@@ -38,9 +38,9 @@ public class LikeServiceTest extends AbstractTest {
 	public void driver() {
 		final Object testingData[][] = {
 			{
-				"like1", 52, null
+				"like1", 66, null
 			}, {
-				"chorbi1", 43, null
+				"chorbi1", 56, null
 			}
 		};
 
@@ -112,7 +112,7 @@ public class LikeServiceTest extends AbstractTest {
 	//	public void testFindOne() {
 	//		Like like;
 	//
-	//		like = this.likeService.findOne(52);
+	//		like = this.likeService.findOne(66);
 	//		Assert.notNull(like);
 	//	}
 
@@ -131,7 +131,7 @@ public class LikeServiceTest extends AbstractTest {
 		Like like;
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(43);
+		chorbi = this.chorbiService.findOne(57);
 		like = this.likeService.create(chorbi);
 		Assert.notNull(like);
 
@@ -145,7 +145,7 @@ public class LikeServiceTest extends AbstractTest {
 		Like like;
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(42);
+		chorbi = this.chorbiService.findOne(56);
 		like = this.likeService.create(chorbi);
 		Assert.notNull(like);
 
@@ -157,7 +157,7 @@ public class LikeServiceTest extends AbstractTest {
 		Like like;
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(42);
+		chorbi = this.chorbiService.findOne(56);
 		like = this.likeService.create(chorbi);
 		Assert.notNull(like);
 
@@ -170,7 +170,7 @@ public class LikeServiceTest extends AbstractTest {
 		Like like;
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(43);
+		chorbi = this.chorbiService.findOne(57);
 		like = this.likeService.create(chorbi);
 		like.setComment("Test save");
 		like = this.likeService.save(like);
@@ -185,7 +185,7 @@ public class LikeServiceTest extends AbstractTest {
 
 		Like like;
 
-		like = this.likeService.findOne(55);
+		like = this.likeService.findOne(69);
 		like.setComment("Test save");
 		like = this.likeService.save(like);
 		Assert.isTrue(!like.getComment().isEmpty());
@@ -200,7 +200,7 @@ public class LikeServiceTest extends AbstractTest {
 		Like like;
 		Collection<Like> likes;
 
-		like = this.likeService.findOne(52);
+		like = this.likeService.findOne(66);
 		this.likeService.delete(like);
 
 		likes = this.likeService.findAll();
@@ -215,7 +215,7 @@ public class LikeServiceTest extends AbstractTest {
 
 		Like like;
 
-		like = this.likeService.findOne(55);
+		like = this.likeService.findOne(69);
 		this.likeService.delete(like);
 
 		this.unauthenticate();
@@ -225,7 +225,7 @@ public class LikeServiceTest extends AbstractTest {
 	public void testNegativeDeleteNotAuthenticated() {
 		Like like;
 
-		like = this.likeService.findOne(52);
+		like = this.likeService.findOne(66);
 		this.likeService.delete(like);
 
 	}
@@ -234,7 +234,7 @@ public class LikeServiceTest extends AbstractTest {
 	public void testFindByGivenToId() {
 		Collection<Like> likes;
 
-		likes = this.likeService.findByGivenToId(43);
+		likes = this.likeService.findByGivenToId(57);
 		Assert.isTrue(likes.size() == 2);
 
 	}
@@ -243,7 +243,7 @@ public class LikeServiceTest extends AbstractTest {
 	public void testFindByGivenById() {
 		final Collection<Like> likes;
 
-		likes = this.likeService.findByGivenById(42);
+		likes = this.likeService.findByGivenById(56);
 		Assert.isTrue(likes.size() == 3);
 
 	}

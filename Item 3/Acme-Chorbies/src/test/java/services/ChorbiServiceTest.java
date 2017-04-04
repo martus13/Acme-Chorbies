@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -13,8 +15,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Chirp;
 import domain.Chorbi;
-import domain.Like;
+import domain.Coordinates;
+import domain.CreditCard;
+import domain.Folder;
+import domain.Genre;
+import domain.RelationshipType;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -26,10 +33,10 @@ public class ChorbiServiceTest extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private LikeService		likeService;
+	private ChorbiService			chorbiService;
 
 	@Autowired
-	private ChorbiService	chorbiService;
+	private SearchTemplateService	searchTemplateService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -37,150 +44,264 @@ public class ChorbiServiceTest extends AbstractTest {
 	/////////////// Sin driver:
 	@Test
 	public void testFindOne() {
-		Like like;
+		Chorbi chorbi;
 
-		like = this.likeService.findOne(52);
-		Assert.notNull(like);
+		chorbi = this.chorbiService.findOne(56);
+		Assert.notNull(chorbi);
 	}
 
 	@Test
 	public void testFindAll() {
-		Collection<Like> likes;
+		Collection<Chorbi> chorbies;
 
-		likes = this.likeService.findAll();
-		Assert.isTrue(likes.size() == 5);
+		chorbies = this.chorbiService.findAll();
+		Assert.isTrue(chorbies.size() == 5);
 	}
 
 	@Test
 	public void testCreate() {
-		this.authenticate("chorbi1");
-
-		Like like;
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(43);
-		like = this.likeService.create(chorbi);
-		Assert.notNull(like);
-
-		this.unauthenticate();
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeLikeSameChorbi() {
-		this.authenticate("chorbi1");
-
-		Like like;
-		Chorbi chorbi;
-
-		chorbi = this.chorbiService.findOne(42);
-		like = this.likeService.create(chorbi);
-		Assert.notNull(like);
-
-		this.unauthenticate();
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeNotPrincipal() {
-		Like like;
-		Chorbi chorbi;
-
-		chorbi = this.chorbiService.findOne(42);
-		like = this.likeService.create(chorbi);
-		Assert.notNull(like);
+		chorbi = this.chorbiService.create();
+		Assert.notNull(chorbi);
 
 	}
 
 	@Test
 	public void testCreateAndSave() {
-		this.authenticate("chorbi1");
+		Chorbi chorbi;
+		Calendar calendar;
+		Coordinates coordinates;
 
-		Like like;
+		chorbi = this.chorbiService.create();
+
+		calendar = Calendar.getInstance();
+		calendar.set(1992, 9, 31, 6, 0, 0);
+		coordinates = new Coordinates();
+		coordinates.setCountry("España");
+		coordinates.setCity("Sevilla");
+
+		chorbi.getUserAccount().setUsername("prueba1");
+		chorbi.getUserAccount().setPassword("3f1b7ccad63d40a7b4c27dda225bf941");
+		chorbi.setName("prueba");
+		chorbi.setSurname("1");
+		chorbi.setEmail("prueba1@gmail.com");
+		chorbi.setPhoneNumber("1234");
+		chorbi.setPicture("http://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/H-P/International%20Photography%20Contest/IPC-winner-tile.jpg");
+		chorbi.setDescription("Descripcion prueba 1");
+		chorbi.setGenre(Genre.man);
+		chorbi.setBirthDate(calendar.getTime());
+		chorbi.setRelationshipEngage(RelationshipType.activities);
+		chorbi.setCoordinates(coordinates);
+
+		// TODO: Quitar cuando se haga el servicio de folder:
+		Folder f1;
+		Folder f2;
+
+		f1 = new Folder();
+		f1.setName("inbox");
+		f1.setChirps(new ArrayList<Chirp>());
+		f1.setChorbi(chorbi);
+
+		f2 = new Folder();
+		f2.setName("outbox");
+		f2.setChirps(new ArrayList<Chirp>());
+		f2.setChorbi(chorbi);
+
+		chorbi.addFolder(f1);
+		chorbi.addFolder(f2);
+
+		chorbi = this.chorbiService.save(chorbi);
+		Assert.notNull(this.searchTemplateService.findByChorbiId(chorbi));
+		Assert.isTrue(chorbi.getFolders().size() == 2);
+
+	}
+	@Test
+	public void testSave() {
+
+		Chorbi chorbi;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("MASTERCARD");
+		creditCard.setHolderName("Holder name test");
+		creditCard.setNumber("5379721258203853");
+		creditCard.setExpirationMonth(7);
+		creditCard.setExpirationYear(2017);
+		creditCard.setCvv(159);
+
+		chorbi = this.chorbiService.findOne(59);
+		chorbi.setName("Nuevo nombre");
+		chorbi.setCreditCard(creditCard);
+
+		chorbi = this.chorbiService.save(chorbi);
+		Assert.notNull(chorbi.getCreditCard());
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeUnder18Save() {
+
+		Chorbi chorbi;
+		Calendar calendar;
+
+		calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 17); // Hace 17 años
+
+		chorbi = this.chorbiService.findOne(56);
+		chorbi.setBirthDate(calendar.getTime());
+
+		chorbi = this.chorbiService.save(chorbi);
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeInvalidCreditCardBrandNameSave() {
+
+		Chorbi chorbi;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("Brand name erroneo");
+		creditCard.setHolderName("Holder name test");
+		creditCard.setNumber("5379721258203853");
+		creditCard.setExpirationMonth(7);
+		creditCard.setExpirationYear(2017);
+		creditCard.setCvv(159);
+
+		chorbi = this.chorbiService.findOne(56);
+		chorbi.setCreditCard(creditCard);
+
+		chorbi = this.chorbiService.save(chorbi);
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeInvalidCreditCardExpirtationDateSave() {
+
+		Chorbi chorbi;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("MASTERCARD");
+		creditCard.setHolderName("Holder name test");
+		creditCard.setNumber("5379721258203853");
+		creditCard.setExpirationMonth(3);
+		creditCard.setExpirationYear(2017);
+		creditCard.setCvv(159);
+
+		chorbi = this.chorbiService.findOne(56);
+		chorbi.setCreditCard(creditCard);
+
+		chorbi = this.chorbiService.save(chorbi);
+
+	}
+
+	@Test
+	public void testBan() {
+		this.authenticate("admin");
+
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(43);
-		like = this.likeService.create(chorbi);
-		like.setComment("Test save");
-		like = this.likeService.save(like);
-		Assert.isTrue(!like.getComment().isEmpty());
+		chorbi = this.chorbiService.findOne(59);
+
+		chorbi = this.chorbiService.ban(chorbi);
+		Assert.isTrue(chorbi.getBanned());
 
 		this.unauthenticate();
+
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeEditNotGivenByPrincipal() {
-		this.authenticate("chorbi1");
+	public void testNegativeNotAuthenticatedBan() {
+		Chorbi chorbi;
 
-		Like like;
+		chorbi = this.chorbiService.findOne(59);
 
-		like = this.likeService.findOne(55);
-		like.setComment("Test save");
-		like = this.likeService.save(like);
-		Assert.isTrue(!like.getComment().isEmpty());
+		chorbi = this.chorbiService.ban(chorbi);
+		Assert.isTrue(chorbi.getBanned());
 
-		this.unauthenticate();
 	}
 
 	@Test
-	public void testDelete() {
-		this.authenticate("chorbi1");
+	public void testUnban() {
+		this.authenticate("admin");
 
-		Like like;
-		Collection<Like> likes;
+		Chorbi chorbi;
 
-		like = this.likeService.findOne(52);
-		this.likeService.delete(like);
+		chorbi = this.chorbiService.findOne(59);
 
-		likes = this.likeService.findAll();
-		Assert.isTrue(!likes.contains(like));
+		chorbi = this.chorbiService.ban(chorbi);
+		Assert.isTrue(chorbi.getBanned());
+
+		chorbi = this.chorbiService.unban(chorbi);
+		Assert.isTrue(!chorbi.getBanned());
 
 		this.unauthenticate();
+
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeDeleteNotGivenByPrincipal() {
-		this.authenticate("chorbi1");
+	public void testNegativeNotAuthenticatedUnban() {
+		Chorbi chorbi;
 
-		Like like;
+		chorbi = this.chorbiService.findOne(59);
 
-		like = this.likeService.findOne(55);
-		this.likeService.delete(like);
-
-		this.unauthenticate();
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeDeleteNotAuthenticated() {
-		Like like;
-
-		like = this.likeService.findOne(52);
-		this.likeService.delete(like);
+		chorbi = this.chorbiService.unban(chorbi);
+		Assert.isTrue(!chorbi.getBanned());
 
 	}
 
 	@Test
-	public void testFindByGivenToId() {
-		Collection<Like> likes;
+	public void testFindNotBanned() {
+		Collection<Chorbi> results;
 
-		likes = this.likeService.findByGivenToId(43);
-		Assert.isTrue(likes.size() == 2);
-
-	}
-
-	@Test
-	public void testFindByGivenById() {
-		final Collection<Like> likes;
-
-		likes = this.likeService.findByGivenById(42);
-		Assert.isTrue(likes.size() == 3);
+		results = this.chorbiService.findNotBanned();
+		Assert.isTrue(results.size() == 5);
 
 	}
 
 	@Test
-	public void testFindMinMaxAvgReceivedPerChorbi() {
-		Object[] result;
+	public void testFindGroupByCountryAndCity() {
+		Collection<Object[]> results;
 
-		result = this.likeService.findMinMaxAvgReceivedPerChorbi();
-		System.out.println("Min: " + result[0] + ", Max: " + result[1] + ", Avg: " + result[2]);
+		results = this.chorbiService.findGroupByCountryAndCity();
+		Assert.isTrue(results.size() == 2);
+
+	}
+
+	@Test
+	public void testFindMinMaxAvgAges() {
+		Object[] results;
+
+		results = this.chorbiService.findMinMaxAvgAges();
+		System.out.println("testFindMinMaxAvgAges --> Min: " + results[0] + ", Max: " + results[1] + ", Avg: " + results[2]);
+
+	}
+
+	@Test
+	public void testFindAllSortedByReceivedLikes() {
+		Collection<Chorbi> results;
+
+		results = this.chorbiService.findAllSortedByReceivedLikes();
+		Assert.isTrue(results.size() == 5);
+
+	}
+
+	@Test
+	public void testFindRatioCreditCard() {
+		Double result;
+
+		result = this.chorbiService.findRatioCreditCard();
+		System.out.println("testFindRatioCreditCard: " + result);
+
+	}
+	@Test
+	public void testFindRatioActivitiesLoveFriendship() {
+		Double[] results;
+
+		results = this.chorbiService.findRatioActivitiesLoveFriendship();
+		System.out.println("testFindRatioActivitiesLoveFriendship\nMin: " + results[0] + ", Max: " + results[1] + ", Avg: " + results[2]);
 
 	}
 }
