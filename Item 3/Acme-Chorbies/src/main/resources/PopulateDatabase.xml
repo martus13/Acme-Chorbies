@@ -498,8 +498,7 @@
 		</property>
 		
 		<property name="sender" ref="chorbi2"/>
-		<property name="recipient" ref="chorbi1"/>
-		<property name="folder" ref="folder4"/>		
+		<property name="recipient" ref="chorbi1"/>		
 	</bean>
 	
 	<bean id="chirp2" class="domain.Chirp">
