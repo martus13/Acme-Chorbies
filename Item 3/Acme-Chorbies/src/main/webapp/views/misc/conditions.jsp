@@ -20,5 +20,4 @@
 <p><spring:message code="legal.term-8" /></p>
 <p><spring:message code="legal.term-9" /></p>
 <p><spring:message code="legal.term-10" /></p>
-<p><spring:message code="legal.term-11" /></p>
 

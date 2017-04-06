@@ -20,6 +20,9 @@
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
 
+<p><spring:message code="welcome.cookies" /></p>
+
 <security:authorize access="isAnonymous()">
-	<img src="${banner.picture}" style="max-height: 150px;" />
+	<img src="${banner.picture}" style="max-height: 200px;" />
 </security:authorize>
+

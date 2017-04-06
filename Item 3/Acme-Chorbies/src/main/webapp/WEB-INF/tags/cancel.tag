@@ -27,10 +27,10 @@
 
 <%-- Definition --%>
 
-<button type="button" onclick="javascript: relativeRedir('${url}')" >
+<!-- <button type="button" onclick="javascript: relativeRedir('${url}')" >
 	<spring:message code="${code}" />
-</button>
-
+</button> -->
+<input type="button" name="cancel" value="<spring:message code="${code}" />" onclick="location='${url}'" />
 <%-- Notes --%>
 
 <%-- 
@@ -51,3 +51,4 @@
 	</script>
 
 --%>
+

@@ -20,5 +20,10 @@
 		<put-attribute name="title" value="Panic" />
 		<put-attribute name="body" value="/views/misc/panic.jsp" />
 	</definition>
+	
+	<definition name="conditions" extends="master.page">
+		<put-attribute name="title" value="Conditions" />
+		<put-attribute name="body" value="/views/misc/conditions.jsp" />
+	</definition>
 
 </tiles-definitions>

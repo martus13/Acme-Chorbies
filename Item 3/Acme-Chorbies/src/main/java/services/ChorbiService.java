@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -15,11 +16,12 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Administrator;
+import domain.Chirp;
 import domain.Chorbi;
 import domain.CreditCard;
-import domain.Folder;
 import domain.Like;
 import domain.SearchTemplate;
+import forms.ChorbiForm;
 
 @Service
 @Transactional
@@ -32,10 +34,6 @@ public class ChorbiService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private SearchTemplateService	searchTemplateService;
-
-	// TODO: descomentar cuando se haga el servicio de folder
-	//@Autowired
-	//private FolderService			folderService;
 
 	@Autowired
 	private AdministratorService	administratorService;
@@ -72,7 +70,8 @@ public class ChorbiService {
 		Authority authority;
 		Collection<Like> givenLikes;
 		Collection<Like> receivedLikes;
-		Collection<Folder> folders;
+		Collection<Chirp> receivedChirps;
+		Collection<Chirp> sentChirps;
 
 		result = new Chorbi();
 
@@ -80,7 +79,8 @@ public class ChorbiService {
 		authority = new Authority();
 		givenLikes = new ArrayList<Like>();
 		receivedLikes = new ArrayList<Like>();
-		folders = new ArrayList<Folder>();
+		receivedChirps = new ArrayList<Chirp>();
+		sentChirps = new ArrayList<Chirp>();
 
 		authority.setAuthority("CHORBI");
 		userAccount.getAuthorities().add(authority);
@@ -89,11 +89,11 @@ public class ChorbiService {
 		result.setBanned(false);
 		result.setGivenLikes(givenLikes);
 		result.setReceivedLikes(receivedLikes);
-		result.setFolders(folders);
+		result.setReceivedChirps(receivedChirps);
+		result.setSentChirps(sentChirps);
 
 		return result;
 	}
-
 	public Chorbi save(final Chorbi chorbi) {
 		Assert.notNull(chorbi);
 
@@ -124,32 +124,7 @@ public class ChorbiService {
 			Assert.isTrue(calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
 		}
 
-		//		// TODO: descomentar cuando se haga el servicio de folder
-		//		if (chorbi.getFolders().isEmpty()) {
-		//			// Folders
-		//			Folder f1;
-		//			Folder f2;
-		//
-		//			f1 = this.folderService.create(chorbi);
-		//			f1.setName("inbox");
-		//
-		//			f2 = this.folderService.create(chorbi);
-		//			f2.setName("outbox");
-		//
-		//			chorbi.addFolder(f1);
-		//			chorbi.addFolder(f2);
-		//
-		//			result = this.chorbiRepository.save(chorbi);
-		//
-		//			f1.setChorbi(result);
-		//			f2.setChorbi(result);
-		//
-		//			f1 = this.folderService.save(f1);
-		//			f2 = this.folderService.save(f2);
-		//		} else
-		//			result = this.chorbiRepository.save(chorbi);
-
-		result = this.chorbiRepository.save(chorbi); // TODO: quitar cuando se haga el servicio de Folder
+		result = this.chorbiRepository.save(chorbi);
 
 		if (chorbi.getId() == 0) {
 			// crear searchTemplate:
@@ -267,4 +242,60 @@ public class ChorbiService {
 		return result;
 	}
 
+	public Chorbi reconstructCreate(final ChorbiForm chorbiForm) {
+		Assert.notNull(chorbiForm);
+
+		Chorbi chorbi;
+		String password;
+
+		Assert.isTrue(chorbiForm.getPassword().equals(chorbiForm.getConfirmPassword())); // Comprobamos que las dos contraseñas sean la misma
+		Assert.isTrue(chorbiForm.getIsAgree()); // Comprobamos que acepte las condiciones
+
+		chorbi = this.create();
+		password = this.encryptPassword(chorbiForm.getPassword());
+
+		chorbi.getUserAccount().setUsername(chorbiForm.getUsername());
+		chorbi.getUserAccount().setPassword(password);
+		chorbi.setName(chorbiForm.getName());
+		chorbi.setSurname(chorbiForm.getSurname());
+		chorbi.setEmail(chorbiForm.getEmail());
+		chorbi.setPhoneNumber(chorbiForm.getPhoneNumber());
+		chorbi.setPicture(chorbiForm.getPicture());
+		chorbi.setDescription(chorbiForm.getDescription());
+		chorbi.setRelationshipEngage(chorbiForm.getRelationshipEngage());
+		chorbi.setGenre(chorbiForm.getGenre());
+		chorbi.setCoordinates(chorbiForm.getCoordinates());
+		chorbi.setBirthDate(chorbiForm.getBirthDate());
+
+		return chorbi;
+	}
+
+	public ChorbiForm desreconstructCreate(final Chorbi chorbi) {
+		ChorbiForm chorbiForm;
+
+		chorbiForm = new ChorbiForm();
+
+		chorbiForm.setUsername(chorbi.getUserAccount().getUsername());
+		chorbiForm.setName(chorbi.getName());
+		chorbiForm.setSurname(chorbi.getSurname());
+		chorbiForm.setEmail(chorbi.getEmail());
+		chorbiForm.setPhoneNumber(chorbi.getPhoneNumber());
+		chorbiForm.setPicture(chorbi.getPicture());
+		chorbiForm.setDescription(chorbi.getDescription());
+		chorbiForm.setRelationshipEngage(chorbi.getRelationshipEngage());
+		chorbiForm.setGenre(chorbi.getGenre());
+		chorbiForm.setCoordinates(chorbi.getCoordinates());
+		chorbiForm.setBirthDate(chorbi.getBirthDate());
+
+		return chorbiForm;
+	}
+
+	public String encryptPassword(String password) {
+		Md5PasswordEncoder encoder;
+
+		encoder = new Md5PasswordEncoder();
+		password = encoder.encodePassword(password, null);
+
+		return password;
+	}
 }

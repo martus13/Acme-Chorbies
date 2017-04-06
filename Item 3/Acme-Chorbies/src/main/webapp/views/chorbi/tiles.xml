@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!-- 
- * tiles_es.xml
+ * tiles.xml
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -16,14 +16,9 @@
        
 <tiles-definitions>
 
-	<definition name="panic" extends="master.page">
-		<put-attribute name="title" value="Pánico" />
-		<put-attribute name="body" value="/views/misc/panic.jsp" />
+	<definition name="chorbi/register" extends="master.page">	
+		<put-attribute name="title" value="Chorbi: Create" />
+		<put-attribute name="body" value="/views/chorbi/register.jsp" />
 	</definition>
 	
-	<definition name="conditions" extends="master.page">
-		<put-attribute name="title" value="Condiciones" />
-		<put-attribute name="body" value="/views/misc/conditions.jsp" />
-	</definition>
-
 </tiles-definitions>

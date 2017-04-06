@@ -34,7 +34,7 @@ public class BannerServiceTest extends AbstractTest {
 	public void testFindOne() {
 		Banner banner;
 
-		banner = this.bannerService.findOne(53);
+		banner = this.bannerService.findOne(43);
 		Assert.notNull(banner);
 	}
 
@@ -67,7 +67,7 @@ public class BannerServiceTest extends AbstractTest {
 
 		Banner banner;
 
-		banner = this.bannerService.findOne(53);
+		banner = this.bannerService.findOne(43);
 		banner.setPicture("http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg");
 
 		banner = this.bannerService.save(banner);
@@ -80,7 +80,7 @@ public class BannerServiceTest extends AbstractTest {
 	public void testNegativeNotAuthenticatedSave() {
 		Banner banner;
 
-		banner = this.bannerService.findOne(53);
+		banner = this.bannerService.findOne(43);
 		banner.setPicture("http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg");
 
 		banner = this.bannerService.save(banner);
@@ -95,7 +95,7 @@ public class BannerServiceTest extends AbstractTest {
 		Banner banner;
 		Collection<Banner> banners;
 
-		banner = this.bannerService.findOne(53);
+		banner = this.bannerService.findOne(43);
 
 		this.bannerService.delete(banner);
 

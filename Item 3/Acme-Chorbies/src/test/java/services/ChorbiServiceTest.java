@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -15,11 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Chirp;
 import domain.Chorbi;
 import domain.Coordinates;
 import domain.CreditCard;
-import domain.Folder;
 import domain.Genre;
 import domain.RelationshipType;
 
@@ -46,7 +43,7 @@ public class ChorbiServiceTest extends AbstractTest {
 	public void testFindOne() {
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(56);
+		chorbi = this.chorbiService.findOne(46);
 		Assert.notNull(chorbi);
 	}
 
@@ -94,26 +91,8 @@ public class ChorbiServiceTest extends AbstractTest {
 		chorbi.setRelationshipEngage(RelationshipType.activities);
 		chorbi.setCoordinates(coordinates);
 
-		// TODO: Quitar cuando se haga el servicio de folder:
-		Folder f1;
-		Folder f2;
-
-		f1 = new Folder();
-		f1.setName("inbox");
-		f1.setChirps(new ArrayList<Chirp>());
-		f1.setChorbi(chorbi);
-
-		f2 = new Folder();
-		f2.setName("outbox");
-		f2.setChirps(new ArrayList<Chirp>());
-		f2.setChorbi(chorbi);
-
-		chorbi.addFolder(f1);
-		chorbi.addFolder(f2);
-
 		chorbi = this.chorbiService.save(chorbi);
 		Assert.notNull(this.searchTemplateService.findByChorbiId(chorbi));
-		Assert.isTrue(chorbi.getFolders().size() == 2);
 
 	}
 	@Test
@@ -130,7 +109,7 @@ public class ChorbiServiceTest extends AbstractTest {
 		creditCard.setExpirationYear(2017);
 		creditCard.setCvv(159);
 
-		chorbi = this.chorbiService.findOne(59);
+		chorbi = this.chorbiService.findOne(49);
 		chorbi.setName("Nuevo nombre");
 		chorbi.setCreditCard(creditCard);
 
@@ -148,7 +127,7 @@ public class ChorbiServiceTest extends AbstractTest {
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 17); // Hace 17 años
 
-		chorbi = this.chorbiService.findOne(56);
+		chorbi = this.chorbiService.findOne(46);
 		chorbi.setBirthDate(calendar.getTime());
 
 		chorbi = this.chorbiService.save(chorbi);
@@ -169,7 +148,7 @@ public class ChorbiServiceTest extends AbstractTest {
 		creditCard.setExpirationYear(2017);
 		creditCard.setCvv(159);
 
-		chorbi = this.chorbiService.findOne(56);
+		chorbi = this.chorbiService.findOne(46);
 		chorbi.setCreditCard(creditCard);
 
 		chorbi = this.chorbiService.save(chorbi);
@@ -190,7 +169,7 @@ public class ChorbiServiceTest extends AbstractTest {
 		creditCard.setExpirationYear(2017);
 		creditCard.setCvv(159);
 
-		chorbi = this.chorbiService.findOne(56);
+		chorbi = this.chorbiService.findOne(46);
 		chorbi.setCreditCard(creditCard);
 
 		chorbi = this.chorbiService.save(chorbi);
@@ -203,7 +182,7 @@ public class ChorbiServiceTest extends AbstractTest {
 
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(59);
+		chorbi = this.chorbiService.findOne(49);
 
 		chorbi = this.chorbiService.ban(chorbi);
 		Assert.isTrue(chorbi.getBanned());
@@ -216,7 +195,7 @@ public class ChorbiServiceTest extends AbstractTest {
 	public void testNegativeNotAuthenticatedBan() {
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(59);
+		chorbi = this.chorbiService.findOne(49);
 
 		chorbi = this.chorbiService.ban(chorbi);
 		Assert.isTrue(chorbi.getBanned());
@@ -229,7 +208,7 @@ public class ChorbiServiceTest extends AbstractTest {
 
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(59);
+		chorbi = this.chorbiService.findOne(49);
 
 		chorbi = this.chorbiService.ban(chorbi);
 		Assert.isTrue(chorbi.getBanned());
@@ -245,7 +224,7 @@ public class ChorbiServiceTest extends AbstractTest {
 	public void testNegativeNotAuthenticatedUnban() {
 		Chorbi chorbi;
 
-		chorbi = this.chorbiService.findOne(59);
+		chorbi = this.chorbiService.findOne(49);
 
 		chorbi = this.chorbiService.unban(chorbi);
 		Assert.isTrue(!chorbi.getBanned());

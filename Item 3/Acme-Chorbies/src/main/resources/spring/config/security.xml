@@ -40,10 +40,13 @@
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
+		<security:intercept-url pattern="/misc/conditions.do" access="permitAll" /> 
 
 		<!-- Permit All -->
 		
 		<!-- isAnonymous() -->
+		
+		<security:intercept-url pattern="/chorbi/register.do" access="isAnonymous()" /> 
 		
 		<!-- isAuthenticated() -->
 		

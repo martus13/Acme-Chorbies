@@ -34,7 +34,7 @@ public class ActorServiceTest extends AbstractTest {
 	public void testFindOne() {
 		Actor actor;
 
-		actor = this.actorService.findOne(56);
+		actor = this.actorService.findOne(46);
 		Assert.notNull(actor);
 	}
 
@@ -50,7 +50,7 @@ public class ActorServiceTest extends AbstractTest {
 	public void testSave() {
 		Actor actor;
 
-		actor = this.actorService.findOne(52);
+		actor = this.actorService.findOne(42);
 		actor.setName("prueba");
 
 		actor = this.actorService.save(actor);
@@ -61,7 +61,7 @@ public class ActorServiceTest extends AbstractTest {
 	public void testCheckAuthority() {
 		Actor actor;
 
-		actor = this.actorService.findOne(56);
+		actor = this.actorService.findOne(46);
 		Assert.isTrue(this.actorService.checkAuthority(actor, "CHORBI"));
 	}
 }

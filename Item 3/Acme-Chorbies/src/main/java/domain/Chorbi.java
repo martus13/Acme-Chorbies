@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -63,7 +62,6 @@ public class Chorbi extends Actor {
 	}
 
 	@NotNull
-	@Valid
 	@Enumerated(EnumType.STRING)
 	public Genre getGenre() {
 		return this.genre;
@@ -84,8 +82,8 @@ public class Chorbi extends Actor {
 
 	@NotNull
 	@Past
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getBirthDate() {
 		return this.birthDate;
 	}
@@ -95,7 +93,6 @@ public class Chorbi extends Actor {
 	}
 
 	@NotNull
-	@Valid
 	@Enumerated(EnumType.STRING)
 	public RelationshipType getRelationshipEngage() {
 		return this.relationshipEngage;
@@ -132,6 +129,7 @@ public class Chorbi extends Actor {
 	private Collection<Chirp>	receivedChirps;
 	private Collection<Chirp>	sentChirps;
 
+
 	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "givenBy")
@@ -153,29 +151,27 @@ public class Chorbi extends Actor {
 	public void setReceivedLikes(final Collection<Like> receivedLikes) {
 		this.receivedLikes = receivedLikes;
 	}
-	
+
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy="recipient")
+	@OneToMany(mappedBy = "recipient")
 	public Collection<Chirp> getReceivedChirps() {
-		return receivedChirps;
+		return this.receivedChirps;
 	}
 
-	public void setReceivedChirps(Collection<Chirp> receivedChirps) {
+	public void setReceivedChirps(final Collection<Chirp> receivedChirps) {
 		this.receivedChirps = receivedChirps;
 	}
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy="sender")
+	@OneToMany(mappedBy = "sender")
 	public Collection<Chirp> getSentChirps() {
-		return sentChirps;
+		return this.sentChirps;
 	}
 
-	public void setSentChirps(Collection<Chirp> sentChirps) {
+	public void setSentChirps(final Collection<Chirp> sentChirps) {
 		this.sentChirps = sentChirps;
 	}
-	
-	
 
 }
