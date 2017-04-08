@@ -34,6 +34,9 @@ public class LikeServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
+	// A continuación se van a realizar pruebas para comprobar el correcto funcionamiento de los casos de uso relacionados con Like.
+
+	// Darle like a un chorbi:
 	@Test
 	public void driverCreateAndSave() {
 		final Object testingData[][] = {
@@ -52,6 +55,7 @@ public class LikeServiceTest extends AbstractTest {
 		}
 	}
 
+	// Eliminación del like:
 	@Test
 	public void driverDelete() {
 		final Object testingData[][] = {
@@ -66,6 +70,21 @@ public class LikeServiceTest extends AbstractTest {
 
 		for (int i = 0; i < testingData.length; i++)
 			this.testDelete((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	// Mostrar los likes que ha recibido y enviado un chorbi:
+	@Test
+	public void driverFind() {
+		final Object testingData[][] = {
+			{
+				46, null
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			this.testFindByGivenToId((int) testingData[i][0], (Class<?>) testingData[i][1]);
+			this.testFindByGivenById((int) testingData[i][0], (Class<?>) testingData[i][1]);
+		}
 	}
 
 	protected void testCreate(final String username, final int chrobiId, final Class<?> expected) {
@@ -141,144 +160,39 @@ public class LikeServiceTest extends AbstractTest {
 
 	}
 
-	/////////////// Sin driver:
-	@Test
-	public void testFindOne() {
-		Like like;
+	protected void testFindByGivenToId(final int chorbiId, final Class<?> expected) {
+		Class<?> caught;
 
-		like = this.likeService.findOne(56);
-		Assert.notNull(like);
-	}
+		caught = null;
+		try {
+			Collection<Like> likes;
 
-	@Test
-	public void testFindAll() {
-		Collection<Like> likes;
+			likes = this.likeService.findByGivenToId(chorbiId);
+			System.out.println("Given to " + chorbiId + ": " + likes.size());
 
-		likes = this.likeService.findAll();
-		Assert.isTrue(likes.size() == 5);
-	}
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
 
-	//	@Test
-	//	public void testCreate() {
-	//		this.authenticate("chorbi1");
-	//
-	//		Like like;
-	//		Chorbi chorbi;
-	//
-	//		chorbi = this.chorbiService.findOne(47);
-	//		like = this.likeService.create(chorbi);
-	//		Assert.notNull(like);
-	//
-	//		this.unauthenticate();
-	//	}
-	//
-	//	@Test(expected = IllegalArgumentException.class)
-	//	public void testNegativeLikeSameChorbi() {
-	//		this.authenticate("chorbi1");
-	//
-	//		Like like;
-	//		Chorbi chorbi;
-	//
-	//		chorbi = this.chorbiService.findOne(46);
-	//		like = this.likeService.create(chorbi);
-	//		Assert.notNull(like);
-	//
-	//		this.unauthenticate();
-	//	}
-	//
-	//	@Test(expected = IllegalArgumentException.class)
-	//	public void testNegativeNotPrincipal() {
-	//		Like like;
-	//		Chorbi chorbi;
-	//
-	//		chorbi = this.chorbiService.findOne(46);
-	//		like = this.likeService.create(chorbi);
-	//		Assert.notNull(like);
-	//
-	//	}
-	//
-	//	@Test
-	//	public void testCreateAndSave() {
-	//		this.authenticate("chorbi1");
-	//
-	//		Like like;
-	//		Chorbi chorbi;
-	//
-	//		chorbi = this.chorbiService.findOne(47);
-	//		like = this.likeService.create(chorbi);
-	//		like.setComment("Test save");
-	//		like = this.likeService.save(like);
-	//		Assert.isTrue(!like.getComment().isEmpty());
-	//
-	//		this.unauthenticate();
-	//	}
-	//
-	//	@Test(expected = IllegalArgumentException.class)
-	//	public void testNegativeEditNotGivenByPrincipal() {
-	//		this.authenticate("chorbi1");
-	//
-	//		Like like;
-	//
-	//		like = this.likeService.findOne(59);
-	//		like.setComment("Test save");
-	//		like = this.likeService.save(like);
-	//		Assert.isTrue(!like.getComment().isEmpty());
-	//
-	//		this.unauthenticate();
-	//	}
-	//
-	//	@Test
-	//	public void testDelete() {
-	//		this.authenticate("chorbi1");
-	//
-	//		Like like;
-	//		Collection<Like> likes;
-	//
-	//		like = this.likeService.findOne(56);
-	//		this.likeService.delete(like);
-	//
-	//		likes = this.likeService.findAll();
-	//		Assert.isTrue(!likes.contains(like));
-	//
-	//		this.unauthenticate();
-	//	}
-	//
-	//	@Test(expected = IllegalArgumentException.class)
-	//	public void testNegativeDeleteNotGivenByPrincipal() {
-	//		this.authenticate("chorbi1");
-	//
-	//		Like like;
-	//
-	//		like = this.likeService.findOne(59);
-	//		this.likeService.delete(like);
-	//
-	//		this.unauthenticate();
-	//	}
-	//
-	//	@Test(expected = IllegalArgumentException.class)
-	//	public void testNegativeDeleteNotAuthenticated() {
-	//		Like like;
-	//
-	//		like = this.likeService.findOne(56);
-	//		this.likeService.delete(like);
-	//
-	//	}
-
-	@Test
-	public void testFindByGivenToId() {
-		Collection<Like> likes;
-
-		likes = this.likeService.findByGivenToId(47);
-		Assert.isTrue(likes.size() == 2);
+		this.checkExceptions(expected, caught);
 
 	}
 
-	@Test
-	public void testFindByGivenById() {
-		final Collection<Like> likes;
+	protected void testFindByGivenById(final int chorbiId, final Class<?> expected) {
+		Class<?> caught;
 
-		likes = this.likeService.findByGivenById(46);
-		Assert.isTrue(likes.size() == 3);
+		caught = null;
+		try {
+			final Collection<Like> likes;
+
+			likes = this.likeService.findByGivenById(chorbiId);
+			System.out.println("Given to " + chorbiId + ": " + likes.size());
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
 
 	}
 

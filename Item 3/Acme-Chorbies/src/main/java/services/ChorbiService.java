@@ -97,7 +97,7 @@ public class ChorbiService {
 	public Chorbi save(final Chorbi chorbi) {
 		Assert.notNull(chorbi);
 
-		final Chorbi result;
+		Chorbi result;
 		Calendar calendar;
 
 		// comprobar que es mayor de edad:
@@ -107,8 +107,8 @@ public class ChorbiService {
 
 		if (chorbi.getCreditCard() != null) {
 			// si añade tarjeta de credito -> comprobar que es valida
-			final CreditCard creditCard;
-			final Calendar expirationCalendar;
+			CreditCard creditCard;
+			Calendar expirationCalendar;
 
 			creditCard = chorbi.getCreditCard();
 			calendar = Calendar.getInstance();
@@ -121,6 +121,7 @@ public class ChorbiService {
 			// expiration date -> al menos un día más
 			expirationCalendar.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
 			expirationCalendar.set(Calendar.DAY_OF_MONTH, expirationCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) - 1); // cogemos el último día del mes menos uno, porque tiene que ser un día más
+
 			Assert.isTrue(calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
 		}
 
@@ -128,7 +129,7 @@ public class ChorbiService {
 
 		if (chorbi.getId() == 0) {
 			// crear searchTemplate:
-			final SearchTemplate searchTemplate;
+			SearchTemplate searchTemplate;
 
 			searchTemplate = this.searchTemplateService.create(result);
 			this.searchTemplateService.save(searchTemplate);
@@ -298,4 +299,5 @@ public class ChorbiService {
 
 		return password;
 	}
+
 }

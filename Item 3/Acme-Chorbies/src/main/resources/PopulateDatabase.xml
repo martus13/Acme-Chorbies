@@ -204,7 +204,7 @@
 		<property name="userAccount" ref="userAccount2" />
 		
 		<property name="picture" value="https://s-media-cache-ak0.pinimg.com/736x/09/34/a8/0934a8927d94439aaf1e123e91875ce0.jpg" />
-		<property name="description" value="Soy to guapa, lista y simpática. Quien que esté conmigo será muy afortunado, ¿quiéres ser tu? ;)" />
+		<property name="description" value="Soy to guapa, lista y simpática. Quien que esté conmigo será muy afortunado, ¿quiéres ser tu? ;) contacta conmigo! +31 (12) 1234 o soytoguapa@gmail.com" />
 		<property name="genre" value="woman" />
 		<property name="banned" value="false" />
 		<property name="birthDate" value="10/31/1992" />

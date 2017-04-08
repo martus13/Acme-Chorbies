@@ -33,9 +33,9 @@
 		
 		<acme:input path="phoneNumber" code="chorbi.phoneNumber" />
 		
-		<acme:textarea path="picture" code="chorbi.picture" />
+		<acme:textarea path="picture" code="chorbi.picture" rows="3" />
 		
-		<acme:textarea path="description" code="chorbi.description" />
+		<acme:textarea path="description" code="chorbi.description" rows="3" />
 		
 		<acme:input path="birthDate" code="chorbi.birthDate" />
 		

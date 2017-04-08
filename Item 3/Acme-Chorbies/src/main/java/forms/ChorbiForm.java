@@ -39,8 +39,6 @@ public class ChorbiForm {
 	private Genre				genre;
 	private Coordinates			coordinates;
 	private Date				birthDate;
-	private boolean				radioCreditCardY;
-	private boolean				radioCreditCardN;
 	private boolean				isAgree;
 
 
@@ -185,20 +183,6 @@ public class ChorbiForm {
 
 	public void setBirthDate(final Date birthDate) {
 		this.birthDate = birthDate;
-	}
-
-	public boolean isRadioCreditCardY() {
-		return this.radioCreditCardY;
-	}
-	public void setRadioCreditCardY(final boolean radioCreditCardY) {
-		this.radioCreditCardY = radioCreditCardY;
-	}
-
-	public boolean isRadioCreditCardN() {
-		return this.radioCreditCardN;
-	}
-	public void setRadioCreditCardN(final boolean radioCreditCardN) {
-		this.radioCreditCardN = radioCreditCardN;
 	}
 
 	public boolean getIsAgree() {

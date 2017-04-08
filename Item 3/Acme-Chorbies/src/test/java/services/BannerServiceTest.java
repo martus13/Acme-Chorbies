@@ -30,78 +30,113 @@ public class BannerServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
-	@Test
-	public void testFindOne() {
-		Banner banner;
+	// Aquí se van a realizar los tests necesarios para comprobar el correcto funcionamiento de la administración
+	// de los banners que se mostrarán en la pantalla principal.
 
-		banner = this.bannerService.findOne(43);
-		Assert.notNull(banner);
+	// Creación y edición de un banner:
+	@Test
+	public void driverCreateAndSave() {
+		final Object testingData[][] = {
+			{	// Bien
+				"admin", "Pad-Thai prueba", "http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg", 43, null
+			}, {// Error no autenticado
+				null, "Pad-Thai prueba", "http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg", 43, IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			this.testCreate((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (Class<?>) testingData[i][4]);
+			this.testEdit((String) testingData[i][0], (int) testingData[i][3], (String) testingData[i][2], (Class<?>) testingData[i][4]);
+		}
 	}
 
+	// Eliminación de un banner:
 	@Test
-	public void testFindAll() {
-		Collection<Banner> banners;
+	public void driverDelete() {
+		final Object testingData[][] = {
+			{
+				"admin", 43, null
+			}
+		};
 
-		banners = this.bannerService.findAll();
-		Assert.isTrue(banners.size() == 3);
+		for (int i = 0; i < testingData.length; i++)
+			this.testDelete((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
 
-	@Test
-	public void testCreate() {
-		this.authenticate("admin");
+	protected void testCreate(final String username, final String title, final String picture, final Class<?> expected) {
+		Class<?> caught;
 
-		Banner banner;
+		caught = null;
+		try {
+			this.authenticate(username);
 
-		banner = this.bannerService.create();
-		banner.setTitle("Pad-Thai prueba");
-		banner.setPicture("http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg");
+			Banner banner;
 
-		Assert.notNull(banner);
+			banner = this.bannerService.create();
+			banner.setTitle(title);
+			banner.setPicture(picture);
 
-		this.unauthenticate();
-	}
+			Assert.notNull(banner);
 
-	@Test
-	public void testSave() {
-		this.authenticate("admin");
+			this.unauthenticate();
 
-		Banner banner;
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
 
-		banner = this.bannerService.findOne(43);
-		banner.setPicture("http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg");
-
-		banner = this.bannerService.save(banner);
-		Assert.isTrue(banner.getPicture().equals("http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg"));
-
-		this.unauthenticate();
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeNotAuthenticatedSave() {
-		Banner banner;
-
-		banner = this.bannerService.findOne(43);
-		banner.setPicture("http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg");
-
-		banner = this.bannerService.save(banner);
-		Assert.notNull(banner.equals("http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg"));
+		this.checkExceptions(expected, caught);
 
 	}
 
-	@Test
-	public void testDelete() {
-		this.authenticate("admin");
+	protected void testEdit(final String username, final int bannerId, final String picture, final Class<?> expected) {
+		Class<?> caught;
 
-		Banner banner;
-		Collection<Banner> banners;
+		caught = null;
+		try {
+			this.authenticate(username);
 
-		banner = this.bannerService.findOne(43);
+			Banner banner;
 
-		this.bannerService.delete(banner);
+			banner = this.bannerService.findOne(bannerId);
+			banner.setPicture(picture);
 
-		banners = this.bannerService.findAll();
-		Assert.isTrue(banners.size() == 2);
+			banner = this.bannerService.save(banner);
+			Assert.isTrue(banner.getPicture().equals(picture));
 
-		this.unauthenticate();
+			this.unauthenticate();
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	protected void testDelete(final String username, final int bannerId, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(username);
+
+			Banner banner;
+			Collection<Banner> banners;
+
+			banner = this.bannerService.findOne(bannerId);
+
+			this.bannerService.delete(banner);
+
+			banners = this.bannerService.findAll();
+			Assert.isTrue(banners.size() == 2);
+
+			this.unauthenticate();
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
 	}
 }

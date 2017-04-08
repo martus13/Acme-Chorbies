@@ -50,9 +50,22 @@
 		
 		<!-- isAuthenticated() -->
 		
+		<security:intercept-url pattern="/chorbi/actor/list.do" access="isAuthenticated()" /> 
+		
 		<!-- CHORBI -->
 		
 		<!-- ADMIN -->
+		
+		<security:intercept-url pattern="/banner/administrator/list.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/banner/administrator/create.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/banner/administrator/edit.do" access="hasRole('ADMIN')" /> 
+		
+		<security:intercept-url pattern="/chorbi/administrator/ban.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/chorbi/administrator/unban.do" access="hasRole('ADMIN')" /> 
+		
+		<security:intercept-url pattern="/configuration/administrator/edit.do" access="hasRole('ADMIN')" /> 
+		
+		<!--  -->
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

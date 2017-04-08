@@ -16,14 +16,14 @@
       
 <tiles-definitions>
 
-	<definition name="chorbi/register" extends="master.page">	
-		<put-attribute name="title" value="Chorbo: Crear" />
-		<put-attribute name="body" value="/views/chorbi/register.jsp" />
+	<definition name="banner/edit" extends="master.page">	
+		<put-attribute name="title" value="Banner: Editar" />
+		<put-attribute name="body" value="/views/banner/edit.jsp" />
 	</definition>
 	
-	<definition name="chorbi/list" extends="master.page">	
-		<put-attribute name="title" value="Chorbo: Listar" />
-		<put-attribute name="body" value="/views/chorbi/list.jsp" />
+	<definition name="banner/list" extends="master.page">	
+		<put-attribute name="title" value="Banner: Listar" />
+		<put-attribute name="body" value="/views/banner/list.jsp" />
 	</definition>
 	
 </tiles-definitions>

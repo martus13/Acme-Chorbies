@@ -20,18 +20,25 @@
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
-				<ul>
-					<li class="arrow"></li>
-									
-				</ul>
-			</li>
-		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="chorbi/register.do"><spring:message code="master.page.chorbi.register" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="chorbi/actor/list.do"><spring:message code="master.page.chorbi.listNotBanned" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv"><spring:message	code="master.page.admin.banner" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="banner/administrator/list.do"><spring:message code="master.page.admin.banner.list" /> </a></li>
+					<li><a href="banner/administrator/create.do"><spring:message code="master.page.admin.banner.create" /> </a></li>		
+				</ul>
+			</li>
+			<li><a class="fNiv" href="configuration/administrator/edit.do"><spring:message code="master.page.admin.configuration" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
@@ -50,6 +57,40 @@
 </div>
 
 <div>
-	<a href="?language=en">en</a> | <a href="?language=es">es</a>
+	<a href="javascript:setParam('language', 'en');">en</a> | <a href="javascript:setParam('language', 'es');">es</a>
 </div>
+
+<script> 
+    function setParam(name, value) {
+        var l = window.location;
+
+        /* build params */
+        var params = {};        
+        var x = /(?:\??)([^=&?]+)=?([^&?]*)/g;        
+        var s = l.search;
+        for(var r = x.exec(s); r; r = x.exec(s))
+        {
+            r[1] = decodeURIComponent(r[1]);
+            if (!r[2]) r[2] = '%%';
+            params[r[1]] = r[2];
+        }
+
+        /* set param */
+        params[name] = encodeURIComponent(value);
+
+        /* build search */
+        var search = [];
+        for(var i in params)
+        {
+            var p = encodeURIComponent(i);
+            var v = params[i];
+            if (v != '%%') p += '=' + v;
+            search.push(p);
+        }
+        search = search.join('&');
+
+        /* execute search */
+        l.search = search;
+    }
+</script>
 
