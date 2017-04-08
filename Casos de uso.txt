@@ -1,0 +1,23 @@
+NIVEL C
+
+- Registrar y editar los chorbies del sistema.
+
+- Administrar los banners que se mostrarán en la pantalla principal.
+
+- Listar los chorbies registrados.
+
+- Buscar los chorbies según un criterio de búsqueda.
+
+- Banear/desbanear los chorbies.
+
+NIVEL B
+
+- Mostrar los likes que han recibido los chorbies.
+
+- Hacer like en un chorbi.
+
+NIVEL A
+
+- Mostrar los chirps enviados y recibidos de los chorbies.
+
+- Crear y eliminar los chirps.
