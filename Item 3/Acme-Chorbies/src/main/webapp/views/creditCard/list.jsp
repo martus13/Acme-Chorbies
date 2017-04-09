@@ -9,19 +9,22 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib uri="http://example.com/functions" prefix="f" %>
 
-<display:table name="creditCard" id="row" requestURI="${requestURI }">
-	
-	<jstl:if test="${not empty row.holderName} }">
-	<acme:column code="creditCard.holderName" property="holderName" />
-	
-	<acme:column code="creditCard.brandName" property="brandName" />
-	
-	<acme:column code="creditCard.number" property="number" />
-	</jstl:if>
-	<jstl:if test="${empty row.holderName} }">
+<jstl:choose>
+	<jstl:when test="${not empty creditCard }">
+		<display:table name="creditCard" id="row" requestURI="${requestURI }">
+			
+			<acme:column code="creditCard.holderName" property="holderName" />
+			
+			<acme:column code="creditCard.brandName" property="brandName" />
+			
+			<acme:column code="creditCard.number" property="number" />
+			
+		</display:table>
+	</jstl:when>
+	<jstl:otherwise>
 		<a href="creditCard/chorbi/create.do">
 			<spring:message code="creditCard.create" />
 		</a>
-	</jstl:if>
-	
-</display:table>
+	</jstl:otherwise>
+</jstl:choose>
+

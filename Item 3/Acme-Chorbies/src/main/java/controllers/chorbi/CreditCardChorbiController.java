@@ -44,11 +44,6 @@ public class CreditCardChorbiController extends AbstractController {
 		chorbi = this.chorbiService.findByPrincipal();
 		creditCard = this.creditCardService.findByChorbi(chorbi.getId());
 
-		if (creditCard == null)
-			creditCard = new CreditCard();
-
-		System.out.println(creditCard.getBrandName() + " hola");
-
 		result = new ModelAndView("creditCard/list");
 		result.addObject("requestURI", "creditCard/chorbi/list.do");
 		result.addObject("creditCard", creditCard);
