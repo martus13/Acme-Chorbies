@@ -56,11 +56,16 @@ public class LikeService {
 		Like like;
 		Chorbi principal;
 		Calendar calendar;
+		Like likeBefore;
 
 		principal = this.chorbiService.findByPrincipal();
+		// comprobar que haya un chorbi logueado y que no se vaya a dar like a sí mismo
 		Assert.notNull(principal);
 		Assert.isTrue(!principal.equals(givenTo));
+
 		// comprobar que no se habian dado like antes
+		likeBefore = this.findByGivenToIdAndGivenById(givenTo.getId(), principal.getId());
+		Assert.isNull(likeBefore);
 
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.MILLISECOND, -10);

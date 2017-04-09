@@ -24,7 +24,7 @@ import domain.Coordinates;
 import domain.Genre;
 import domain.RelationshipType;
 
-public class ChorbiForm {
+public class CreateChorbiForm {
 
 	private String				username;
 	private String				password;

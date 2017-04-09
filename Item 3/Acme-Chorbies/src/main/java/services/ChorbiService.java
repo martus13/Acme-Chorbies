@@ -20,7 +20,7 @@ import domain.Chirp;
 import domain.Chorbi;
 import domain.Like;
 import domain.SearchTemplate;
-import forms.ChorbiForm;
+import forms.CreateChorbiForm;
 
 @Service
 @Transactional
@@ -212,7 +212,7 @@ public class ChorbiService {
 		return result;
 	}
 
-	public Chorbi reconstructCreate(final ChorbiForm chorbiForm) {
+	public Chorbi reconstructCreate(final CreateChorbiForm chorbiForm) {
 		Assert.notNull(chorbiForm);
 
 		Chorbi chorbi;
@@ -240,10 +240,10 @@ public class ChorbiService {
 		return chorbi;
 	}
 
-	public ChorbiForm desreconstructCreate(final Chorbi chorbi) {
-		ChorbiForm chorbiForm;
+	public CreateChorbiForm desreconstructCreate(final Chorbi chorbi) {
+		CreateChorbiForm chorbiForm;
 
-		chorbiForm = new ChorbiForm();
+		chorbiForm = new CreateChorbiForm();
 
 		chorbiForm.setUsername(chorbi.getUserAccount().getUsername());
 		chorbiForm.setName(chorbi.getName());

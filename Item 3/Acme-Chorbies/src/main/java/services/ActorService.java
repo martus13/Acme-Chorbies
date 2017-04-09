@@ -14,6 +14,8 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Chorbi;
+import forms.CreateChorbiForm;
 
 @Service
 @Transactional
@@ -103,15 +105,76 @@ public class ActorService {
 		return result;
 	}
 
-	public String encryptPassword(final String password) {
+	public Actor reconstructEditProfile(final CreateChorbiForm chorbiForm) {
+		Assert.notNull(chorbiForm);
+
+		Actor actor;
+		String password;
+
+		Assert.isTrue(chorbiForm.getPassword().equals(chorbiForm.getConfirmPassword())); // Comprobamos que las dos contraseñas sean la misma
+
+		actor = this.findByPrincipal();
+		password = this.encryptPassword(chorbiForm.getPassword());
+
+		actor.getUserAccount().setUsername(chorbiForm.getUsername());
+		actor.getUserAccount().setPassword(password);
+		actor.setName(chorbiForm.getName());
+		actor.setSurname(chorbiForm.getSurname());
+		actor.setEmail(chorbiForm.getEmail());
+		actor.setPhoneNumber(chorbiForm.getPhoneNumber());
+
+		if (this.checkAuthority(actor, "CHORBI")) {
+			Chorbi chorbi;
+
+			chorbi = (Chorbi) actor;
+
+			chorbi.setPicture(chorbiForm.getPicture());
+			chorbi.setDescription(chorbiForm.getDescription());
+			chorbi.setRelationshipEngage(chorbiForm.getRelationshipEngage());
+			chorbi.setGenre(chorbiForm.getGenre());
+			chorbi.setCoordinates(chorbiForm.getCoordinates());
+			chorbi.setBirthDate(chorbiForm.getBirthDate());
+
+			actor = chorbi;
+		}
+
+		return actor;
+	}
+
+	public CreateChorbiForm desreconstructEditProfile(final Actor actor) {
+		CreateChorbiForm chorbiForm;
+
+		chorbiForm = new CreateChorbiForm();
+
+		chorbiForm.setUsername(actor.getUserAccount().getUsername());
+		chorbiForm.setName(actor.getName());
+		chorbiForm.setSurname(actor.getSurname());
+		chorbiForm.setEmail(actor.getEmail());
+		chorbiForm.setPhoneNumber(actor.getPhoneNumber());
+
+		if (this.checkAuthority(actor, "CHORBI")) {
+			Chorbi chorbi;
+
+			chorbi = (Chorbi) actor;
+
+			chorbiForm.setPicture(chorbi.getPicture());
+			chorbiForm.setDescription(chorbi.getDescription());
+			chorbiForm.setRelationshipEngage(chorbi.getRelationshipEngage());
+			chorbiForm.setGenre(chorbi.getGenre());
+			chorbiForm.setCoordinates(chorbi.getCoordinates());
+			chorbiForm.setBirthDate(chorbi.getBirthDate());
+		}
+
+		return chorbiForm;
+	}
+
+	public String encryptPassword(String password) {
 		Md5PasswordEncoder encoder;
-		String result;
 
 		encoder = new Md5PasswordEncoder();
+		password = encoder.encodePassword(password, null);
 
-		result = encoder.encodePassword(password, null);
-
-		return result;
+		return password;
 	}
 
 }
