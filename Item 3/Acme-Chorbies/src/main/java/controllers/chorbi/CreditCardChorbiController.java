@@ -5,9 +5,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ChorbiService;
@@ -47,6 +49,7 @@ public class CreditCardChorbiController extends AbstractController {
 		result = new ModelAndView("creditCard/list");
 		result.addObject("requestURI", "creditCard/chorbi/list.do");
 		result.addObject("creditCard", creditCard);
+		result.addObject("principalId", chorbi.getId());
 
 		return result;
 	}
@@ -87,6 +90,51 @@ public class CreditCardChorbiController extends AbstractController {
 		return result;
 
 	}
+
+	// Edition ----------------------------------------------------------------		
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int creditCardId) {
+		ModelAndView result;
+		CreditCard creditCard;
+
+		creditCard = this.creditCardService.findOne(creditCardId);
+		Assert.notNull(creditCard);
+
+		result = this.createEditModelAndView(creditCard);
+
+		return result;
+	}
+
+	//Delete ------------------------------------------------------------------------
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@RequestParam final int creditCardId) {
+		ModelAndView result = new ModelAndView();
+		final CreditCard creditCard = this.creditCardService.findOne(creditCardId);
+
+		try {
+			this.creditCardService.delete(creditCard);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			result = this.createEditModelAndView(creditCard, "creditCard.commit.error");
+		}
+		return result;
+	}
+
+	//	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	//	public ModelAndView delete(final CreditCard creditCard, final BindingResult binding) {
+	//		ModelAndView result;
+	//
+	//		try {
+	//			this.creditCardService.delete(creditCard);
+	//			result = new ModelAndView("redirect:../../creditCard/chorbi/list.do");
+	//		} catch (final Throwable oops) {
+	//			result = new ModelAndView("redirect:../../creditCard/chorbi/list.do");
+	//		}
+	//
+	//		return result;
+	//	}
 
 	// Ancillary methods ------------------------------------------------------
 

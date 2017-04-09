@@ -16,6 +16,11 @@
        
 <tiles-definitions>
 	
+	<definition name="creditCard/edit" extends="master.page">	
+		<put-attribute name="title" value="T. de Crédito: Edit" />
+		<put-attribute name="body" value="/views/creditCard/create.jsp" />
+	</definition>
+	
 	<definition name="creditCard/create" extends="master.page">	
 		<put-attribute name="title" value="Credit Card: Create" />
 		<put-attribute name="body" value="/views/creditCard/create.jsp" />

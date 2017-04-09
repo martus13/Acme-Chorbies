@@ -55,6 +55,9 @@
 		
 		<!-- CHORBI -->
 		<security:intercept-url pattern="/creditCard/chorbi/list.do" access="hasRole('CHORBI')" />
+		<security:intercept-url pattern="/creditCard/chorbi/create.do" access="hasRole('CHORBI')" />
+		<security:intercept-url pattern="/creditCard/chorbi/edit.do" access="hasRole('CHORBI')" />
+		<security:intercept-url pattern="/creditCard/chorbi/delete.do" access="hasRole('CHORBI')" />
 		
 		<security:intercept-url pattern="/like/chorbi/create.do" access="hasRole('CHORBI')" /> 
 		<security:intercept-url pattern="/like/chorbi/cancel.do" access="hasRole('CHORBI')" /> 

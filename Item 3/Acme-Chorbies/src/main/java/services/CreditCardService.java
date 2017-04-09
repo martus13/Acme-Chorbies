@@ -88,6 +88,16 @@ public class CreditCardService {
 		return creditCard;
 	}
 
+	public void delete(final CreditCard creditCard) {
+		Assert.notNull(creditCard);
+		Chorbi chorbi;
+
+		chorbi = this.chorbiService.findByPrincipal();
+		Assert.isTrue(chorbi.equals(creditCard.getChorbi()));
+
+		this.creditCardRepository.delete(creditCard);
+	}
+
 	// Other business methods -------------------------------------------------
 
 	public Double findRatioCreditCard() {

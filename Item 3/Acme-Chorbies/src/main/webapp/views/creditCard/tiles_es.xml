@@ -15,6 +15,11 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
       
 <tiles-definitions>
+	
+	<definition name="creditCard/edit" extends="master.page">	
+		<put-attribute name="title" value="T. de Crédito: Editar" />
+		<put-attribute name="body" value="/views/creditCard/create.jsp" />
+	</definition>
 
 	<definition name="creditCard/create" extends="master.page">	
 		<put-attribute name="title" value="T. de Crédito: Crear" />
