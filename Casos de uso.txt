@@ -1,20 +1,20 @@
 NIVEL C
 
-- Registrar y editar los chorbies del sistema.
+- Registrar y editar los chorbies del sistema. X
 
-- Administrar los banners que se mostrarán en la pantalla principal.
+- Administrar los banners que se mostrarán en la pantalla principal. X
 
-- Listar los chorbies registrados.
+- Listar los chorbies registrados. X
 
-- Buscar los chorbies según un criterio de búsqueda.
+- Buscar los chorbies según un criterio de búsqueda. 
 
-- Banear/desbanear los chorbies.
+- Banear/desbanear los chorbies. X
 
 NIVEL B
 
-- Mostrar los likes que han recibido los chorbies.
+- Mostrar los likes que han recibido los chorbies. X
 
-- Hacer like en un chorbi.
+- Hacer like en un chorbi. X
 
 NIVEL A
 
