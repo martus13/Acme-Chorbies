@@ -496,6 +496,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="copy" value="false"/>
 		
 		<property name="sender" ref="chorbi2"/>
 		<property name="recipient" ref="chorbi1"/>		
@@ -509,6 +510,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="copy" value="true"/>
 		
 		<property name="sender" ref="chorbi2"/>
 		<property name="recipient" ref="chorbi1"/>	
@@ -523,6 +525,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="copy" value="false"/>
 		
 		<property name="sender" ref="chorbi3"/>
 		<property name="recipient" ref="chorbi4"/>		
@@ -535,6 +538,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="copy" value="true"/>
 		
 		<property name="sender" ref="chorbi3"/>
 		<property name="recipient" ref="chorbi4"/>		
@@ -554,9 +558,9 @@
 		<property name="recipient" ref="chorbi5"/>		
 	</bean>
 	<bean id="chirp6" class="domain.Chirp">
-		<property name="sentMoment" value="02/02/2017 17:47" />
-		<property name="subject" value="Qué tal?"/>
-		<property name="text" value="Hola, qué tal estás?"/>
+		<property name="sentMoment" value="03/02/2017 14:24" />
+		<property name="subject" value="Quiero conocerte"/>
+		<property name="text" value="Hola, qué te parece si quedamos para tomar un café y conocernos? ;)"/>
 		<property name="attachments">
 			<list>
 			</list>
