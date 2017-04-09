@@ -39,7 +39,6 @@ public class Chorbi extends Actor {
 	private Date				birthDate;
 	private RelationshipType	relationshipEngage;
 	private Coordinates			coordinates;
-	private CreditCard			creditCard;
 
 
 	@NotBlank
@@ -110,15 +109,6 @@ public class Chorbi extends Actor {
 
 	public void setCoordinates(final Coordinates coordinates) {
 		this.coordinates = coordinates;
-	}
-
-	@Valid
-	public CreditCard getCreditCard() {
-		return this.creditCard;
-	}
-
-	public void setCreditCard(final CreditCard creditCard) {
-		this.creditCard = creditCard;
 	}
 
 

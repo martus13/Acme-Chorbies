@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
@@ -90,6 +89,7 @@ public class CreditCard extends DomainEntity {
 	private Chorbi	chorbi;
 
 
+	@NotNull
 	@Valid
 	@OneToOne(optional = false)
 	public Chorbi getChorbi() {
@@ -100,30 +100,22 @@ public class CreditCard extends DomainEntity {
 		this.chorbi = chorbi;
 	}
 
-	// toString ---------------------------------------------------------------
-
-	@Override
-	public String toString() {
-		return "CreditCard [holderName=" + this.holderName + ", brandName=" + this.brandName + ", number=" + CreditCard.maskNumber(this.number) + ", expirationMonth=" + this.expirationMonth + ", expirationYear=" + this.expirationYear + ", cvv=" + this.cvv
-			+ "]";
-	}
-
-	public static String maskNumber(final String number) {
-		String result;
-		int start;
-		int end;
-		String stringFill;
-
-		start = 4;
-		end = number.length() - 4;
-
-		stringFill = "";
-		for (int i = 0; i < end - start; i++)
-			stringFill += "*";
-
-		result = StringUtils.overlay(number, stringFill, start, end);
-
-		return result;
-	}
+	//	public static String maskNumber(final String number) {
+	//		String result;
+	//		int start;
+	//		int end;
+	//		String stringFill;
+	//
+	//		start = 4;
+	//		end = number.length() - 4;
+	//
+	//		stringFill = "";
+	//		for (int i = 0; i < end - start; i++)
+	//			stringFill += "*";
+	//
+	//		result = StringUtils.overlay(number, stringFill, start, end);
+	//
+	//		return result;
+	//	}
 
 }

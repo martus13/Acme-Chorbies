@@ -154,50 +154,6 @@
 		<property name="city" value="Córdoba" />
 	</bean>
 	
-	<!-- CreditCard -->
-	
-	<bean id="creditCard1" class="domain.CreditCard">
-		<property name="holderName" value="Gloria Bustos Cuéllar" />
-		<property name="brandName" value="VISA" />
-		<property name="number" value="4015224727093842" />
-		<property name="expirationMonth" value="12" />
-		<property name="expirationYear" value="2017" />
-		<property name="cvv" value="290" />
-		<property name="chorbi" ref="chorbi1" />
-	</bean>
-		
-	<bean id="creditCard2" class="domain.CreditCard">
-		<property name="holderName" value="Rafael Raimundo Rana" />
-		<property name="brandName" value="MASTERCARD" />
-		<property name="number" value="4810100212629307" />
-		<property name="expirationMonth" value="11" />
-		<property name="expirationYear" value="2018" />
-		<property name="cvv" value="270" />
-		<property name="chorbi" ref="chorbi5" />
-	</bean>
-	
-	<bean id="creditCard3" class="domain.CreditCard">
-		<property name="holderName" value="Silvia Sánchez Casal" />
-		<property name="brandName" value="DISCOVER" />
-		<property name="number" value="6011179219437494" />
-		<property name="expirationMonth" value="12" />
-		<property name="expirationYear" value="2020" />
-		<property name="cvv" value="270" />
-		<property name="chorbi" ref="chorbi3" />
-	</bean>
-	
-	<bean id="creditCard4" class="domain.CreditCard">
-		<property name="holderName" value="Luis Jimeno Castilla" />
-		<property name="brandName" value="AMEX" />
-		<property name="number" value="5499511710445761" />
-		<property name="expirationMonth" value="05" />
-		<property name="expirationYear" value="2019" />
-		<property name="cvv" value="270" />
-		<property name="chorbi" ref="chorbi2" />
-	</bean>
-	
-	
-	
 	<!-- Chorbi -->
 	
 	<bean id="chorbi1" class="domain.Chorbi">
@@ -214,7 +170,6 @@
 		<property name="birthDate" value="10/31/1992" />
 		<property name="relationshipEngage" value="love" />
 		<property name="coordinates" ref="coordinates1" />
-		<property name="creditCard" ref="creditCard1" />
 		<property name="givenLikes">
 			<list>
 				<ref bean="like1" /> 
@@ -254,7 +209,6 @@
 		<property name="birthDate" value="12/12/1989" />
 		<property name="relationshipEngage" value="activities" />
 		<property name="coordinates" ref="coordinates2" />
-		<property name="creditCard" ref="creditCard4" />
 		<property name="givenLikes">
 			<list>
 			</list>
@@ -292,7 +246,6 @@
 		<property name="birthDate" value="11/04/1995" />
 		<property name="relationshipEngage" value="love" />
 		<property name="coordinates" ref="coordinates2" />
-		<property name="creditCard" ref="creditCard3" />
 		<property name="givenLikes">
 			<list>
 				<ref bean="like4" /> 
@@ -368,7 +321,6 @@
 		<property name="birthDate" value="12/11/1990" />
 		<property name="relationshipEngage" value="love" />
 		<property name="coordinates" ref="coordinates1" />
-		<property name="creditCard" ref="creditCard2" />
 		<property name="givenLikes">
 			<list>
 			</list>
@@ -391,6 +343,47 @@
 		</property>
 	</bean>
 	
+	<!-- CreditCard -->
+	
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holderName" value="Gloria Bustos Cuéllar" />
+		<property name="brandName" value="VISA" />
+		<property name="number" value="4015224727093842" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2017" />
+		<property name="cvv" value="290" />
+		<property name="chorbi" ref="chorbi1" />
+	</bean>
+		
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holderName" value="Rafael Raimundo Rana" />
+		<property name="brandName" value="MASTERCARD" />
+		<property name="number" value="4810100212629307" />
+		<property name="expirationMonth" value="11" />
+		<property name="expirationYear" value="2018" />
+		<property name="cvv" value="270" />
+		<property name="chorbi" ref="chorbi5" />
+	</bean>
+	
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holderName" value="Silvia Sánchez Casal" />
+		<property name="brandName" value="DISCOVER" />
+		<property name="number" value="6011179219437494" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2020" />
+		<property name="cvv" value="270" />
+		<property name="chorbi" ref="chorbi3" />
+	</bean>
+	
+	<bean id="creditCard4" class="domain.CreditCard">
+		<property name="holderName" value="Luis Jimeno Castilla" />
+		<property name="brandName" value="AMEX" />
+		<property name="number" value="5499511710445761" />
+		<property name="expirationMonth" value="05" />
+		<property name="expirationYear" value="2019" />
+		<property name="cvv" value="270" />
+		<property name="chorbi" ref="chorbi2" />
+	</bean>
 	
 	<!-- SearchTemplate -->
 	
