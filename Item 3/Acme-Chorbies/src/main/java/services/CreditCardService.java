@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.CreditCardRepository;
+import domain.Chorbi;
 import domain.CreditCard;
 
 @Service
@@ -21,7 +23,7 @@ public class CreditCardService {
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private AdministratorService	administratorService;
+	private ChorbiService			chorbiService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -48,8 +50,35 @@ public class CreditCardService {
 		return result;
 	}
 
+	public CreditCard create() {
+		CreditCard result;
+		Chorbi chorbi;
+
+		result = new CreditCard();
+
+		chorbi = this.chorbiService.findByPrincipal();
+
+		result.setChorbi(chorbi);
+
+		return result;
+	}
+
 	public CreditCard save(CreditCard creditCard) {
 		Assert.notNull(creditCard);
+
+		Calendar expirationCalendar, calendar;
+
+		calendar = Calendar.getInstance();
+		expirationCalendar = Calendar.getInstance();
+
+		// brand name
+		Assert.isTrue(creditCard.getBrandName().equals("VISA") || creditCard.getBrandName().equals("MASTERCARD") || creditCard.getBrandName().equals("DISCOVER") || creditCard.getBrandName().equals("DINNERS") || creditCard.getBrandName().equals("AMEX"));
+
+		// expiration date -> al menos un día más
+		expirationCalendar.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
+		expirationCalendar.set(Calendar.DAY_OF_MONTH, expirationCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) - 1); // cogemos el último día del mes menos uno, porque tiene que ser un día más
+
+		Assert.isTrue(calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
 
 		creditCard = this.creditCardRepository.save(creditCard);
 
