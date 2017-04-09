@@ -60,6 +60,7 @@ public class LikeService {
 		principal = this.chorbiService.findByPrincipal();
 		Assert.notNull(principal);
 		Assert.isTrue(!principal.equals(givenTo));
+		// comprobar que no se habian dado like antes
 
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.MILLISECOND, -10);
@@ -98,6 +99,14 @@ public class LikeService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public Like findByGivenToIdAndGivenById(final int chorbiToId, final int chorbiById) {
+		Like result;
+
+		result = this.likeRepository.findByGivenToIdAndGivenById(chorbiToId, chorbiById);
+
+		return result;
+	}
 
 	public Collection<Like> findByGivenToId(final int chorbiToId) {
 		Collection<Like> result;

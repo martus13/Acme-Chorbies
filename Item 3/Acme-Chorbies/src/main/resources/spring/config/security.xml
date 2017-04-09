@@ -51,8 +51,12 @@
 		<!-- isAuthenticated() -->
 		
 		<security:intercept-url pattern="/chorbi/actor/list.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/chorbi/actor/display.do" access="isAuthenticated()" /> 
 		
 		<!-- CHORBI -->
+		
+		<security:intercept-url pattern="/like/chorbi/create.do" access="hasRole('CHORBI')" /> 
+		<security:intercept-url pattern="/like/chorbi/cancel.do" access="hasRole('CHORBI')" /> 
 		
 		<!-- ADMIN -->
 		

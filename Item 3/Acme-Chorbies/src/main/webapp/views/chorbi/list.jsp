@@ -9,6 +9,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib uri="http://example.com/functions" prefix="f" %>
 
+<security:authentication var="principalUserAccount" property="principal" />
 <display:table name="chorbies" id="row" requestURI="${requestURI }">
 	
 	<acme:column code="chorbi.name" property="name" />
@@ -19,8 +20,7 @@
 	
 	<spring:message code="chorbi.description" var="descriptionHeader" />
 	<display:column title="${descriptionHeader}" sortable="false">
-		<jstl:set var="string2" value="${f:replaceAllPhoneAndEmail(row. description, '***')}" />
-		<jstl:out value="${string2 }" />
+		<jstl:out value="${f:replaceAllPhoneAndEmail(row. description, '***')}" />
 	</display:column>
 	
 	<acme:column code="chorbi.birthDate" property="birthDate" format="{0,date,dd/MM/yyyy}" />
@@ -57,6 +57,39 @@
 			</li>
 		</ul>
 	</display:column>  
+	
+	<display:column>
+		<a href="chorbi/actor/display.do?chorbiId=${row.id }">
+			<spring:message code="chorbi.display" />
+		</a>
+	</display:column>
+	
+	<security:authorize access="hasRole('CHORBI')">
+		<display:column>
+			<jstl:if test="${principalUserAccount.id != row.userAccount.id }">
+				<jstl:set var="canLike" value="true" />
+				
+				<jstl:forEach items="${row.receivedLikes }" var="receivedLikes" >
+					<jstl:if test="${receivedLikes.givenBy.userAccount.id == principalUserAccount.id }">
+						<jstl:set var="canLike" value="false" />
+					</jstl:if>
+				</jstl:forEach>
+				
+				<jstl:choose>
+					<jstl:when test="${canLike }">
+						<a href="like/chorbi/create.do?chorbiToId=${row.id }">
+							<spring:message code="chorbi.like" />
+						</a>
+					</jstl:when>
+					<jstl:otherwise>
+						<a href="like/chorbi/cancel.do?chorbiToId=${row.id }">
+							<spring:message code="chorbi.like.cancel" />
+						</a>
+					</jstl:otherwise>
+				</jstl:choose>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 	
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>

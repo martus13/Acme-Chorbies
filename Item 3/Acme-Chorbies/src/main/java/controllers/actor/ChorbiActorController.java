@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -50,6 +51,21 @@ public class ChorbiActorController extends AbstractController {
 		result = new ModelAndView("chorbi/list");
 		result.addObject("requestURI", "chorbi/actor/list.do");
 		result.addObject("chorbies", chorbies);
+
+		return result;
+	}
+
+	// Display ----------------------------------------------------------------		
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int chorbiId) {
+		ModelAndView result;
+		Chorbi chorbi;
+
+		chorbi = this.chorbiService.findOne(chorbiId);
+
+		result = new ModelAndView("chorbi/display");
+		result.addObject("requestURI", "chorbi/actor/display.do");
+		result.addObject("chorbi", chorbi);
 
 		return result;
 	}
