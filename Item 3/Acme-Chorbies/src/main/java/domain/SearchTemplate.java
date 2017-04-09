@@ -35,8 +35,11 @@ public class SearchTemplate extends DomainEntity {
 	private Integer				approximateAge;
 	private String				singleKeyword;
 	private Genre				genre;
-	private Coordinates			coordinates;
 	private Date				searchTime;
+	private String				country;
+	private String				state;
+	private String				province;
+	private String				city;
 
 
 	@Valid
@@ -76,15 +79,6 @@ public class SearchTemplate extends DomainEntity {
 		this.genre = genre;
 	}
 
-	@Valid
-	public Coordinates getCoordinates() {
-		return this.coordinates;
-	}
-
-	public void setCoordinates(final Coordinates coordinates) {
-		this.coordinates = coordinates;
-	}
-
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
@@ -94,6 +88,38 @@ public class SearchTemplate extends DomainEntity {
 
 	public void setSearchTime(final Date searchTime) {
 		this.searchTime = searchTime;
+	}
+
+	public String getCountry() {
+		return this.country;
+	}
+
+	public void setCountry(final String country) {
+		this.country = country;
+	}
+
+	public String getState() {
+		return this.state;
+	}
+
+	public void setState(final String state) {
+		this.state = state;
+	}
+
+	public String getProvince() {
+		return this.province;
+	}
+
+	public void setProvince(final String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return this.city;
+	}
+
+	public void setCity(final String city) {
+		this.city = city;
 	}
 
 

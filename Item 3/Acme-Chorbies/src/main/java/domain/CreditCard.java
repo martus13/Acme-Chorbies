@@ -4,6 +4,8 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -81,6 +83,21 @@ public class CreditCard {
 	}
 	public void setCvv(final Integer cvv) {
 		this.cvv = cvv;
+	}
+
+
+	// Relationships ----------------------------------------------------------
+	private Chorbi	chorbi;
+
+
+	@Valid
+	@OneToOne(optional = false)
+	public Chorbi getChorbi() {
+		return this.chorbi;
+	}
+
+	public void setChorbi(final Chorbi chorbi) {
+		this.chorbi = chorbi;
 	}
 
 	// toString ---------------------------------------------------------------

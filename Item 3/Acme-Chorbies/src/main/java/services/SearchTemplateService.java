@@ -60,8 +60,11 @@ public class SearchTemplateService {
 		searchTemplate.setApproximateAge(null);
 		searchTemplate.setSingleKeyword(null);
 		searchTemplate.setGenre(null);
-		searchTemplate.setCoordinates(null);
 		searchTemplate.setSearchTime(null);
+		searchTemplate.setCountry(null);
+		searchTemplate.setState(null);
+		searchTemplate.setProvince(null);
+		searchTemplate.setCity(null);
 		searchTemplate.setResults(results);
 		searchTemplate.setChorbi(chorbi);
 
