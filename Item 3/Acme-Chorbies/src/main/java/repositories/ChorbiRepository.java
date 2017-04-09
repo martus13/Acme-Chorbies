@@ -19,7 +19,7 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	Collection<Chorbi> findNotBanned();
 
 	// C1: A listing with the number of chorbies per country and city.
-	@Query("select c.coordinates.country, c.coordinates.city, c from Chorbi c group by c.coordinates.country, c.coordinates.city")
+	@Query("select c.coordinates.country, c.coordinates.city, count(c) from Chorbi c group by c.coordinates.country, c.coordinates.city")
 	Collection<Object[]> findGroupByCountryAndCity();
 
 	// C2: The minimum, the maximum, and the average ages of the chorbies.
