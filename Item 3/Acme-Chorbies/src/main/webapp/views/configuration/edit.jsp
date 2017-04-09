@@ -8,7 +8,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form method="post" action="configuration/administrator/edit.do" modelAttribute="configuration" >
+<form:form action="configuration/administrator/edit.do" modelAttribute="configuration" >
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />

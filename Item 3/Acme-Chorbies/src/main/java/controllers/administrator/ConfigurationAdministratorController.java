@@ -1,12 +1,14 @@
 
 package controllers.administrator;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ConfigurationService;
@@ -30,20 +32,42 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 	// Listing ----------------------------------------------------------------
 
-	// Editing
-
 	// Edition ----------------------------------------------------------------		
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int configurationId) {
+	public ModelAndView edit() {
 		ModelAndView result;
 		Configuration configuration;
 
-		configuration = this.configurationService.findOne(configurationId);
+		configuration = (Configuration) this.configurationService.findAll().toArray()[0];
 		Assert.notNull(configuration);
 
 		result = this.createEditModelAndView(configuration);
 
 		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid Configuration configuration, final BindingResult binding) {
+
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			System.out.println(binding.toString());
+			result = this.createEditModelAndView(configuration);
+
+		} else
+			try {
+				configuration = this.configurationService.save(configuration);
+				result = new ModelAndView("redirect:../../");
+
+			} catch (final Throwable oops) {
+				System.out.println(oops);
+
+				result = this.createEditModelAndView(configuration, "configuration.commit.error");
+
+			}
+		return result;
+
 	}
 
 	// Ancillary methods ------------------------------------------------------		
