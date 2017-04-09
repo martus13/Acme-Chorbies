@@ -163,6 +163,7 @@
 		<property name="expirationMonth" value="12" />
 		<property name="expirationYear" value="2017" />
 		<property name="cvv" value="290" />
+		<property name="chorbi" ref="chorbi1" />
 	</bean>
 		
 	<bean id="creditCard2" class="domain.CreditCard">
@@ -172,6 +173,7 @@
 		<property name="expirationMonth" value="11" />
 		<property name="expirationYear" value="2018" />
 		<property name="cvv" value="270" />
+		<property name="chorbi" ref="chorbi5" />
 	</bean>
 	
 	<bean id="creditCard3" class="domain.CreditCard">
@@ -181,6 +183,7 @@
 		<property name="expirationMonth" value="12" />
 		<property name="expirationYear" value="2020" />
 		<property name="cvv" value="270" />
+		<property name="chorbi" ref="chorbi3" />
 	</bean>
 	
 	<bean id="creditCard4" class="domain.CreditCard">
@@ -190,6 +193,7 @@
 		<property name="expirationMonth" value="05" />
 		<property name="expirationYear" value="2019" />
 		<property name="cvv" value="270" />
+		<property name="chorbi" ref="chorbi2" />
 	</bean>
 	
 	
