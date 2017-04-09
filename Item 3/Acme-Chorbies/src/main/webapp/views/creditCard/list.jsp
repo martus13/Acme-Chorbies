@@ -11,13 +11,17 @@
 
 <display:table name="creditCard" id="row" requestURI="${requestURI }">
 	
+	<jstl:if test="${not empty row.holderName} }">
 	<acme:column code="creditCard.holderName" property="holderName" />
 	
 	<acme:column code="creditCard.brandName" property="brandName" />
 	
 	<acme:column code="creditCard.number" property="number" />
-	
-	
-	
+	</jstl:if>
+	<jstl:if test="${empty row.holderName} }">
+		<a href="creditCard/chorbi/create.do">
+			<spring:message code="creditCard.create" />
+		</a>
+	</jstl:if>
 	
 </display:table>
