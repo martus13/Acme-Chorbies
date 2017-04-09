@@ -41,11 +41,11 @@ public class LikeServiceTest extends AbstractTest {
 	public void driverCreateAndSave() {
 		final Object testingData[][] = {
 			{
-				"chorbi1", 47, "Test save", null
+				"chorbi1", 51, "Test save", null
 			}, {
-				"chorbi1", 46, "Test save", IllegalArgumentException.class
+				"chorbi1", 50, "Test save", IllegalArgumentException.class
 			}, {
-				null, 46, "Test save", IllegalArgumentException.class
+				null, 50, "Test save", IllegalArgumentException.class
 			}
 		};
 
@@ -60,11 +60,11 @@ public class LikeServiceTest extends AbstractTest {
 	public void driverDelete() {
 		final Object testingData[][] = {
 			{
-				"chorbi1", 56, null
+				"chorbi1", 64, null
 			}, {
-				"chorbi1", 59, IllegalArgumentException.class
+				"chorbi1", 67, IllegalArgumentException.class
 			}, {
-				null, 56, IllegalArgumentException.class
+				null, 64, IllegalArgumentException.class
 			}
 		};
 
@@ -77,7 +77,7 @@ public class LikeServiceTest extends AbstractTest {
 	public void driverFind() {
 		final Object testingData[][] = {
 			{
-				46, null
+				50, null
 			}
 		};
 

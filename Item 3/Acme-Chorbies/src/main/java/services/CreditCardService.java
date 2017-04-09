@@ -71,6 +71,9 @@ public class CreditCardService {
 		calendar = Calendar.getInstance();
 		expirationCalendar = Calendar.getInstance();
 
+		// chorbi de CC = chorbi logueado
+		Assert.isTrue(creditCard.getChorbi().equals(this.chorbiService.findByPrincipal()));
+
 		// brand name
 		Assert.isTrue(creditCard.getBrandName().equals("VISA") || creditCard.getBrandName().equals("MASTERCARD") || creditCard.getBrandName().equals("DISCOVER") || creditCard.getBrandName().equals("DINNERS") || creditCard.getBrandName().equals("AMEX"));
 
@@ -80,9 +83,6 @@ public class CreditCardService {
 
 		Assert.isTrue(calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
 
-		// chorbi de CC = chorbi logueado
-		Assert.isTrue(creditCard.getChorbi().equals(this.chorbiService.findByPrincipal()));
-
 		creditCard = this.creditCardRepository.save(creditCard);
 
 		return creditCard;
@@ -90,4 +90,13 @@ public class CreditCardService {
 
 	// Other business methods -------------------------------------------------
 
+	public Double findRatioCreditCard() {
+		Double result;
+		Calendar calendar;
+
+		calendar = Calendar.getInstance();
+		result = this.creditCardRepository.findRatioCreditCard(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
+
+		return result;
+	}
 }

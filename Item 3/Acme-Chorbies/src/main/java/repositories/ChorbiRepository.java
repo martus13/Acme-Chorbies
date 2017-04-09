@@ -26,10 +26,6 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	@Query("select min(DATE_FORMAT(FROM_DAYS(DATEDIFF(current_timestamp, c.birthDate)), '%y')), max(DATE_FORMAT(FROM_DAYS(DATEDIFF(current_timestamp, c.birthDate)), '%y')), avg(DATE_FORMAT(FROM_DAYS(DATEDIFF(current_timestamp, c.birthDate)), '%y')) from Chorbi c")
 	Object[] findMinMaxAvgAges();
 
-	// C3: The ratio of chorbies who have not registered a credit card or have registered an invalid credit card.
-	@Query("select 100*count(c)/(select count(d) from Chorbi d) from Chorbi c where c.creditCard=null or c.creditCard.expirationYear<?1 or (c.creditCard.expirationYear=?1 and c.creditCard.expirationMonth<=?2)")
-	Double findRatioCreditCard(Integer year, Integer month);
-
 	// C4: The ratios of chorbies who search for "activities", "friendship", and "love".
 	//activities
 	@Query("select 100*count(c)/(select count(d) from Chorbi d) from Chorbi c where c.relationshipEngage='activities'")

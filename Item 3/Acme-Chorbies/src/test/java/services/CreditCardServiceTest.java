@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -17,6 +16,7 @@ import org.springframework.util.Assert;
 import utilities.AbstractTest;
 import domain.Chorbi;
 import domain.Coordinates;
+import domain.CreditCard;
 import domain.Genre;
 import domain.RelationshipType;
 
@@ -25,9 +25,12 @@ import domain.RelationshipType;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class ChorbiServiceTest extends AbstractTest {
+public class CreditCardServiceTest extends AbstractTest {
 
 	// System under test ------------------------------------------------------
+
+	@Autowired
+	private CreditCardService		creditCardService;
 
 	@Autowired
 	private ChorbiService			chorbiService;
@@ -38,7 +41,7 @@ public class ChorbiServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
-	// A continuación se van a realizar pruebas para comprobar el correcto funcionamiento de los casos de uso relacionados con Chorbi.
+	// A continuación se van a realizar pruebas para comprobar el correcto funcionamiento de los casos de uso relacionados con CreditCard.
 
 	// Registro de un chorbi:
 	@Test
@@ -71,22 +74,23 @@ public class ChorbiServiceTest extends AbstractTest {
 				(Genre) testingData[i][8], (Date) testingData[i][9], (RelationshipType) testingData[i][10], (String) testingData[i][11], (String) testingData[i][12], (Class<?>) testingData[i][13]);
 	}
 
-	// Baneado/desbaneado de un chorbi:
+	// Edición CreditCard:
 	@Test
-	public void driverBanUnban() {
+	public void driverEditCreditCard() {
 
 		final Object testingData[][] = {
 			{ // Bien
-				"admin", 53, null
-			}, { // Error autenticación
-				null, 53, IllegalArgumentException.class
+				49, "MASTERCARD", "Holder name test", "5379721258203853", 7, 2017, 159, null
+			}, { // Error brand name
+				46, "Brand name erroneo", "Holder name test", "5379721258203853", 7, 2017, 159, IllegalArgumentException.class
+			}, { // Error expiration month
+				46, "MASTERCARD", "Holder name test", "5379721258203853", 3, 2017, 159, IllegalArgumentException.class
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++) {
-			this.testBan((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
-			this.testUnban((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
-		}
+		for (int i = 0; i < testingData.length; i++)
+			this.testEditCreditCard((int) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (Integer) testingData[i][4], (Integer) testingData[i][5], (Integer) testingData[i][6],
+				(Class<?>) testingData[i][7]);
 	}
 
 	protected void testCreate(final String username, final String password, final String name, final String surname, final String email, final String phoneNumber, final String picture, final String description, final Genre genre, final Date birthDate,
@@ -128,45 +132,27 @@ public class ChorbiServiceTest extends AbstractTest {
 
 	}
 
-	protected void testBan(final String username, final int chorbiId, final Class<?> expected) {
+	protected void testEditCreditCard(final int chorbiId, final String brandName, final String holderName, final String number, final Integer expirationMonth, final Integer expirationYear, final Integer cvv, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
 		try {
-			this.authenticate(username);
-
 			Chorbi chorbi;
+			CreditCard creditCard;
+
+			creditCard = new CreditCard();
+			creditCard.setBrandName(brandName);
+			creditCard.setHolderName(holderName);
+			creditCard.setNumber(number);
+			creditCard.setExpirationMonth(expirationMonth);
+			creditCard.setExpirationYear(expirationYear);
+			creditCard.setCvv(cvv);
 
 			chorbi = this.chorbiService.findOne(chorbiId);
+			chorbi.setCreditCard(creditCard);
 
-			chorbi = this.chorbiService.ban(chorbi);
-			Assert.isTrue(chorbi.getBanned());
-
-			this.unauthenticate();
-
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-
-		this.checkExceptions(expected, caught);
-
-	}
-
-	protected void testUnban(final String username, final int chorbiId, final Class<?> expected) {
-		Class<?> caught;
-
-		caught = null;
-		try {
-			this.authenticate(username);
-
-			Chorbi chorbi;
-
-			chorbi = this.chorbiService.findOne(chorbiId);
-
-			chorbi = this.chorbiService.unban(chorbi);
-			Assert.isTrue(!chorbi.getBanned());
-
-			this.unauthenticate();
+			chorbi = this.chorbiService.save(chorbi);
+			Assert.notNull(chorbi.getCreditCard());
 
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -177,56 +163,13 @@ public class ChorbiServiceTest extends AbstractTest {
 	}
 
 	/////////////// Sin driver:
-	@Test
-	public void testFindAll() {
-		Collection<Chorbi> chorbies;
-
-		chorbies = this.chorbiService.findAll();
-		Assert.isTrue(chorbies.size() == 5);
-	}
 
 	@Test
-	public void testFindNotBanned() {
-		Collection<Chorbi> results;
+	public void testFindRatioCreditCard() {
+		Double result;
 
-		results = this.chorbiService.findNotBanned();
-		Assert.isTrue(results.size() == 5);
-
-	}
-
-	@Test
-	public void testFindGroupByCountryAndCity() {
-		Collection<Object[]> results;
-
-		results = this.chorbiService.findGroupByCountryAndCity();
-		Assert.isTrue(results.size() == 2);
-
-	}
-
-	@Test
-	public void testFindMinMaxAvgAges() {
-		Object[] results;
-
-		results = this.chorbiService.findMinMaxAvgAges();
-		System.out.println("testFindMinMaxAvgAges --> Min: " + results[0] + ", Max: " + results[1] + ", Avg: " + results[2]);
-
-	}
-
-	@Test
-	public void testFindAllSortedByReceivedLikes() {
-		Collection<Chorbi> results;
-
-		results = this.chorbiService.findAllSortedByReceivedLikes();
-		Assert.isTrue(results.size() == 5);
-
-	}
-
-	@Test
-	public void testFindRatioActivitiesLoveFriendship() {
-		Double[] results;
-
-		results = this.chorbiService.findRatioActivitiesLoveFriendship();
-		System.out.println("testFindRatioActivitiesLoveFriendship\nMin: " + results[0] + ", Max: " + results[1] + ", Avg: " + results[2]);
+		result = this.creditCardService.findRatioCreditCard();
+		System.out.println("testFindRatioCreditCard: " + result);
 
 	}
 }

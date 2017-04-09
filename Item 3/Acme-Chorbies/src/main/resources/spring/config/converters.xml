@@ -29,6 +29,7 @@
 		<bean class="converters.ChirpToStringConverter" />
 		<bean class="converters.ChorbiToStringConverter" />
 		<bean class="converters.ConfigurationToStringConverter" />
+		<bean class="converters.CreditCardToStringConverter" />
 		<bean class="converters.LikeToStringConverter" />
 		<bean class="converters.SearchTemplateToStringConverter" />
 		
@@ -38,6 +39,7 @@
 		<bean class="converters.StringToChirpConverter" />
 		<bean class="converters.StringToChorbiConverter" />
 		<bean class="converters.StringToConfigurationConverter" />
+		<bean class="converters.StringToCreditCardConverter" />
 		<bean class="converters.StringToLikeConverter" />
 		<bean class="converters.StringToSearchTemplateConverter" />
 		

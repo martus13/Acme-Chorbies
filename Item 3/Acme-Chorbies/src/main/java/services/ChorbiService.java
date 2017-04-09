@@ -18,7 +18,6 @@ import security.UserAccount;
 import domain.Administrator;
 import domain.Chirp;
 import domain.Chorbi;
-import domain.CreditCard;
 import domain.Like;
 import domain.SearchTemplate;
 import forms.ChorbiForm;
@@ -104,26 +103,6 @@ public class ChorbiService {
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 18);
 		Assert.isTrue(chorbi.getBirthDate().before(calendar.getTime()) || chorbi.getBirthDate() == calendar.getTime());
-
-		if (chorbi.getCreditCard() != null) {
-			// si añade tarjeta de credito -> comprobar que es valida
-			CreditCard creditCard;
-			Calendar expirationCalendar;
-
-			creditCard = chorbi.getCreditCard();
-			calendar = Calendar.getInstance();
-			expirationCalendar = Calendar.getInstance();
-
-			// brand name
-			Assert
-				.isTrue(creditCard.getBrandName().equals("VISA") || creditCard.getBrandName().equals("MASTERCARD") || creditCard.getBrandName().equals("DISCOVER") || creditCard.getBrandName().equals("DINNERS") || creditCard.getBrandName().equals("AMEX"));
-
-			// expiration date -> al menos un día más
-			expirationCalendar.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
-			expirationCalendar.set(Calendar.DAY_OF_MONTH, expirationCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) - 1); // cogemos el último día del mes menos uno, porque tiene que ser un día más
-
-			Assert.isTrue(calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
-		}
 
 		result = this.chorbiRepository.save(chorbi);
 
@@ -221,16 +200,6 @@ public class ChorbiService {
 		results = this.chorbiRepository.findAllSortedByReceivedLikes();
 
 		return results;
-	}
-
-	public Double findRatioCreditCard() {
-		Double result;
-		Calendar calendar;
-
-		calendar = Calendar.getInstance();
-		result = this.chorbiRepository.findRatioCreditCard(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
-
-		return result;
 	}
 
 	public Double[] findRatioActivitiesLoveFriendship() {
