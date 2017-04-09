@@ -53,7 +53,9 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="profile/actor/edit.do"><spring:message code="master.page.editProfile" /> </a></li>
+					<security:authorize access="hasRole('CHORBI')">
+						<li><a href="profile/chorbi/edit.do"><spring:message code="master.page.editProfile" /> </a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

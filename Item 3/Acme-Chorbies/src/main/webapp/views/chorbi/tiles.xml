@@ -18,7 +18,12 @@
 
 	<definition name="chorbi/register" extends="master.page">	
 		<put-attribute name="title" value="Chorbi: Create" />
-		<put-attribute name="body" value="/views/chorbi/register.jsp" />
+		<put-attribute name="body" value="/views/chorbi/edit.jsp" />
+	</definition>
+	
+	<definition name="chorbi/edit" extends="master.page">	
+		<put-attribute name="title" value="Chorbi: Edit profile" />
+		<put-attribute name="body" value="/views/chorbi/edit.jsp" />
 	</definition>
 	
 	<definition name="chorbi/list" extends="master.page">	

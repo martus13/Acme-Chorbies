@@ -14,7 +14,7 @@ import services.ChorbiService;
 import domain.Chorbi;
 import domain.Genre;
 import domain.RelationshipType;
-import forms.CreateChorbiForm;
+import forms.ChorbiForm;
 
 @Controller
 @RequestMapping("/chorbi")
@@ -35,37 +35,37 @@ public class ChorbiController extends AbstractController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView register() {
 		ModelAndView result;
-		CreateChorbiForm createChorbiForm;
+		ChorbiForm chorbiForm;
 		Chorbi chorbi;
 
 		chorbi = this.chorbiService.create();
-		createChorbiForm = this.chorbiService.desreconstructCreate(chorbi);
+		chorbiForm = this.chorbiService.desreconstructCreate(chorbi);
 
-		result = this.createEditModelAndView(createChorbiForm);
+		result = this.createEditModelAndView(chorbiForm);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final CreateChorbiForm createChorbiForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final ChorbiForm chorbiForm, final BindingResult binding) {
 
 		ModelAndView result;
 		Chorbi chorbi;
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
-			result = this.createEditModelAndView(createChorbiForm);
+			result = this.createEditModelAndView(chorbiForm);
 
 		} else
 			try {
-				chorbi = this.chorbiService.reconstructCreate(createChorbiForm);
+				chorbi = this.chorbiService.reconstructCreate(chorbiForm);
 				this.chorbiService.save(chorbi);
 				result = new ModelAndView("redirect:/security/login.do");
 
 			} catch (final Throwable oops) {
 				System.out.println(oops);
 
-				result = this.createEditModelAndView(createChorbiForm, "chorbi.commit.error");
+				result = this.createEditModelAndView(chorbiForm, "chorbi.commit.error");
 
 			}
 		return result;
@@ -74,15 +74,15 @@ public class ChorbiController extends AbstractController {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final CreateChorbiForm createChorbiForm) {
+	protected ModelAndView createEditModelAndView(final ChorbiForm chorbiForm) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(createChorbiForm, null);
+		result = this.createEditModelAndView(chorbiForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final CreateChorbiForm createChorbiForm, final String message) {
+	protected ModelAndView createEditModelAndView(final ChorbiForm chorbiForm, final String message) {
 		ModelAndView result;
 		Genre[] genres;
 		RelationshipType[] relationshipTypes;
@@ -91,8 +91,8 @@ public class ChorbiController extends AbstractController {
 		relationshipTypes = RelationshipType.values();
 
 		result = new ModelAndView("chorbi/register");
-		result.addObject("createChorbiForm", createChorbiForm);
-		result.addObject("actorForm", "createChorbiForm");
+		result.addObject("chorbiForm", chorbiForm);
+		result.addObject("actorForm", "chorbiForm");
 		result.addObject("genres", genres);
 		result.addObject("relationshipTypes", relationshipTypes);
 		result.addObject("requestURI", "chorbi/register.do");

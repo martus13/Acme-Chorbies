@@ -1,5 +1,5 @@
 
-package controllers.actor;
+package controllers.chorbi;
 
 import javax.validation.Valid;
 
@@ -10,36 +10,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
+import services.ChorbiService;
 import controllers.AbstractController;
-import domain.Actor;
+import domain.Chorbi;
 import domain.Genre;
 import domain.RelationshipType;
-import forms.CreateChorbiForm;
+import forms.ChorbiForm;
 
 @Controller
-@RequestMapping("/profile/actor")
-public class ProfileActorController extends AbstractController {
+@RequestMapping("/profile/chorbi")
+public class ProfileChorbiController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 	@Autowired
-	private ActorService	actorService;
+	private ChorbiService	chorbiService;
 
 
 	// Constructors -----------------------------------------------------------
 
-	public ProfileActorController() {
+	public ProfileChorbiController() {
 		super();
 	}
 	// Register ---------------------------------------------------------------		
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView register() {
 		final ModelAndView result;
-		CreateChorbiForm chorbiForm;
-		Actor actor;
+		ChorbiForm chorbiForm;
+		Chorbi chorbi;
 
-		actor = this.actorService.findByPrincipal();
-		chorbiForm = this.actorService.desreconstructEditProfile(actor);
+		chorbi = this.chorbiService.findByPrincipal();
+		chorbiForm = this.chorbiService.desreconstructCreate(chorbi);
 
 		result = this.createEditModelAndView(chorbiForm);
 
@@ -47,10 +47,10 @@ public class ProfileActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final CreateChorbiForm chorbiForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final ChorbiForm chorbiForm, final BindingResult binding) {
 
 		ModelAndView result;
-		Actor actor;
+		Chorbi chorbi;
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
@@ -58,8 +58,8 @@ public class ProfileActorController extends AbstractController {
 
 		} else
 			try {
-				actor = this.actorService.reconstructEditProfile(chorbiForm);
-				this.actorService.save(actor);
+				chorbi = this.chorbiService.reconstructEditProfile(chorbiForm);
+				this.chorbiService.save(chorbi);
 				result = new ModelAndView("redirect:../../welcome/index.do");
 
 			} catch (final Throwable oops) {
@@ -74,7 +74,7 @@ public class ProfileActorController extends AbstractController {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final CreateChorbiForm chorbiForm) {
+	protected ModelAndView createEditModelAndView(final ChorbiForm chorbiForm) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(chorbiForm, null);
@@ -82,7 +82,7 @@ public class ProfileActorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final CreateChorbiForm chorbiForm, final String message) {
+	protected ModelAndView createEditModelAndView(final ChorbiForm chorbiForm, final String message) {
 		ModelAndView result;
 		Genre[] genres;
 		RelationshipType[] relationshipTypes;
@@ -90,12 +90,12 @@ public class ProfileActorController extends AbstractController {
 		genres = Genre.values();
 		relationshipTypes = RelationshipType.values();
 
-		result = new ModelAndView("profile/edit");
+		result = new ModelAndView("chorbi/edit");
 		result.addObject("chorbiForm", chorbiForm);
 		result.addObject("actorForm", "chorbiForm");
 		result.addObject("genres", genres);
 		result.addObject("relationshipTypes", relationshipTypes);
-		result.addObject("requestURI", "profile/actor/edit.do");
+		result.addObject("requestURI", "profile/chorbi/edit.do");
 		result.addObject("message", message);
 
 		return result;

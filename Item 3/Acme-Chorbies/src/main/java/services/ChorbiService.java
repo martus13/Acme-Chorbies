@@ -20,7 +20,7 @@ import domain.Chirp;
 import domain.Chorbi;
 import domain.Like;
 import domain.SearchTemplate;
-import forms.CreateChorbiForm;
+import forms.ChorbiForm;
 
 @Service
 @Transactional
@@ -212,7 +212,7 @@ public class ChorbiService {
 		return result;
 	}
 
-	public Chorbi reconstructCreate(final CreateChorbiForm chorbiForm) {
+	public Chorbi reconstructCreate(final ChorbiForm chorbiForm) {
 		Assert.notNull(chorbiForm);
 
 		Chorbi chorbi;
@@ -240,10 +240,10 @@ public class ChorbiService {
 		return chorbi;
 	}
 
-	public CreateChorbiForm desreconstructCreate(final Chorbi chorbi) {
-		CreateChorbiForm chorbiForm;
+	public ChorbiForm desreconstructCreate(final Chorbi chorbi) {
+		ChorbiForm chorbiForm;
 
-		chorbiForm = new CreateChorbiForm();
+		chorbiForm = new ChorbiForm();
 
 		chorbiForm.setUsername(chorbi.getUserAccount().getUsername());
 		chorbiForm.setName(chorbi.getName());
@@ -258,6 +258,33 @@ public class ChorbiService {
 		chorbiForm.setBirthDate(chorbi.getBirthDate());
 
 		return chorbiForm;
+	}
+
+	public Chorbi reconstructEditProfile(final ChorbiForm chorbiForm) {
+		Assert.notNull(chorbiForm);
+
+		Chorbi chorbi;
+		String password;
+
+		Assert.isTrue(chorbiForm.getPassword().equals(chorbiForm.getConfirmPassword())); // Comprobamos que las dos contraseñas sean la misma
+
+		chorbi = this.findByPrincipal();
+		password = this.encryptPassword(chorbiForm.getPassword());
+
+		chorbi.getUserAccount().setUsername(chorbiForm.getUsername());
+		chorbi.getUserAccount().setPassword(password);
+		chorbi.setName(chorbiForm.getName());
+		chorbi.setSurname(chorbiForm.getSurname());
+		chorbi.setEmail(chorbiForm.getEmail());
+		chorbi.setPhoneNumber(chorbiForm.getPhoneNumber());
+		chorbi.setPicture(chorbiForm.getPicture());
+		chorbi.setDescription(chorbiForm.getDescription());
+		chorbi.setRelationshipEngage(chorbiForm.getRelationshipEngage());
+		chorbi.setGenre(chorbiForm.getGenre());
+		chorbi.setCoordinates(chorbiForm.getCoordinates());
+		chorbi.setBirthDate(chorbiForm.getBirthDate());
+
+		return chorbi;
 	}
 
 	public String encryptPassword(String password) {

@@ -82,13 +82,15 @@
 		<br />
 	</fieldset>
 	<br>
-		
-	<form:checkbox path="isAgree"/>
-	<form:label path="isAgree">
-		<spring:message code="chorbi.acceptConditions" />
-		<a href="misc/conditions.do" target="_blank"><spring:message code="chorbi.conditions" /></a>
-	</form:label>
-	<br />
+	
+	<security:authorize access="isAnonymous()">
+		<form:checkbox path="isAgree"/>
+		<form:label path="isAgree">
+			<spring:message code="chorbi.acceptConditions" />
+			<a href="misc/conditions.do" target="_blank"><spring:message code="chorbi.conditions" /></a>
+		</form:label>
+		<br />
+	</security:authorize>
 	
 	<acme:submit name="save" code="chorbi.save" />
 	<acme:cancel url="welcome/index.do" code="chorbi.cancel" />

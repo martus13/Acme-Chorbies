@@ -53,13 +53,13 @@
 		<security:intercept-url pattern="/chorbi/actor/list.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/chorbi/actor/display.do" access="isAuthenticated()" /> 
 		
-		<security:intercept-url pattern="/profile/actor/edit.do" access="isAuthenticated()" /> 
-		
 		<!-- CHORBI -->
 		<security:intercept-url pattern="/creditCard/chorbi/list.do" access="hasRole('CHORBI')" />
 		
 		<security:intercept-url pattern="/like/chorbi/create.do" access="hasRole('CHORBI')" /> 
 		<security:intercept-url pattern="/like/chorbi/cancel.do" access="hasRole('CHORBI')" /> 
+		
+		<security:intercept-url pattern="/profile/chorbi/edit.do" access="hasRole('CHORBI')" /> 
 		
 		<!-- ADMIN -->
 		
