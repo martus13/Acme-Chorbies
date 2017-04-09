@@ -31,11 +31,75 @@ public class ActorServiceTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 
 	@Test
-	public void testFindOne() {
-		Actor actor;
+	public void driverFind() {
+		final Object testingData[][] = {
+			{
+				50, "CHORBI", null
+			}
+		};
 
-		actor = this.actorService.findOne(50);
-		Assert.notNull(actor);
+		for (int i = 0; i < testingData.length; i++) {
+			this.testFindOne((int) testingData[i][0], (Class<?>) testingData[i][2]);
+			this.testCheckAuthority((int) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.testEdit((int) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+		}
+	}
+
+	protected void testFindOne(final int actorId, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			Actor actor;
+
+			actor = this.actorService.findOne(actorId);
+			Assert.notNull(actor);
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	protected void testCheckAuthority(final int actorId, final String authority, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			Actor actor;
+
+			actor = this.actorService.findOne(actorId);
+			Assert.isTrue(this.actorService.checkAuthority(actor, authority));
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	protected void testEdit(final int actorId, final String text, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			Actor actor;
+
+			actor = this.actorService.findOne(actorId);
+			actor.setName(text);
+
+			actor = this.actorService.save(actor);
+			Assert.isTrue(actor.getName() == text);
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
 	}
 
 	@Test
@@ -44,24 +108,5 @@ public class ActorServiceTest extends AbstractTest {
 
 		actors = this.actorService.findAll();
 		Assert.isTrue(actors.size() == 6);
-	}
-
-	@Test
-	public void testSave() {
-		Actor actor;
-
-		actor = this.actorService.findOne(46);
-		actor.setName("prueba");
-
-		actor = this.actorService.save(actor);
-		Assert.isTrue(actor.getName() == "prueba");
-	}
-
-	@Test
-	public void testCheckAuthority() {
-		Actor actor;
-
-		actor = this.actorService.findOne(50);
-		Assert.isTrue(this.actorService.checkAuthority(actor, "CHORBI"));
 	}
 }
