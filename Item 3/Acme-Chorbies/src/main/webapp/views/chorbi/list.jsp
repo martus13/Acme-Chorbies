@@ -7,20 +7,26 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib uri="http://example.com/functions" prefix="f" %>
+<%@ taglib prefix="f" uri="http://example.com/functions" %>
 
 <security:authentication var="principalUserAccount" property="principal" />
 <display:table name="chorbies" id="row" requestURI="${requestURI }">
 	
-	<acme:column code="chorbi.name" property="name" />
+	<spring:message code="chorbi.name" var="nameHeader" />
+	<display:column title="${nameHeader}" sortable="false">
+		<jstl:out value="${f:replaceAllPhoneAndEmail(row.name, '***')}" />
+	</display:column>
 	
-	<acme:column code="chorbi.surname" property="surname" />
+	<spring:message code="chorbi.surname" var="surnameHeader" />
+	<display:column title="${surnameHeader}" sortable="false">
+		<jstl:out value="${f:replaceAllPhoneAndEmail(row.surname, '***')}" />
+	</display:column>
 	
 	<acme:columnImages code="chorbi.picture" properties="${row.picture}" />
 	
 	<spring:message code="chorbi.description" var="descriptionHeader" />
 	<display:column title="${descriptionHeader}" sortable="false">
-		<jstl:out value="${f:replaceAllPhoneAndEmail(row. description, '***')}" />
+		<jstl:out value="${f:replaceAllPhoneAndEmail(row.description, '***')}" />
 	</display:column>
 	
 	<acme:column code="chorbi.birthDate" property="birthDate" format="{0,date,dd/MM/yyyy}" />

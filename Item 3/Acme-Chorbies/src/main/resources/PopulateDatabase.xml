@@ -202,7 +202,7 @@
 		<property name="phoneNumber" value="1415" />
 		<property name="userAccount" ref="userAccount3" />
 		
-		<property name="picture" value="http://backstage-pickcrew.s3.amazonaws.com/wp-content/uploads/2016/04/06232104/Joshua-Earle-in-Switzerland-1024x683.jpeg" />
+		<property name="picture" value="http://i.huffpost.com/gen/2791534/images/o-MAN-DRINKING-MARTINI-facebook.jpg" />
 		<property name="description" value="Soy un superespía internacional. Ahora, estoy navegando por el Caribe, robando información secreta y bebiendo un martini mezclado, no agitado. Bueno vale, es broma jeje. Pero me gusta un buen martini y navegar. ¿Te gustaría conocerme?" />
 		<property name="genre" value="man" />
 		<property name="banned" value="false" />

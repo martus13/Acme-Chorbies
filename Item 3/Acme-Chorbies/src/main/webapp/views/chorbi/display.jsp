@@ -7,7 +7,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib uri="http://example.com/functions" prefix="f" %>
+<%@ taglib prefix="f" uri="http://example.com/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <security:authentication var="principalUserAccount" property="principal" />
@@ -16,12 +16,12 @@
 	<ul>
 		<li>
 			<b><spring:message code="chorbi.name" />:</b>
-			<jstl:out value="${chorbi.name}" />
+			<jstl:out value="${f:replaceAllPhoneAndEmail(chorbi.name, '***')}" />
 		</li>
 		
 		<li>
 			<b><spring:message code="chorbi.surname" />:</b>
-			<jstl:out value="${chorbi.surname}" />
+			<jstl:out value="${f:replaceAllPhoneAndEmail(chorbi.surname, '***')}" />
 		</li>
 		
 		<li>
@@ -81,8 +81,13 @@
 		<li>
 			<b><spring:message code="chorbi.receivedLikes" />:</b><br />
 			<display:table name="${chorbi.receivedLikes}" id="row" >
+			
 				<acme:column code="chorbi.like.likeMoment" property="likeMoment" format="{0,date,dd/MM/yyyy HH:mm}" />
-				<acme:column code="chorbi.like.comment" property="comment" />
+				
+				<spring:message code="chorbi.like.comment" var="commentHeader" />
+				<display:column title="${commentHeader}" sortable="false">
+					<jstl:out value="${f:replaceAllPhoneAndEmail(row.comment, '***')}" />
+				</display:column>
 				
 				<spring:message code="chorbi.like.givenBy" var="givenByHeader" />
 				<display:column title="${givenByHeader}" sortable="false">
