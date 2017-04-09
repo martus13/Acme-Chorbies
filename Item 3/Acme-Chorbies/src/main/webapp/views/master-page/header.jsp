@@ -30,6 +30,10 @@
 			<li><a class="fNiv" href="chorbi/actor/list.do"><spring:message code="master.page.chorbi.listNotBanned" /></a></li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('CHORBI')">
+			<li><a class="fNiv" href="creditCard/chorbi/list.do"><spring:message code="master.page.chorbi.creditCard" /></a></li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message	code="master.page.admin.banner" /></a>
 				<ul>

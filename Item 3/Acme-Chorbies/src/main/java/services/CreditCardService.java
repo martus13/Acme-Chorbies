@@ -99,4 +99,12 @@ public class CreditCardService {
 
 		return result;
 	}
+
+	public CreditCard findByChorbi(final int chorbiId) {
+		CreditCard result;
+
+		result = this.creditCardRepository.findByChorbi(chorbiId);
+
+		return result;
+	}
 }
