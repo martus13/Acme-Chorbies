@@ -80,6 +80,9 @@ public class CreditCardService {
 
 		Assert.isTrue(calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
 
+		// chorbi de CC = chorbi logueado
+		Assert.isTrue(creditCard.getChorbi().equals(this.chorbiService.findByPrincipal()));
+
 		creditCard = this.creditCardRepository.save(creditCard);
 
 		return creditCard;
