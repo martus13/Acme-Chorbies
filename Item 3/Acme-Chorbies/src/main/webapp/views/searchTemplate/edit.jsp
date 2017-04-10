@@ -17,10 +17,34 @@
 	<form:hidden path="searchTime"/>
 	
 	
-	<acme:input code="searchTemplate.relationshipType" path="relationshipType" />
+	<div>
+			<form:label path="genre">
+				<spring:message code="searchTemplate.genre" />
+			</form:label>	
+			<form:select path="genre">
+				<form:option value="0" label="----" />		
+				<jstl:forEach items="${genres }" var="genre">
+					<form:option value="${genre}" label="${genre}" />
+				</jstl:forEach>
+			</form:select>
+			<form:errors path="genre" cssClass="error" />
+		</div>
+		
+		<div>
+			<form:label path="relationshipType">
+				<spring:message code="searchTemplate.relationshipType" />
+			</form:label>	
+			<form:select path="relationshipType">
+				<form:option value="0" label="----" />		
+				<jstl:forEach items="${relationshipTypes }" var="relationshipType">
+					<form:option value="${relationshipType}" label="${relationshipType}" />
+				</jstl:forEach>
+			</form:select>
+			<form:errors path="relationshipType" cssClass="error" />
+		</div>
+	
 	<acme:input code="searchTemplate.approximateAge" path="approximateAge" />
 	<acme:input code="searchTemplate.singleKeyword" path="singleKeyword" />
-	<acme:input code="searchTemplate.genre" path="genre" />
 	<acme:input code="searchTemplate.country" path="country" />
 	<acme:input code="searchTemplate.state" path="state" />
 	<acme:input code="searchTemplate.province" path="province" />

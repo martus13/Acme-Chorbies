@@ -15,6 +15,31 @@
 		<jstl:otherwise>
 			<ul>
 				<li>
+					<b><spring:message code="searchTemplate.genre" />:</b>
+					<jstl:out value="${searchTemplate.genre}" />
+				</li>
+				
+				<li>
+					<b><spring:message code="searchTemplate.relationshipType" />:</b>
+					<jstl:out value="${searchTemplate.relationshipType}" />
+				</li>
+				
+				<li>
+					<b><spring:message code="searchTemplate.approximateAge" />:</b>
+					<jstl:out value="${searchTemplate.approximateAge}" />
+				</li>
+				
+				<li>
+					<b><spring:message code="searchTemplate.singleKeyword" />:</b>
+					<jstl:out value="${searchTemplate.singleKeyword}" />
+				</li>
+				
+				<li>
+					<b><spring:message code="searchTemplate.province" />:</b>
+					<jstl:out value="${searchTemplate.province}" />
+				</li>
+			
+				<li>
 					<b><spring:message code="searchTemplate.city"/>:</b>
 					<jstl:out value="${searchTemplate.city}"/>
 				</li>
@@ -33,6 +58,7 @@
 					<b><spring:message code="searchTemplate.province" />:</b>
 					<jstl:out value="${searchTemplate.province}" />
 				</li>
+				
 						
 			</ul>
 			
@@ -40,8 +66,8 @@
 		</jstl:otherwise>
 	</jstl:choose>
 	<br>
-	<%-- <jstl:if test="${not empty searchTemplate }">
-		<a href="property/tenant/findByFinder.do?searchTemplateId=${searchTemplate.id }"><spring:message code="searchTemplate.searchProperties" /></a>
-	</jstl:if> --%>
+	<jstl:if test="${not empty searchTemplate }">
+		<a href="searchTemplate/chorbi/findBySearchTemplate.do?searchTemplateId=${searchTemplate.id }"><spring:message code="searchTemplate.searchProperties" /></a>
+	</jstl:if>
 </div>
 	

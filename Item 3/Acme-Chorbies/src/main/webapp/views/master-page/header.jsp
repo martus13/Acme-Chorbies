@@ -32,7 +32,7 @@
 		
 		<security:authorize access="hasRole('CHORBI')">
 			<li><a class="fNiv" href="creditCard/chorbi/list.do"><spring:message code="master.page.chorbi.creditCard" /></a></li>
-			<li><a class="fNiv" href="searchTemplate/chorbi/list.do"><spring:message code="master.page.chorbi.searchTemplate" /></a></li>
+			<li><a class="fNiv" href="searchTemplate/chorbi/display.do"><spring:message code="master.page.chorbi.searchTemplate" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('ADMIN')">

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +103,35 @@ public class SearchTemplateService {
 		result = this.searchTemplateRepository.findByChorbiId(chorbi.getId());
 
 		return result;
+	}
+
+	public Collection<Chorbi> findChorbiesBySearchTemplate(SearchTemplate searchTemplate) {
+		final Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+		Calendar calendar;
+
+		calendar = Calendar.getInstance();
+		calendar.set(Calendar.MILLISECOND, -10);
+
+		for (final Chorbi c : this.chorbiService.findAll()) {
+			Boolean aux = false;
+			if (searchTemplate.getCountry() != null)
+				aux = aux && (searchTemplate.getCountry().toLowerCase().contains(c.getCoordinates().getCountry().toLowerCase()));
+			if (searchTemplate.getState() != null)
+				aux = aux && (searchTemplate.getState().toLowerCase().contains(c.getCoordinates().getState().toLowerCase()));
+			if (searchTemplate.getCity() != null)
+				aux = aux && (searchTemplate.getCity().toLowerCase().contains(c.getCoordinates().getCity().toLowerCase()));
+			if (searchTemplate.getProvince() != null)
+				aux = aux && (searchTemplate.getProvince().toLowerCase().contains(c.getCoordinates().getProvice().toLowerCase()));
+
+			if (aux)
+				chorbies.add(c);
+		}
+
+		searchTemplate.setSearchTime(calendar.getTime());
+		searchTemplate.setResults(chorbies);
+
+		searchTemplate = this.searchTemplateRepository.save(searchTemplate);
+
+		return chorbies;
 	}
 }

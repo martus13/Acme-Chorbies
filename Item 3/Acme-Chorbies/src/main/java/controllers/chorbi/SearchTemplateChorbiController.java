@@ -1,6 +1,8 @@
 
 package controllers.chorbi;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import services.ChorbiService;
 import services.SearchTemplateService;
 import controllers.AbstractController;
 import domain.Chorbi;
+import domain.Genre;
+import domain.RelationshipType;
 import domain.SearchTemplate;
 
 @Controller
@@ -47,7 +51,7 @@ public class SearchTemplateChorbiController extends AbstractController {
 
 		searchTemplate = this.searchTemplateService.findByChorbiId(chorbi);
 
-		result = new ModelAndView("finder/display");
+		result = new ModelAndView("searchTemplate/display");
 		result.addObject("searchTemplate", searchTemplate);
 
 		return result;
@@ -65,6 +69,25 @@ public class SearchTemplateChorbiController extends AbstractController {
 		searchTemplate = this.searchTemplateService.create(chorbi);
 
 		result = this.createEditModelAndView(searchTemplate);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/findBySearchTemplate", method = RequestMethod.GET)
+	public ModelAndView findBySearchTemplate(@RequestParam final int searchTemplateId) {
+		ModelAndView result;
+		SearchTemplate searchTemplate;
+		Collection<Chorbi> chorbies;
+
+		searchTemplate = this.searchTemplateService.findOne(searchTemplateId);
+		Assert.notNull(searchTemplate);
+
+		chorbies = this.searchTemplateService.findChorbiesBySearchTemplate(searchTemplate);
+
+		result = new ModelAndView("chorbi/list");
+		result.addObject("chorbies", chorbies);
+		result.addObject("principalId", 0);
+		result.addObject("requestURI", "searchTemplate/chorbi/findBySearchTemplate.do?searchTemplateId=" + searchTemplateId);
 
 		return result;
 	}
@@ -137,9 +160,16 @@ public class SearchTemplateChorbiController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final SearchTemplate searchTemplate, final String message) {
 		ModelAndView result;
+		final Genre[] genres;
+		final RelationshipType[] relationshipTypes;
+
+		genres = Genre.values();
+		relationshipTypes = RelationshipType.values();
 
 		result = new ModelAndView("searchTemplate/edit");
 		result.addObject("searchTemplate", searchTemplate);
+		result.addObject("genres", genres);
+		result.addObject("relationshipTypes", relationshipTypes);
 		result.addObject("message", message);
 
 		return result;
