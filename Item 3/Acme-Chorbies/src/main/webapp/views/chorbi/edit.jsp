@@ -44,7 +44,7 @@
 				<spring:message code="chorbi.genre" />
 			</form:label>	
 			<form:select path="genre">
-				<form:option value="0" label="----" />		
+				<form:option value="${null }" label="----" />		
 				<jstl:forEach items="${genres }" var="genre">
 					<form:option value="${genre}" label="${genre}" />
 				</jstl:forEach>
@@ -57,7 +57,7 @@
 				<spring:message code="chorbi.relationshipEngage" />
 			</form:label>	
 			<form:select path="relationshipEngage">
-				<form:option value="0" label="----" />		
+				<form:option value="${null }" label="----" />		
 				<jstl:forEach items="${relationshipTypes }" var="relationshipEngage">
 					<form:option value="${relationshipEngage}" label="${relationshipEngage}" />
 				</jstl:forEach>

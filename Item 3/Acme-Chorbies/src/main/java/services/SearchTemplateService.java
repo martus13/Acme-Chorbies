@@ -77,6 +77,17 @@ public class SearchTemplateService {
 		if (searchTemplate.getId() != 0)
 			Assert.isTrue(searchTemplate.getChorbi().equals(this.chorbiService.findByPrincipal()));
 
+		if (searchTemplate.getSingleKeyword().isEmpty())
+			searchTemplate.setSingleKeyword(null);
+		if (searchTemplate.getCountry().isEmpty())
+			searchTemplate.setCountry(null);
+		if (searchTemplate.getState().isEmpty())
+			searchTemplate.setState(null);
+		if (searchTemplate.getProvince().isEmpty())
+			searchTemplate.setProvince(null);
+		if (searchTemplate.getCity().isEmpty())
+			searchTemplate.setCity(null);
+
 		searchTemplate = this.searchTemplateRepository.save(searchTemplate);
 
 		return searchTemplate;
@@ -106,32 +117,28 @@ public class SearchTemplateService {
 	}
 
 	public Collection<Chorbi> findChorbiesBySearchTemplate(SearchTemplate searchTemplate) {
-		final Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+		Collection<Chorbi> result = new ArrayList<Chorbi>();
 		Calendar calendar;
 
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.MILLISECOND, -10);
 
-		for (final Chorbi c : this.chorbiService.findAll()) {
-			Boolean aux = false;
-			if (searchTemplate.getCountry() != null)
-				aux = aux && (searchTemplate.getCountry().toLowerCase().contains(c.getCoordinates().getCountry().toLowerCase()));
-			if (searchTemplate.getState() != null)
-				aux = aux && (searchTemplate.getState().toLowerCase().contains(c.getCoordinates().getState().toLowerCase()));
-			if (searchTemplate.getCity() != null)
-				aux = aux && (searchTemplate.getCity().toLowerCase().contains(c.getCoordinates().getCity().toLowerCase()));
-			if (searchTemplate.getProvince() != null)
-				aux = aux && (searchTemplate.getProvince().toLowerCase().contains(c.getCoordinates().getProvice().toLowerCase()));
+		// primero: comprobar que tiene creditCard y que es valida
 
-			if (aux)
-				chorbies.add(c);
+		// segundo: comprobar la fecha en que se hizo la busqueda
+		if (searchTemplate.getSearchTime().after(calendar.getTime()) || searchTemplate.getSearchTime().equals(calendar.getTime()))
+			// si hace menos que el tiempo que tenemos en la configuracion: mostrar los resultados obtenidos
+			result = searchTemplate.getResults();
+		else {
+			// si hace mas tiempo: hacer la busqueda de nuevo
+
+			result = this.chorbiService.findNotBannedBySearchTemplate(searchTemplate);
+
+			searchTemplate.setSearchTime(calendar.getTime());
+			searchTemplate.setResults(result);
 		}
-
-		searchTemplate.setSearchTime(calendar.getTime());
-		searchTemplate.setResults(chorbies);
-
 		searchTemplate = this.searchTemplateRepository.save(searchTemplate);
 
-		return chorbies;
+		return result;
 	}
 }

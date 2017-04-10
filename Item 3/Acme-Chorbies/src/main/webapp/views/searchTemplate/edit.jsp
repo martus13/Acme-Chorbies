@@ -22,7 +22,7 @@
 				<spring:message code="searchTemplate.genre" />
 			</form:label>	
 			<form:select path="genre">
-				<form:option value="0" label="----" />		
+				<form:option value="${null }" label="----" />		
 				<jstl:forEach items="${genres }" var="genre">
 					<form:option value="${genre}" label="${genre}" />
 				</jstl:forEach>
@@ -35,7 +35,7 @@
 				<spring:message code="searchTemplate.relationshipType" />
 			</form:label>	
 			<form:select path="relationshipType">
-				<form:option value="0" label="----" />		
+				<form:option value="${null }" label="----" />		
 				<jstl:forEach items="${relationshipTypes }" var="relationshipType">
 					<form:option value="${relationshipType}" label="${relationshipType}" />
 				</jstl:forEach>

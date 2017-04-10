@@ -178,6 +178,64 @@ public class ChorbiService {
 		return results;
 	}
 
+	public Collection<Chorbi> findNotBannedBySearchTemplate(final SearchTemplate searchTemplate) {
+		Collection<Chorbi> results;
+
+		results = new ArrayList<Chorbi>();
+
+		for (final Chorbi chorbi : this.findNotBanned()) {
+			boolean aux;
+
+			aux = true;
+
+			if (searchTemplate.getSingleKeyword() != null)
+				aux = aux
+					&& (chorbi.getName().toLowerCase().contains(searchTemplate.getSingleKeyword().toLowerCase()) || chorbi.getSurname().toLowerCase().contains(searchTemplate.getSingleKeyword().toLowerCase()) || chorbi.getDescription().toLowerCase()
+						.contains(searchTemplate.getSingleKeyword().toLowerCase()));
+
+			if (searchTemplate.getRelationshipType() != null)
+				aux = aux && (chorbi.getRelationshipEngage().equals(searchTemplate.getRelationshipType()));
+
+			if (searchTemplate.getGenre() != null)
+				aux = aux && (chorbi.getGenre().equals(searchTemplate.getGenre()));
+
+			if (searchTemplate.getCountry() != null)
+				aux = aux && (chorbi.getCoordinates().getCountry().toLowerCase().contains(searchTemplate.getCountry().toLowerCase()));
+
+			if (searchTemplate.getCity() != null)
+				aux = aux && (chorbi.getCoordinates().getCity().toLowerCase().contains(searchTemplate.getCity().toLowerCase()));
+
+			if (searchTemplate.getProvince() != null)
+				aux = aux && (searchTemplate.getProvince() != null && chorbi.getCoordinates().getProvice() != null && chorbi.getCoordinates().getProvice().toLowerCase().contains(searchTemplate.getProvince().toLowerCase()));
+
+			if (searchTemplate.getState() != null)
+				aux = aux && (searchTemplate.getState() != null && chorbi.getCoordinates().getState() != null && chorbi.getCoordinates().getState().toLowerCase().contains(searchTemplate.getState().toLowerCase()));
+
+			if (searchTemplate.getApproximateAge() != null) {
+				Calendar calendar;
+				final Calendar calendarMin;
+				final Calendar calendarMax;
+
+				calendar = Calendar.getInstance();
+				calendarMin = Calendar.getInstance();
+				calendarMax = Calendar.getInstance();
+				calendar.add(Calendar.YEAR, -searchTemplate.getApproximateAge());
+
+				calendarMin.setTime(calendar.getTime());
+				calendarMin.add(Calendar.YEAR, -5);
+
+				calendarMax.setTime(calendar.getTime());
+				calendarMax.add(Calendar.YEAR, 5);
+
+				aux = aux && (!(chorbi.getBirthDate().before(calendarMin.getTime()) || chorbi.getBirthDate().after(calendarMax.getTime())));
+			}
+
+			if (aux)
+				results.add(chorbi);
+		}
+
+		return results;
+	}
 	public Collection<Object[]> findGroupByCountryAndCity() {
 		Collection<Object[]> results;
 

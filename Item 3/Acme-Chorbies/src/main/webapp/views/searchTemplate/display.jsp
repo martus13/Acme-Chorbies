@@ -35,11 +35,6 @@
 				</li>
 				
 				<li>
-					<b><spring:message code="searchTemplate.province" />:</b>
-					<jstl:out value="${searchTemplate.province}" />
-				</li>
-			
-				<li>
 					<b><spring:message code="searchTemplate.city"/>:</b>
 					<jstl:out value="${searchTemplate.city}"/>
 				</li>
