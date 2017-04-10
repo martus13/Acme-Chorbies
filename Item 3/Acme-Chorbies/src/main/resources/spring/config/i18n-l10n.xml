@@ -29,6 +29,7 @@
 		<value>/views/configuration/messages</value>
 		<value>/views/creditCard/messages</value>
 		<value>/views/like/messages</value>
+		<value>/views/searchTemplate/messages</value>
 	</util:list>
 
 </beans>
