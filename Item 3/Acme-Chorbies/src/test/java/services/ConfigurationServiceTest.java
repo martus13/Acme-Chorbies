@@ -46,18 +46,20 @@ public class ConfigurationServiceTest extends AbstractTest {
 		wrongCalendar = Calendar.getInstance();
 		wrongCalendar.set(2017, 1, 1, 25, 120, 0);
 
-		wrongCalendar = Calendar.getInstance();
-
 		final Object testingData[][] = {
 			{ // Bien
 				"admin", correctCalendar.getTime(), null
 			}, { // Error fecha
-				"admin", wrongCalendar.getTime(), IllegalArgumentException.class
+				"admin", null, null
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++)
+		for (int i = 0; i < testingData.length; i++) {
+			System.out.println(testingData[i][1]);
 			this.testEdit((String) testingData[i][0], (Date) testingData[i][1], (Class<?>) testingData[i][2]);
+
+		}
+
 	}
 
 	protected void testEdit(final String username, final Date date, final Class<?> expected) {
