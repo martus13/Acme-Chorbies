@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ChorbiService;
+import services.CreditCardService;
 import services.SearchTemplateService;
 import controllers.AbstractController;
 import domain.Chorbi;
@@ -32,6 +33,9 @@ public class SearchTemplateChorbiController extends AbstractController {
 
 	@Autowired
 	private ChorbiService			chorbiService;
+
+	@Autowired
+	private CreditCardService		creditCardService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -82,13 +86,19 @@ public class SearchTemplateChorbiController extends AbstractController {
 		searchTemplate = this.searchTemplateService.findOne(searchTemplateId);
 		Assert.notNull(searchTemplate);
 
-		chorbies = this.searchTemplateService.findChorbiesBySearchTemplate(searchTemplate);
+		if ((this.creditCardService.checkValidation(this.creditCardService.findByChorbi(this.chorbiService.findByPrincipal().getId()))) == false || (this.creditCardService.findByChorbi(this.chorbiService.findByPrincipal().getId())) == null) {
+			System.out.println("Invalid Credit Card");
+			result = new ModelAndView("creditCard/list");
+			result.addObject("message", "searchTemplate.commit.errorCC");
+		} else {
 
-		result = new ModelAndView("chorbi/list");
-		result.addObject("chorbies", chorbies);
-		result.addObject("principalId", 0);
-		result.addObject("requestURI", "searchTemplate/chorbi/findBySearchTemplate.do?searchTemplateId=" + searchTemplateId);
+			chorbies = this.searchTemplateService.findChorbiesBySearchTemplate(searchTemplate);
 
+			result = new ModelAndView("chorbi/list");
+			result.addObject("chorbies", chorbies);
+			result.addObject("principalId", 0);
+			result.addObject("requestURI", "searchTemplate/chorbi/findBySearchTemplate.do?searchTemplateId=" + searchTemplateId);
+		}
 		return result;
 	}
 
@@ -123,7 +133,6 @@ public class SearchTemplateChorbiController extends AbstractController {
 				System.out.println(oops.toString());
 				result = this.createEditModelAndView(searchTemplate, "searchTemplate.commit.error");
 			}
-
 		return result;
 	}
 

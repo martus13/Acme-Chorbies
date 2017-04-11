@@ -26,6 +26,9 @@ public class SearchTemplateService {
 	@Autowired
 	private ChorbiService				chorbiService;
 
+	@Autowired
+	private CreditCardService			creditCardService;
+
 
 	// Constructors -----------------------------------------------------------
 	public SearchTemplateService() {
@@ -119,12 +122,14 @@ public class SearchTemplateService {
 	public Collection<Chorbi> findChorbiesBySearchTemplate(SearchTemplate searchTemplate) {
 		Collection<Chorbi> result = new ArrayList<Chorbi>();
 		Calendar calendar;
+		Chorbi chorbi;
 
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.MILLISECOND, -10);
+		chorbi = this.chorbiService.findByPrincipal();
 
 		// primero: comprobar que tiene creditCard y que es valida
-
+		Assert.isTrue(this.creditCardService.checkValidation(this.creditCardService.findByChorbi(chorbi.getId())));
 		// segundo: comprobar la fecha en que se hizo la busqueda
 		if (searchTemplate.getSearchTime() == null) {
 			result = this.chorbiService.findNotBannedBySearchTemplate(searchTemplate);

@@ -126,14 +126,17 @@ public class CreditCardService {
 		calendar = Calendar.getInstance();
 		expirationCalendar = Calendar.getInstance();
 
-		result = (creditCard.getBrandName().equals("VISA") || creditCard.getBrandName().equals("MASTERCARD") || creditCard.getBrandName().equals("DISCOVER") || creditCard.getBrandName().equals("DINNERS") || creditCard.getBrandName().equals("AMEX"));
+		if (creditCard == null)
+			result = false;
+		else {
+			result = (creditCard.getBrandName().equals("VISA") || creditCard.getBrandName().equals("MASTERCARD") || creditCard.getBrandName().equals("DISCOVER") || creditCard.getBrandName().equals("DINNERS") || creditCard.getBrandName().equals("AMEX"));
 
-		// expiration date -> al menos un día más
-		expirationCalendar.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
-		expirationCalendar.set(Calendar.DAY_OF_MONTH, expirationCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) - 1); // cogemos el último día del mes menos uno, porque tiene que ser un día más
+			// expiration date -> al menos un día más
+			expirationCalendar.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
+			expirationCalendar.set(Calendar.DAY_OF_MONTH, expirationCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) - 1); // cogemos el último día del mes menos uno, porque tiene que ser un día más
 
-		result = result && (calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
-
+			result = result && (calendar.before(expirationCalendar) || calendar.equals(expirationCalendar));
+		}
 		return result;
 	}
 }
