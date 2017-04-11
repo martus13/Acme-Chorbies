@@ -126,7 +126,12 @@ public class SearchTemplateService {
 		// primero: comprobar que tiene creditCard y que es valida
 
 		// segundo: comprobar la fecha en que se hizo la busqueda
-		if (searchTemplate.getSearchTime().after(calendar.getTime()) || searchTemplate.getSearchTime().equals(calendar.getTime()))
+		if (searchTemplate.getSearchTime() == null) {
+			result = this.chorbiService.findNotBannedBySearchTemplate(searchTemplate);
+
+			searchTemplate.setSearchTime(calendar.getTime());
+			searchTemplate.setResults(result);
+		} else if (searchTemplate.getSearchTime().after(calendar.getTime()) || searchTemplate.getSearchTime().equals(calendar.getTime()))
 			// si hace menos que el tiempo que tenemos en la configuracion: mostrar los resultados obtenidos
 			result = searchTemplate.getResults();
 		else {
@@ -137,6 +142,7 @@ public class SearchTemplateService {
 			searchTemplate.setSearchTime(calendar.getTime());
 			searchTemplate.setResults(result);
 		}
+
 		searchTemplate = this.searchTemplateRepository.save(searchTemplate);
 
 		return result;
