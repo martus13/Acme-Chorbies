@@ -16,9 +16,6 @@
 	<acme:input code="configuration.cachedTime" path="cachedTime" />
 	
 	<acme:submit name="save" code="configuration.save" />
-	<jstl:if test="${configuration.id!=0 }">
-		<acme:submit name="delete" code="configuration.delete" />
-	</jstl:if>
 	
 	<acme:cancel url="" code="configuration.cancel" />
 	
