@@ -56,13 +56,14 @@
 				
 						
 			</ul>
-			
-			<a href="searchTemplate/chorbi/edit.do?searchTemplateId=${searchTemplate.id }"><spring:message code="searchTemplate.edit" /></a>
+			<acme:button url="searchTemplate/chorbi/edit.do?searchTemplateId=${searchTemplate.id }" code="searchTemplate.edit"/>
+			<%-- <a href="searchTemplate/chorbi/edit.do?searchTemplateId=${searchTemplate.id }"><spring:message code="searchTemplate.edit" /></a> --%>
 		</jstl:otherwise>
 	</jstl:choose>
 	<br>
 	<jstl:if test="${not empty searchTemplate }">
-		<a href="searchTemplate/chorbi/findBySearchTemplate.do?searchTemplateId=${searchTemplate.id }"><spring:message code="searchTemplate.searchProperties" /></a>
+		<acme:button url="searchTemplate/chorbi/findBySearchTemplate.do?searchTemplateId=${searchTemplate.id }" code="searchTemplate.search"/>
+		<%-- <a href="searchTemplate/chorbi/findBySearchTemplate.do?searchTemplateId=${searchTemplate.id }"><spring:message code="searchTemplate.search" /></a> --%>
 	</jstl:if>
 </div>
 	

@@ -129,22 +129,19 @@ public class SearchTemplateChorbiController extends AbstractController {
 
 	// Deleting ---------------------------------------------------------------		
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final SearchTemplate searchTemplate, final BindingResult binding) {
+	public ModelAndView delete(@Valid final SearchTemplate searchTemplate, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors()) {
-			System.out.println(binding.toString());
-			result = this.createEditModelAndView(searchTemplate);
-
-		} else
-			try {
-				this.searchTemplateService.delete(searchTemplate);
-				result = new ModelAndView("redirect:display.do");
-
-			} catch (final Throwable oops) {
-				System.out.println(oops.toString());
-				result = this.createEditModelAndView(searchTemplate, "searchTemplate.commit.error");
-			}
+		searchTemplate.setRelationshipType(null);
+		searchTemplate.setApproximateAge(null);
+		searchTemplate.setSingleKeyword(null);
+		searchTemplate.setGenre(null);
+		searchTemplate.setCountry(null);
+		searchTemplate.setState(null);
+		searchTemplate.setProvince(null);
+		searchTemplate.setCity(null);
+		this.searchTemplateService.save(searchTemplate);
+		result = new ModelAndView("redirect:display.do");
 
 		return result;
 	}

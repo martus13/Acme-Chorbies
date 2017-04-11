@@ -77,15 +77,15 @@ public class SearchTemplateService {
 		if (searchTemplate.getId() != 0)
 			Assert.isTrue(searchTemplate.getChorbi().equals(this.chorbiService.findByPrincipal()));
 
-		if (searchTemplate.getSingleKeyword().isEmpty())
+		if (searchTemplate.getSingleKeyword() == "")
 			searchTemplate.setSingleKeyword(null);
-		if (searchTemplate.getCountry().isEmpty())
+		if (searchTemplate.getCountry() == "")
 			searchTemplate.setCountry(null);
-		if (searchTemplate.getState().isEmpty())
+		if (searchTemplate.getState() == "")
 			searchTemplate.setState(null);
-		if (searchTemplate.getProvince().isEmpty())
+		if (searchTemplate.getProvince() == "")
 			searchTemplate.setProvince(null);
-		if (searchTemplate.getCity().isEmpty())
+		if (searchTemplate.getCity() == "")
 			searchTemplate.setCity(null);
 
 		searchTemplate = this.searchTemplateRepository.save(searchTemplate);
