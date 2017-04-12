@@ -125,4 +125,15 @@ public class ChirpService {
 
 		return result;
 	}
+
+	public Double[] findMinMaxAvgReceived() {
+
+		final Double[] result = new Double[3];
+
+		result[0] = this.chirpRepository.findMinReceived();
+		result[1] = this.chirpRepository.findMaxReceived();
+		result[2] = this.chirpRepository.findAvgReceived();
+
+		return result;
+	}
 }

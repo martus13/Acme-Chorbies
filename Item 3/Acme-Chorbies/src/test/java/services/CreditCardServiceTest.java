@@ -105,14 +105,4 @@ public class CreditCardServiceTest extends AbstractTest {
 
 	}
 
-	/////////////// Sin driver:
-
-	@Test
-	public void testFindRatioCreditCard() {
-		Double result;
-
-		result = this.creditCardService.findRatioCreditCard();
-		System.out.println("testFindRatioCreditCard: " + result);
-
-	}
 }

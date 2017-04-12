@@ -108,16 +108,6 @@ public class CreditCardService {
 		return result;
 	}
 
-	public Double findRatioCreditCard() {
-		Double result;
-		Calendar calendar;
-
-		calendar = Calendar.getInstance();
-		result = this.creditCardRepository.findRatioCreditCard(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
-
-		return result;
-	}
-
 	public boolean checkValidation(final CreditCard creditCard) {
 		boolean result;
 		Calendar calendar;

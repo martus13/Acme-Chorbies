@@ -13,12 +13,12 @@
 <display:table name="chorbies" id="row" requestURI="${requestURI }">
 	
 	<spring:message code="chorbi.name" var="nameHeader" />
-	<display:column title="${nameHeader}" sortable="false">
+	<display:column title="${nameHeader}" sortable="true">
 		<jstl:out value="${f:replaceAllPhoneAndEmail(row.name, '***')}" />
 	</display:column>
 	
 	<spring:message code="chorbi.surname" var="surnameHeader" />
-	<display:column title="${surnameHeader}" sortable="false">
+	<display:column title="${surnameHeader}" sortable="true">
 		<jstl:out value="${f:replaceAllPhoneAndEmail(row.surname, '***')}" />
 	</display:column>
 	

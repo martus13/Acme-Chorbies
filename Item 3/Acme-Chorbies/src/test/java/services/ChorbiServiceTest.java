@@ -213,6 +213,15 @@ public class ChorbiServiceTest extends AbstractTest {
 	}
 
 	@Test
+	public void findRatioInvalidCreditCard() {
+		Double result;
+
+		result = this.chorbiService.findRatioInvalidCreditCard();
+		System.out.println("findRatioInvalidCreditCard: " + result);
+
+	}
+
+	@Test
 	public void testFindAllSortedByReceivedLikes() {
 		Collection<Chorbi> results;
 
@@ -223,10 +232,14 @@ public class ChorbiServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindRatioActivitiesLoveFriendship() {
-		Double[] results;
+		Collection<Object[]> results;
 
 		results = this.chorbiService.findRatioActivitiesLoveFriendship();
-		System.out.println("testFindRatioActivitiesLoveFriendship\nMin: " + results[0] + ", Max: " + results[1] + ", Avg: " + results[2]);
+
+		System.out.println("testFindRatioActivitiesLoveFriendship");
+		for (final Object[] o : results)
+			System.out.println(o[0] + " -> " + o[1]);
+		System.out.println("-------------------------------------");
 
 	}
 }

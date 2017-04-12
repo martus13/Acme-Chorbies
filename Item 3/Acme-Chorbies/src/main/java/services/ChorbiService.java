@@ -19,6 +19,7 @@ import domain.Administrator;
 import domain.Chirp;
 import domain.Chorbi;
 import domain.Like;
+import domain.RelationshipType;
 import domain.SearchTemplate;
 import forms.ChorbiForm;
 
@@ -244,6 +245,16 @@ public class ChorbiService {
 		return results;
 	}
 
+	public Double findRatioInvalidCreditCard() {
+		Double result;
+		Calendar calendar;
+
+		calendar = Calendar.getInstance();
+		result = this.chorbiRepository.findRatioInvalidCreditCard(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
+
+		return result;
+	}
+
 	public Object[] findMinMaxAvgAges() {
 		Object[] results;
 
@@ -260,12 +271,23 @@ public class ChorbiService {
 		return results;
 	}
 
-	public Double[] findRatioActivitiesLoveFriendship() {
-		final Double[] result = new Double[3];
+	public Collection<Object[]> findRatioActivitiesLoveFriendship() {
+		final Collection<Object[]> result = new ArrayList<Object[]>();
+		final Object[] auxActivities = new Object[2];
+		final Object[] auxLove = new Object[2];
+		final Object[] auxFriendship = new Object[2];
 
-		result[0] = this.chorbiRepository.findRatioActivities();
-		result[1] = this.chorbiRepository.findRatioLove();
-		result[2] = this.chorbiRepository.findRatioFriendship();
+		auxActivities[0] = RelationshipType.activities;
+		auxActivities[1] = this.chorbiRepository.findRatioActivities();
+		result.add(auxActivities);
+
+		auxLove[0] = RelationshipType.love;
+		auxLove[1] = this.chorbiRepository.findRatioLove();
+		result.add(auxLove);
+
+		auxFriendship[0] = RelationshipType.friendship;
+		auxFriendship[1] = this.chorbiRepository.findRatioFriendship();
+		result.add(auxFriendship);
 
 		return result;
 	}

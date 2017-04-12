@@ -19,7 +19,7 @@
 <%@ attribute name="style" required="false" %>
 
 <jstl:if test="${sortable == null}">
-	<jstl:set var="sortable" value="false" />
+	<jstl:set var="sortable" value="true" />
 </jstl:if>
 
 <%-- Definition --%>
