@@ -105,7 +105,7 @@ public class ChorbiServiceTest extends AbstractTest {
 			coordinates.setCity(city);
 
 			chorbi.getUserAccount().setUsername(username);
-			chorbi.getUserAccount().setPassword(password);
+			chorbi.getUserAccount().setPassword(this.chorbiService.encryptPassword(password));
 			chorbi.setName(name);
 			chorbi.setSurname(surname);
 			chorbi.setEmail(email);

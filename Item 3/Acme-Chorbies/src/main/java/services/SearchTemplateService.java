@@ -130,12 +130,14 @@ public class SearchTemplateService {
 
 		// primero: comprobar que tiene creditCard y que es valida
 		Assert.isTrue(this.creditCardService.checkValidation(this.creditCardService.findByChorbi(chorbi.getId())));
+
 		// segundo: comprobar la fecha en que se hizo la busqueda
 		if (searchTemplate.getSearchTime() == null) {
 			result = this.chorbiService.findNotBannedBySearchTemplate(searchTemplate);
 
 			searchTemplate.setSearchTime(calendar.getTime());
 			searchTemplate.setResults(result);
+
 		} else if (searchTemplate.getSearchTime().after(calendar.getTime()) || searchTemplate.getSearchTime().equals(calendar.getTime()))
 			// si hace menos que el tiempo que tenemos en la configuracion: mostrar los resultados obtenidos
 			result = searchTemplate.getResults();

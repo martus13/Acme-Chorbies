@@ -1,6 +1,6 @@
+
 package services;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -20,108 +20,109 @@ public class ChirpService {
 
 	//Managed repository-----------------------------------
 	@Autowired
-	private ChirpRepository chirpRepository;
-	
+	private ChirpRepository	chirpRepository;
+
 	//Supporting services----------------------------------
-	
-	private ChorbiService chorbiService;
-	
+
+	private ChorbiService	chorbiService;
+
+
 	//Constructors----------------------------------------
-	
-	public ChirpService(){
+
+	public ChirpService() {
 		super();
 	}
-	
+
 	//Simple CRUD methods----------------------------------
-	
-	public Chirp findOne(int chirpId){
+
+	public Chirp findOne(final int chirpId) {
 		Assert.notNull(chirpId);
 		Assert.isTrue(chirpId != 0);
-		
-		Chirp result = this.chirpRepository.findOne(chirpId);
-		
+
+		final Chirp result = this.chirpRepository.findOne(chirpId);
+
 		return result;
 	}
-	
-	public Collection<Chirp> findAll(){
-		
-		Collection<Chirp> result = this.chirpRepository.findAll();
+
+	public Collection<Chirp> findAll() {
+
+		final Collection<Chirp> result = this.chirpRepository.findAll();
 		Assert.notNull(result);
-		
+
 		return result;
 	}
-	
-	public Chirp create(Chorbi receiver){
+
+	public Chirp create(final Chorbi receiver) {
 		Assert.notNull(receiver);
-		
-		Chirp result = new Chirp();
+
+		final Chirp result = new Chirp();
 		Chorbi sender;
-		
+
 		final Calendar thisMoment = Calendar.getInstance();
 		thisMoment.set(Calendar.MILLISECOND, -10);
-		result.setSentMoment(thisMoment.getTime());
-		
+
 		sender = this.chorbiService.findByPrincipal();
 		Assert.notNull(sender);
-		
+
+		result.setSentMoment(thisMoment.getTime());
 		result.setSender(sender);
 		result.setCopy(false);
-		
+
 		return result;
 	}
-	
-	public Chirp save (Chirp chirp){
-		
+
+	public Chirp save(final Chirp chirp) {
+
 		Assert.notNull(chirp);
 		Assert.isTrue(chirp.getSender().equals(this.chorbiService.findByPrincipal()));
-		
-		Chirp copiedChirp = chirp;
+
+		final Chirp copiedChirp = chirp;
 		copiedChirp.setCopy(true);
-		
-		Chirp result = this.chirpRepository.save(chirp);
+
+		final Chirp result = this.chirpRepository.save(chirp);
 		this.chirpRepository.save(copiedChirp);
-		
+
 		return result;
 	}
-	
-	public void deleteSentChirp(Chirp chirp){
+
+	public void deleteSentChirp(final Chirp chirp) {
 		Assert.notNull(chirp);
-		Assert.isTrue(chirp.getCopy()==false);
+		Assert.isTrue(chirp.getCopy() == false);
 		Assert.isTrue(chirp.getSender().equals(this.chorbiService.findByPrincipal()));
-		
+
 		this.chirpRepository.delete(chirp);
-		
+
 	}
-	
-	public void deleteReceivedChirp(Chirp chirp){
+
+	public void deleteReceivedChirp(final Chirp chirp) {
 		Assert.notNull(chirp);
-		Assert.isTrue(chirp.getCopy()==true);
+		Assert.isTrue(chirp.getCopy() == true);
 		Assert.isTrue(chirp.getRecipient().equals(this.chorbiService.findByPrincipal()));
-		
+
 		this.chirpRepository.delete(chirp);
 	}
-	
+
 	//Other business methods------------------------------
-	
-	public Collection<Chirp> findAllMySentChirps(){
-		
-		Chorbi principal= this.chorbiService.findByPrincipal();
+
+	public Collection<Chirp> findAllMySentChirps() {
+
+		final Chorbi principal = this.chorbiService.findByPrincipal();
 		Assert.notNull(principal);
-		Assert.isTrue(principal.getId()!=0);
-		
-		Collection<Chirp> result = this.chirpRepository.findAllMySentChirps(principal.getId());
-		
+		Assert.isTrue(principal.getId() != 0);
+
+		final Collection<Chirp> result = this.chirpRepository.findAllMySentChirps(principal.getId());
+
 		return result;
 	}
-	
-	public Collection<Chirp> findAllMyReceivedChirps(){
-	
-		Chorbi principal= this.chorbiService.findByPrincipal();
+
+	public Collection<Chirp> findAllMyReceivedChirps() {
+
+		final Chorbi principal = this.chorbiService.findByPrincipal();
 		Assert.notNull(principal);
-		Assert.isTrue(principal.getId()!=0);
-		
-		Collection<Chirp> result = this.chirpRepository.findAllMyReceivedChirps(principal.getId());
-		
+		Assert.isTrue(principal.getId() != 0);
+
+		final Collection<Chirp> result = this.chirpRepository.findAllMyReceivedChirps(principal.getId());
+
 		return result;
 	}
 }

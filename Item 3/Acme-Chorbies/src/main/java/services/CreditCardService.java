@@ -100,20 +100,20 @@ public class CreditCardService {
 
 	// Other business methods -------------------------------------------------
 
+	public CreditCard findByChorbi(final int chorbiId) {
+		CreditCard result;
+
+		result = this.creditCardRepository.findByChorbi(chorbiId);
+
+		return result;
+	}
+
 	public Double findRatioCreditCard() {
 		Double result;
 		Calendar calendar;
 
 		calendar = Calendar.getInstance();
 		result = this.creditCardRepository.findRatioCreditCard(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
-
-		return result;
-	}
-
-	public CreditCard findByChorbi(final int chorbiId) {
-		CreditCard result;
-
-		result = this.creditCardRepository.findByChorbi(chorbiId);
 
 		return result;
 	}

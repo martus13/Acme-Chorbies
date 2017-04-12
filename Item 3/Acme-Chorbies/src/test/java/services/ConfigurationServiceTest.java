@@ -66,7 +66,7 @@ public class ConfigurationServiceTest extends AbstractTest {
 
 			Configuration configuration;
 
-			configuration = (Configuration) this.configurationService.findAll().toArray()[0];
+			configuration = this.configurationService.findConfiguration();
 			configuration.setCachedTime(date);
 
 			configuration = this.configurationService.save(configuration);

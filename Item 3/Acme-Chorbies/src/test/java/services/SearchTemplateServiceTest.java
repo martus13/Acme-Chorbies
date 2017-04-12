@@ -44,16 +44,6 @@ public class SearchTemplateServiceTest extends AbstractTest {
 	@Test
 	public void driverEditSearchTemplate() {
 
-		//		private RelationshipType	relationshipType;
-		//		private Integer				approximateAge;
-		//		private String				singleKeyword;
-		//		private Genre				genre;
-		//		private Date				searchTime;
-		//		private String				country;
-		//		private String				state;
-		//		private String				province;
-		//		private String				city;
-
 		final Object testingData[][] = {
 			{ // Bien
 				"chorbi1", RelationshipType.activities, null, null, null, null, null, null, null, null, null
@@ -64,12 +54,9 @@ public class SearchTemplateServiceTest extends AbstractTest {
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++) {
-			System.out.println(testingData[i][1]);
+		for (int i = 0; i < testingData.length; i++)
 			this.testEdit((String) testingData[i][0], (RelationshipType) testingData[i][1], (Integer) testingData[i][2], (String) testingData[i][3], (Genre) testingData[i][4], (Date) testingData[i][5], (String) testingData[i][6],
 				(String) testingData[i][7], (String) testingData[i][8], (String) testingData[i][9], (Class<?>) testingData[i][10]);
-
-		}
 
 	}
 
@@ -81,17 +68,14 @@ public class SearchTemplateServiceTest extends AbstractTest {
 			{ 	 // Bien
 				"chorbi1", null
 			}, { // Bien
-				"chorbi3", null
+				"chorbi2", null
 			}, { // Error: Usuario con tarjeta de crédito no válida
 				"chorbi4", IllegalArgumentException.class
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++) {
-			System.out.println(testingData[i][1]);
+		for (int i = 0; i < testingData.length; i++)
 			this.testFindChorbiesBySearchTemplate((String) testingData[i][0], (Class<?>) testingData[i][1]);
-
-		}
 
 	}
 
@@ -109,11 +93,8 @@ public class SearchTemplateServiceTest extends AbstractTest {
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++) {
-			System.out.println(testingData[i][1]);
+		for (int i = 0; i < testingData.length; i++)
 			this.testFindByChorbiId((String) testingData[i][0], (Chorbi) testingData[i][1], (Class<?>) testingData[i][2]);
-
-		}
 
 	}
 

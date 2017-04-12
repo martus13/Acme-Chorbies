@@ -58,6 +58,19 @@ public class ConfigurationService {
 		return configuration;
 	}
 
+	public Configuration findConfiguration() {
+		Collection<Configuration> all;
+		Configuration[] arrayAll;
+		Configuration result;
+
+		all = this.findAll();
+		arrayAll = all.toArray(new Configuration[all.size()]);
+
+		result = arrayAll[0];
+
+		return result;
+	}
+
 	// Other business methods -------------------------------------------------
 
 }

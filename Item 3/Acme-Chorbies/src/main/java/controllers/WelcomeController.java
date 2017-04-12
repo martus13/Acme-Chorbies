@@ -11,9 +11,7 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,13 +44,9 @@ public class WelcomeController extends AbstractController {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
-		final Collection<Banner> collectionBanners;
-		Random randomGenerator;
-		Banner[] banners;
+		Banner banner;
 
-		collectionBanners = this.bannerService.findAll();
-		randomGenerator = new Random();
-		banners = collectionBanners.toArray(new Banner[collectionBanners.size()]);
+		banner = this.bannerService.findRandom();
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
@@ -60,7 +54,7 @@ public class WelcomeController extends AbstractController {
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
 		result.addObject("moment", moment);
-		result.addObject("banner", banners[randomGenerator.nextInt(collectionBanners.size())]);
+		result.addObject("banner", banner);
 
 		return result;
 	}
