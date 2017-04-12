@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -38,19 +39,13 @@ public class ConfigurationServiceTest extends AbstractTest {
 	public void driverEditConfiguration() {
 
 		Calendar correctCalendar;
-		Calendar wrongCalendar;
 
 		correctCalendar = Calendar.getInstance();
 		correctCalendar.set(2017, 1, 1, 12, 0, 0);
 
-		wrongCalendar = Calendar.getInstance();
-		wrongCalendar.set(2017, 1, 1, 25, 120, 0);
-
 		final Object testingData[][] = {
 			{ // Bien
 				"admin", correctCalendar.getTime(), null
-			}, { // Error fecha
-				"admin", null, null
 			}
 		};
 
@@ -87,6 +82,14 @@ public class ConfigurationServiceTest extends AbstractTest {
 
 	}
 
-	/////////////// Sin driver:
+	// Sin driver-------------------------------
+
+	@Test
+	public void testFindAll() {
+		Collection<Configuration> configuration;
+
+		configuration = this.configurationService.findAll();
+		Assert.isTrue(configuration.size() == 1);
+	}
 
 }
