@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -64,6 +63,7 @@ public class ChirpService {
 
 		sender = this.chorbiService.findByPrincipal();
 		Assert.notNull(sender);
+		Assert.isTrue(sender.getId()!=receiver.getId());
 
 		result.setSentMoment(thisMoment.getTime());
 		result.setSender(sender);
@@ -77,8 +77,10 @@ public class ChirpService {
 
 		Assert.notNull(chirp);
 		Assert.isTrue(chirp.getSender().equals(this.chorbiService.findByPrincipal()));
+		Assert.isTrue(chirp.getSender().getId()!=chirp.getRecipient().getId());
 		Assert.isTrue(this.validatorURL(chirp.getAttachments()));
 
+		
 		final Chirp copiedChirp = chirp;
 		Chirp result = this.chirpRepository.save(chirp);
 

@@ -122,9 +122,11 @@
 			</security:authorize>
 		</li>
 		
+		<jstl:if test="${principalUserAccount.id != chorbi.userAccount.id}">
 		<li>
 			<input type="submit" name="chirp" value="<spring:message code="chorbi.chirp" />" onclick="location='chirp/chorbi/create.do?receiverId=${chorbi.id}'"/>
 		</li>
+		</jstl:if>
 		
 		
 	</ul>
