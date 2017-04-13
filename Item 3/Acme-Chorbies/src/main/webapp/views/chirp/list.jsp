@@ -6,12 +6,21 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="f" uri="http://example.com/functions" %>
 
 <display:table name="chirps" id="row" requestURI="${requestURI}">
 
-	<acme:column code="chirp.subject" property="subject"/>
 	
-	<acme:column code="chirp.text" property="text"/>
+	<spring:message code="chirp.subject" var="subjectHeader" />
+	<display:column title="${subjectHeader}" sortable="true">
+		<jstl:out value="${f:replaceAllPhoneAndEmail(row.subject, '***')}" />
+	</display:column>
+	
+	<spring:message code="chirp.text" var="textHeader" />
+	<display:column title="${textHeader}" sortable="true">
+		<jstl:out value="${f:replaceAllPhoneAndEmail(row.text, '***')}" />
+	</display:column>
 	
 	<acme:column code="chirp.attachments" property="attachments"/>
 
@@ -19,9 +28,10 @@
 	
 	<jstl:choose>
 		<jstl:when test="${imSender}">
-		<display:column>
+		<spring:message code="chirp.recipient" var="recipientHeader" />
+		<display:column title="${recipientHeader}" sortable="true">
 			<a href="chorbi/actor/display.do?chorbiId=${row.recipient.id }">
-				<jstl:out value="${row.recipient.name}"/>
+				<jstl:out value="${f:replaceAllPhoneAndEmail(row.recipient.name, '***')}"/>
 			</a>
 		</display:column>
 		<display:column>
@@ -33,9 +43,10 @@
 		
 		</jstl:when>
 		<jstl:otherwise>
-		<display:column>
+		<spring:message code="chirp.sender" var="senderHeader" />
+		<display:column title="${senderHeader}" sortable="true">
 			<a href="chorbi/actor/display.do?chorbiId=${row.sender.id }">
-				<jstl:out value="${row.sender.name}"/>
+				<jstl:out value="${f:replaceAllPhoneAndEmail(row.sender.name, '***')}"/>
 			</a>
 		</display:column>
 		
@@ -47,6 +58,11 @@
 		</jstl:otherwise>
 	</jstl:choose>
 	
+	<display:column>
+			<form:form action="chirp/chorbi/delete.do?chirpId=${row.id}" modelAttribute="chirp">
+				<acme:submit name="delete" code="chirp.delete" />
+			</form:form>
+	</display:column>
 	
 
 </display:table>

@@ -146,6 +146,36 @@ public class ChirpChorbiController {
 		return result;
 	}
 
+	@RequestMapping(value="/delete", method = RequestMethod.POST, params="delete")
+	public ModelAndView delete(@RequestParam int chirpId){
+		ModelAndView result = new ModelAndView();
+		
+		Chirp chirp = this.chirpService.findOne(chirpId);
+		Chorbi principal = this.chorbiService.findByPrincipal();
+		
+		try{
+			
+			if(principal.getId()==chirp.getRecipient().getId()){ 
+				this.chirpService.deleteReceivedChirp(chirp);
+				result = new ModelAndView("redirect:receivedChirps.do");
+			}else if(principal.getId()==chirp.getSender().getId()){
+				this.chirpService.deleteSentChirp(chirp);
+				result = new ModelAndView("redirect:sentChirps.do");
+			}
+			
+			
+		
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+
+			result = this.createEditModelAndView(chirp, "chirp.commit.error");
+		}
+			
+		
+		return result;
+	}
+	
+	
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Chirp chirp) {

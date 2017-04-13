@@ -122,5 +122,10 @@
 			</security:authorize>
 		</li>
 		
+		<li>
+			<input type="submit" name="chirp" value="<spring:message code="chorbi.chirp" />" onclick="location='chirp/chorbi/create.do?receiverId=${chorbi.id}'"/>
+		</li>
+		
+		
 	</ul>
 </div>

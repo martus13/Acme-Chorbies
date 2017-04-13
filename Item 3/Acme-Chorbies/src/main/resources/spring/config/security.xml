@@ -78,6 +78,7 @@
 	    <security:intercept-url pattern="/chirp/chorbi/sentChirps.do" access="hasRole('CHORBI')" />  
 		<security:intercept-url pattern="/chirp/chorbi/reply.do" access="hasRole('CHORBI')" /> 
 		<security:intercept-url pattern="/chirp/chorbi/resend.do" access="hasRole('CHORBI')" /> 
+		<security:intercept-url pattern="/chirp/chorbi/delete.do" access="hasRole('CHORBI')" /> 
 		
 		<!-- ADMIN -->
 		
