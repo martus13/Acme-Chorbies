@@ -24,7 +24,7 @@
 	
 	<acme:column code="chirp.attachments" property="attachments"/>
 
-	<acme:column code="chirp.sentMoment" property="sentMoment"/>
+	<acme:column code="chirp.sentMoment" property="sentMoment" format="{0,date,dd/MM/yyyy HH:mm}" />
 	
 	<jstl:choose>
 		<jstl:when test="${imSender}">
