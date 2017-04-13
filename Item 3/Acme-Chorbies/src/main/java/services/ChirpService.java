@@ -23,10 +23,10 @@ public class ChirpService {
 	private ChirpRepository	chirpRepository;
 
 	//Supporting services----------------------------------
-
-	private ChorbiService	chorbiService;
-
-
+	
+	@Autowired
+	private ChorbiService chorbiService;
+	
 	//Constructors----------------------------------------
 
 	public ChirpService() {
@@ -66,6 +66,7 @@ public class ChirpService {
 
 		result.setSentMoment(thisMoment.getTime());
 		result.setSender(sender);
+		result.setRecipient(receiver);
 		result.setCopy(false);
 
 		return result;
@@ -77,9 +78,9 @@ public class ChirpService {
 		Assert.isTrue(chirp.getSender().equals(this.chorbiService.findByPrincipal()));
 
 		final Chirp copiedChirp = chirp;
-		copiedChirp.setCopy(true);
+		Chirp result = this.chirpRepository.save(chirp);
 
-		final Chirp result = this.chirpRepository.save(chirp);
+		copiedChirp.setCopy(true);
 		this.chirpRepository.save(copiedChirp);
 
 		return result;
@@ -104,6 +105,7 @@ public class ChirpService {
 
 	//Other business methods------------------------------
 
+
 	public Collection<Chirp> findAllMySentChirps() {
 
 		final Chorbi principal = this.chorbiService.findByPrincipal();
@@ -111,6 +113,7 @@ public class ChirpService {
 		Assert.isTrue(principal.getId() != 0);
 
 		final Collection<Chirp> result = this.chirpRepository.findAllMySentChirps(principal.getId());
+
 
 		return result;
 	}

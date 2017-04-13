@@ -63,6 +63,8 @@
 		<security:intercept-url pattern="/like/chorbi/create.do" access="hasRole('CHORBI')" /> 
 		<security:intercept-url pattern="/like/chorbi/cancel.do" access="hasRole('CHORBI')" /> 
 		
+
+		<security:intercept-url pattern="/profile/chorbi/edit.do" access="hasRole('CHORBI')" />
 		<security:intercept-url pattern="/profile/chorbi/edit.do" access="hasRole('CHORBI')" />
 		
 		<security:intercept-url pattern="/searchTemplate/chorbi/create.do" access="hasRole('CHORBI')" />
@@ -70,6 +72,11 @@
 		<security:intercept-url pattern="/searchTemplate/chorbi/display.do" access="hasRole('CHORBI')" />
 		<security:intercept-url pattern="/searchTemplate/chorbi/list.do" access="hasRole('CHORBI')" />   
 		<security:intercept-url pattern="/searchTemplate/chorbi/findBySearchTemplate.do" access="hasRole('CHORBI')" />
+
+	
+	    <security:intercept-url pattern="/chirp/chorbi/create.do" access="hasRole('CHORBI')" /> 
+	    <security:intercept-url pattern="/chirp/chorbi/receivedChirps.do" access="hasRole('CHORBI')" />  
+	    <security:intercept-url pattern="/chirp/chorbi/sentChirps.do" access="hasRole('CHORBI')" />  
 		
 		<!-- ADMIN -->
 		

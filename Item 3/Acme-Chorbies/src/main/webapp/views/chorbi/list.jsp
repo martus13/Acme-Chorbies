@@ -94,6 +94,16 @@
 					</jstl:otherwise>
 				</jstl:choose>
 			</jstl:if>
+		
+		</display:column>
+			
+			
+		<display:column>
+		<jstl:if test="${principalUserAccount.id != row.userAccount.id }">
+			<a href="chirp/chorbi/create.do?receiverId=${row.id}">
+				<spring:message code="chorbi.chirp" />
+			</a>
+		</jstl:if>
 		</display:column>
 	</security:authorize>
 	
