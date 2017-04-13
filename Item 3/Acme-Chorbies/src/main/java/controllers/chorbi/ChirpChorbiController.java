@@ -50,6 +50,8 @@ public class ChirpChorbiController {
 		return result;
 	}
 	
+	//Save--------------------------------------------------------------------
+	
 	@RequestMapping(value="/create", method=RequestMethod.POST, params="save")
 	public ModelAndView save(@Valid Chirp chirp, BindingResult binding){
 		ModelAndView result = new ModelAndView(); 
@@ -72,13 +74,16 @@ public class ChirpChorbiController {
 		return result;
 	}
 	
+	//List-------------------------------------------------
+	
 	@RequestMapping(value="/receivedChirps", method=RequestMethod.GET)
 	public ModelAndView listReceivedChirps(){
 		
 		ModelAndView result;
 		boolean imSender=false;
+		Chorbi principal= this.chorbiService.findByPrincipal();
 		
-		Collection<Chirp> receivedChirps = this.chirpService.findAllMyReceivedChirps();
+		Collection<Chirp> receivedChirps = this.chirpService.findAllMyReceivedChirps(principal);
 		
 		result= new ModelAndView("chirp/list");
 		result.addObject("imSender", imSender);
@@ -93,8 +98,9 @@ public class ChirpChorbiController {
 		
 		ModelAndView result;
 		boolean imSender=true;
+		Chorbi principal= this.chorbiService.findByPrincipal(); 
 		
-		Collection<Chirp> sentChirps = this.chirpService.findAllMySentChirps();
+		Collection<Chirp> sentChirps = this.chirpService.findAllMySentChirps(principal);
 		
 		result= new ModelAndView("chirp/list");
 		result.addObject("imSender", imSender);
@@ -104,6 +110,39 @@ public class ChirpChorbiController {
 		return result;
 	}
 	
+	//Reply---------------------------------------------------------------
+	
+	@RequestMapping(value="/reply", method=RequestMethod.POST, params="reply")
+	public ModelAndView reply(@RequestParam int chirpId){
+		
+		ModelAndView result;
+		Chirp chirp = this.chirpService.findOne(chirpId);
+		
+		Chorbi receiver = chirp.getSender(); 
+		Chirp reply = this.chirpService.create(receiver);
+		reply.setSubject("Re: "+chirp.getSubject());
+		
+		result= this.createEditModelAndView(reply);
+		
+		return result;
+	}
+	
+	//Re-send-----------------------------------------------------------------
+	
+	@RequestMapping(value="/resend", method=RequestMethod.POST, params="resend")
+	public ModelAndView resend(@RequestParam int chirpId){
+		
+		ModelAndView result;
+		Chirp chirp = this.chirpService.findOne(chirpId);
+		
+		Chirp forwarded = this.chirpService.resend(chirp);
+		
+		this.chirpService.save(forwarded);
+		
+		result = new ModelAndView("redirect:sentChirps.do");
+		
+		return result;
+	}
 	
 	
 	// Ancillary methods ------------------------------------------------------

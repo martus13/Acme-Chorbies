@@ -21,6 +21,6 @@
 	<acme:textarea code="chirp.attachments" path="attachments"/>
 	
 	<acme:submit name="save" code="chirp.save" />
-	<acme:cancel url="" code="chirp.cancel" />
+	<acme:cancel url="chorbi/actor/list.do" code="chirp.cancel" />
 	
 </form:form>

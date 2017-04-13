@@ -12,18 +12,41 @@
 	<acme:column code="chirp.subject" property="subject"/>
 	
 	<acme:column code="chirp.text" property="text"/>
-
-	<acme:column code="chirp.attachments" property="attachments"/>
 	
+	<acme:column code="chirp.attachments" property="attachments"/>
+
 	<acme:column code="chirp.sentMoment" property="sentMoment"/>
 	
 	<jstl:choose>
 		<jstl:when test="${imSender}">
-			<acme:column code="chirp.recipient" property="recipient.name"/>
+		<display:column>
+			<a href="chorbi/actor/display.do?chorbiId=${row.recipient.id }">
+				<jstl:out value="${row.recipient.name}"/>
+			</a>
+		</display:column>
+		<display:column>
+			<form:form action="chirp/chorbi/resend.do?chirpId=${row.id}" modelAttribute="chirp">
+				<acme:submit name="resend" code="chirp.resend" />
+			</form:form>
+		</display:column>
+	
+		
 		</jstl:when>
 		<jstl:otherwise>
-			<acme:column code="chirp.sender" property="sender.name"/>
+		<display:column>
+			<a href="chorbi/actor/display.do?chorbiId=${row.sender.id }">
+				<jstl:out value="${row.sender.name}"/>
+			</a>
+		</display:column>
+		
+		<display:column>
+			<form:form action="chirp/chorbi/reply.do?chirpId=${row.id}" modelAttribute="chirp">
+				<acme:submit name="reply" code="chirp.reply" />
+			</form:form>
+		</display:column>
 		</jstl:otherwise>
 	</jstl:choose>
+	
+	
 
 </display:table>

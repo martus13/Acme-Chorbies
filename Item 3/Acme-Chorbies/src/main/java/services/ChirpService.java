@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -76,6 +77,7 @@ public class ChirpService {
 
 		Assert.notNull(chirp);
 		Assert.isTrue(chirp.getSender().equals(this.chorbiService.findByPrincipal()));
+		Assert.isTrue(this.validatorURL(chirp.getAttachments()));
 
 		final Chirp copiedChirp = chirp;
 		Chirp result = this.chirpRepository.save(chirp);
@@ -102,33 +104,45 @@ public class ChirpService {
 
 		this.chirpRepository.delete(chirp);
 	}
+	
 
 	//Other business methods------------------------------
 
 
-	public Collection<Chirp> findAllMySentChirps() {
+	public Collection<Chirp> findAllMySentChirps(Chorbi chorbi) {
 
-		final Chorbi principal = this.chorbiService.findByPrincipal();
-		Assert.notNull(principal);
-		Assert.isTrue(principal.getId() != 0);
+		Assert.notNull(chorbi);
+		Assert.isTrue(chorbi.getId() != 0);
 
-		final Collection<Chirp> result = this.chirpRepository.findAllMySentChirps(principal.getId());
+		final Collection<Chirp> result = this.chirpRepository.findAllMySentChirps(chorbi.getId());
 
-
-		return result;
-	}
-
-	public Collection<Chirp> findAllMyReceivedChirps() {
-
-		final Chorbi principal = this.chorbiService.findByPrincipal();
-		Assert.notNull(principal);
-		Assert.isTrue(principal.getId() != 0);
-
-		final Collection<Chirp> result = this.chirpRepository.findAllMyReceivedChirps(principal.getId());
 
 		return result;
 	}
 
+	public Collection<Chirp> findAllMyReceivedChirps(Chorbi chorbi) {
+
+		Assert.notNull(chorbi);
+		Assert.isTrue(chorbi.getId() != 0);
+
+		final Collection<Chirp> result = this.chirpRepository.findAllMyReceivedChirps(chorbi.getId());
+
+		return result;
+	}
+
+	public Chirp resend(Chirp chirp){
+		
+		Chirp forwarded = this.create(chirp.getRecipient());
+		
+		forwarded.setSubject("Fw: "+chirp.getSubject());
+		forwarded.setText(chirp.getText());
+		forwarded.setAttachments(chirp.getAttachments());
+
+		
+		return forwarded;
+		
+	}
+	
 	public Double[] findMinMaxAvgReceived() {
 
 		final Double[] result = new Double[3];
@@ -138,5 +152,27 @@ public class ChirpService {
 		result[2] = this.chirpRepository.findAvgReceived();
 
 		return result;
+	}
+	
+	//Devuelve true si la collection esta vacia o si las URLs contenidas en ellas son URLs validas
+	public Boolean validatorURL(final Collection<String> lista) {
+		Boolean res = false;
+		if (!lista.isEmpty()) {
+			for (final String aux : lista)
+				if (aux.length() > 11) {
+					if ((aux.subSequence(0, 11).equals("http://www.") || (aux.subSequence(0,4).equals("www."))||(aux.subSequence(0,8).equals("https://")) || (aux.subSequence(0,7).equals("http://")) || (aux.subSequence(0, 12).equals("https://www."))))
+						res = true;
+					else {
+						res = false;
+						break;
+					}
+				} else {
+					res = false;
+					break;
+				}
+		} else
+			res = true;
+
+		return res;
 	}
 }
