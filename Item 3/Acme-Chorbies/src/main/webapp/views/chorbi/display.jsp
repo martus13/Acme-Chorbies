@@ -105,19 +105,21 @@
 				</display:column>
 			</display:table>
 			
-			<jstl:set var="canLike" value="true" />
+			<security:authorize access="hasRole('CHORBI')" >
+				<jstl:set var="canLike" value="true" />
+					
+				<jstl:forEach items="${chorbi.receivedLikes }" var="receivedLikes" >
+					<jstl:if test="${receivedLikes.givenBy.userAccount.id == principalUserAccount.id }">
+						<jstl:set var="canLike" value="false" />
+					</jstl:if>
+				</jstl:forEach>
 				
-			<jstl:forEach items="${chorbi.receivedLikes }" var="receivedLikes" >
-				<jstl:if test="${receivedLikes.givenBy.userAccount.id == principalUserAccount.id }">
-					<jstl:set var="canLike" value="false" />
+				<jstl:if test="${canLike && principalUserAccount.id != chorbi.userAccount.id }">
+					<a href="like/chorbi/create.do?chorbiToId=${chorbi.id }">
+						<spring:message code="chorbi.like" />
+					</a>
 				</jstl:if>
-			</jstl:forEach>
-			
-			<jstl:if test="${canLike && principalUserAccount.id != chorbi.userAccount.id }">
-				<a href="like/chorbi/create.do?chorbiToId=${chorbi.id }">
-					<spring:message code="chorbi.like" />
-				</a>
-			</jstl:if>
+			</security:authorize>
 		</li>
 		
 	</ul>

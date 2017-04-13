@@ -1,3 +1,4 @@
+
 package controllers.chorbi;
 
 import java.util.Collection;
@@ -20,42 +21,43 @@ import domain.Chorbi;
 @Controller
 @RequestMapping("/chirp/chorbi")
 public class ChirpChorbiController {
-	
+
 	//Supporting services------------------------------------
-	
+
 	@Autowired
-	private ChirpService chirpService;
-	
+	private ChirpService	chirpService;
+
 	@Autowired
-	private ChorbiService chorbiService;
-	
+	private ChorbiService	chorbiService;
+
+
 	//Constructors-------------------------------------------
-	
-	public ChirpChorbiController(){
+
+	public ChirpChorbiController() {
 		super();
 	}
-	
+
 	//Create--------------------------------------------
-	
-	@RequestMapping(value="/create", method=RequestMethod.GET )
-	public ModelAndView create(@RequestParam int receiverId){
-		
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int receiverId) {
+
 		ModelAndView result;
-		Chorbi receiver = this.chorbiService.findOne(receiverId);
-		
-		Chirp chirp = this.chirpService.create(receiver);
-		
+		final Chorbi receiver = this.chorbiService.findOne(receiverId);
+
+		final Chirp chirp = this.chirpService.create(receiver);
+
 		result = this.createEditModelAndView(chirp);
-		
+
 		return result;
 	}
-	
+
 	//Save--------------------------------------------------------------------
-	
-	@RequestMapping(value="/create", method=RequestMethod.POST, params="save")
-	public ModelAndView save(@Valid Chirp chirp, BindingResult binding){
-		ModelAndView result = new ModelAndView(); 
-		
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Chirp chirp, final BindingResult binding) {
+		ModelAndView result = new ModelAndView();
+
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
 			result = this.createEditModelAndView(chirp);
@@ -63,88 +65,87 @@ public class ChirpChorbiController {
 		} else
 			try {
 				this.chirpService.save(chirp);
-				result = new ModelAndView("redirect:../../chorbi/actor/list.do");
-				
-			}catch (final Throwable oops) {
-					System.out.println(oops);
+				result = new ModelAndView("redirect:sentChirps.do");
 
-					result = this.createEditModelAndView(chirp, "chirp.commit.error");
+			} catch (final Throwable oops) {
+				System.out.println(oops);
+
+				result = this.createEditModelAndView(chirp, "chirp.commit.error");
 			}
-		
+
 		return result;
 	}
-	
+
 	//List-------------------------------------------------
-	
-	@RequestMapping(value="/receivedChirps", method=RequestMethod.GET)
-	public ModelAndView listReceivedChirps(){
-		
+
+	@RequestMapping(value = "/receivedChirps", method = RequestMethod.GET)
+	public ModelAndView listReceivedChirps() {
+
 		ModelAndView result;
-		boolean imSender=false;
-		Chorbi principal= this.chorbiService.findByPrincipal();
-		
-		Collection<Chirp> receivedChirps = this.chirpService.findAllMyReceivedChirps(principal);
-		
-		result= new ModelAndView("chirp/list");
+		final boolean imSender = false;
+		final Chorbi principal = this.chorbiService.findByPrincipal();
+
+		final Collection<Chirp> receivedChirps = this.chirpService.findAllMyReceivedChirps(principal);
+
+		result = new ModelAndView("chirp/list");
 		result.addObject("imSender", imSender);
 		result.addObject("chirps", receivedChirps);
 		result.addObject("requestURI", "chirp/chorbi/receivedChirps.do");
-		
+
 		return result;
 	}
-	
-	@RequestMapping(value="/sentChirps", method=RequestMethod.GET)
-	public ModelAndView listSentChirps(){
-		
+
+	@RequestMapping(value = "/sentChirps", method = RequestMethod.GET)
+	public ModelAndView listSentChirps() {
+
 		ModelAndView result;
-		boolean imSender=true;
-		Chorbi principal= this.chorbiService.findByPrincipal(); 
-		
-		Collection<Chirp> sentChirps = this.chirpService.findAllMySentChirps(principal);
-		
-		result= new ModelAndView("chirp/list");
+		final boolean imSender = true;
+		final Chorbi principal = this.chorbiService.findByPrincipal();
+
+		final Collection<Chirp> sentChirps = this.chirpService.findAllMySentChirps(principal);
+
+		result = new ModelAndView("chirp/list");
 		result.addObject("imSender", imSender);
 		result.addObject("chirps", sentChirps);
 		result.addObject("requestURI", "chirp/chorbi/sentChirps.do");
-		
+
 		return result;
 	}
-	
+
 	//Reply---------------------------------------------------------------
-	
-	@RequestMapping(value="/reply", method=RequestMethod.POST, params="reply")
-	public ModelAndView reply(@RequestParam int chirpId){
-		
+
+	@RequestMapping(value = "/reply", method = RequestMethod.POST, params = "reply")
+	public ModelAndView reply(@RequestParam final int chirpId) {
+
 		ModelAndView result;
-		Chirp chirp = this.chirpService.findOne(chirpId);
-		
-		Chorbi receiver = chirp.getSender(); 
-		Chirp reply = this.chirpService.create(receiver);
-		reply.setSubject("Re: "+chirp.getSubject());
-		
-		result= this.createEditModelAndView(reply);
-		
+		final Chirp chirp = this.chirpService.findOne(chirpId);
+
+		final Chorbi receiver = chirp.getSender();
+		final Chirp reply = this.chirpService.create(receiver);
+		reply.setSubject("Re: " + chirp.getSubject());
+
+		result = this.createEditModelAndView(reply);
+
 		return result;
 	}
-	
+
 	//Re-send-----------------------------------------------------------------
-	
-	@RequestMapping(value="/resend", method=RequestMethod.POST, params="resend")
-	public ModelAndView resend(@RequestParam int chirpId){
-		
+
+	@RequestMapping(value = "/resend", method = RequestMethod.POST, params = "resend")
+	public ModelAndView resend(@RequestParam final int chirpId) {
+
 		ModelAndView result;
-		Chirp chirp = this.chirpService.findOne(chirpId);
-		
-		Chirp forwarded = this.chirpService.resend(chirp);
-		
+		final Chirp chirp = this.chirpService.findOne(chirpId);
+
+		final Chirp forwarded = this.chirpService.resend(chirp);
+
 		this.chirpService.save(forwarded);
-		
+
 		result = new ModelAndView("redirect:sentChirps.do");
-		
+
 		return result;
 	}
-	
-	
+
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Chirp chirp) {

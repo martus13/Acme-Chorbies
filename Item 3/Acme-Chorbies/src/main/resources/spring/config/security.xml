@@ -65,7 +65,6 @@
 		
 
 		<security:intercept-url pattern="/profile/chorbi/edit.do" access="hasRole('CHORBI')" />
-		<security:intercept-url pattern="/profile/chorbi/edit.do" access="hasRole('CHORBI')" />
 		
 		<security:intercept-url pattern="/searchTemplate/chorbi/create.do" access="hasRole('CHORBI')" />
 		<security:intercept-url pattern="/searchTemplate/chorbi/edit.do" access="hasRole('CHORBI')" /> 
