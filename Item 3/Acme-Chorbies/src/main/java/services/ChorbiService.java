@@ -376,4 +376,18 @@ public class ChorbiService {
 		return password;
 	}
 
+	
+	public Collection<Object[]> findChorbiWithMostReceivedChirps(){
+		
+		Collection<Object[]> result = this.chorbiRepository.findChorbiWithMostReceivedChirps();
+		
+		return result;
+	}
+	
+	public Collection<Object[]> findChorbiWithMostSentChirps(){
+		
+		Collection<Object[]> result = this.chorbiRepository.findChorbiWithMostSentChirps();
+		
+		return result;
+	}
 }

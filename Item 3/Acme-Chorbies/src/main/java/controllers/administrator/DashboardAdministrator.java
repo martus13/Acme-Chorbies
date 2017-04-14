@@ -58,17 +58,25 @@ public class DashboardAdministrator extends AbstractController {
 		// A
 
 		Double[] minMaxAvgReceivedChirps;
+		Double[] minMaxAvgChirpsSentPerChorbi;
+		Collection<Object[]> chorbiWithMostReceivedChirps;
+		Collection<Object[]> chorbiWithMostSentChirps;
 
 		numChorbiesPerCountryAndCity = this.chorbiService.findGroupByCountryAndCity();
 		minMaxAvgAges = this.chorbiService.findMinMaxAvgAges();
 		ratioInvalidCreditCard = this.chorbiService.findRatioInvalidCreditCard();
 		ratioActivitiesLoveFriendship = this.chorbiService.findRatioActivitiesLoveFriendship();
 
+		
 		chorbiesSortedByNumLikes = this.chorbiService.findAllSortedByReceivedLikes();
 		minMaxAvgLikesPerChorbi = this.likeService.findMinMaxAvgReceivedPerChorbi();
 
 		minMaxAvgReceivedChirps = this.chirpService.findMinMaxAvgReceived();
-
+		
+		minMaxAvgChirpsSentPerChorbi = this.chirpService.findMinMaxAvgSent();
+		chorbiWithMostReceivedChirps = this.chorbiService.findChorbiWithMostReceivedChirps();
+		chorbiWithMostSentChirps	= this.chorbiService.findChorbiWithMostSentChirps();
+		
 		result = new ModelAndView("administrator/dashboard");
 		result.addObject("requestURI", "administrator/dashboard.do");
 		result.addObject("numChorbiesPerCountryAndCity", numChorbiesPerCountryAndCity);
@@ -80,6 +88,9 @@ public class DashboardAdministrator extends AbstractController {
 		result.addObject("minMaxAvgLikesPerChorbi", minMaxAvgLikesPerChorbi);
 
 		result.addObject("minMaxAvgReceivedChirps", minMaxAvgReceivedChirps);
+		result.addObject("minMaxAvgChirpsSentPerChorbi", minMaxAvgChirpsSentPerChorbi);
+		result.addObject("chorbiWithMostReceivedChirps", chorbiWithMostReceivedChirps);
+		result.addObject("chorbiWithMostSentChirps", chorbiWithMostSentChirps);
 
 		return result;
 	}

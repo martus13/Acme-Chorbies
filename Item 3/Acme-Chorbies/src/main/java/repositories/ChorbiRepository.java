@@ -48,6 +48,10 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	Collection<Chorbi> findAllSortedByReceivedLikes();
 
 	// A3: The chorbies who have got more chirps.
-
+	@Query("select count(c), c.recipient from Chirp c where c.copy=true group by c.recipient having count(c) >= ALL(select count(c1) from Chirp c1 where c1.copy=true group by c1.recipient)")
+	Collection<Object[]> findChorbiWithMostReceivedChirps();
+	
 	// A4: The chorbies who have sent more chirps.
+	@Query("select count(c), c.sender from Chirp c where c.copy=false group by c.sender having count(c) >= ALL(select count(c1) from Chirp c1 where c1.copy=false group by c1.sender)")
+	Collection<Object[]> findChorbiWithMostSentChirps();
 }

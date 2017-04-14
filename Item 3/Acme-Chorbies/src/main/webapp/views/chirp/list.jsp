@@ -31,7 +31,7 @@
 		<spring:message code="chirp.recipient" var="recipientHeader" />
 		<display:column title="${recipientHeader}" sortable="true">
 			<a href="chorbi/actor/display.do?chorbiId=${row.recipient.id }">
-				<jstl:out value="${f:replaceAllPhoneAndEmail(row.recipient.name, '***')}"/>
+				<jstl:out value="${f:replaceAllPhoneAndEmail(row.recipient.name, '***')} ${f:replaceAllPhoneAndEmail(row.recipient.surname, '***')}"/>
 			</a>
 		</display:column>
 		<display:column>
@@ -46,7 +46,7 @@
 		<spring:message code="chirp.sender" var="senderHeader" />
 		<display:column title="${senderHeader}" sortable="true">
 			<a href="chorbi/actor/display.do?chorbiId=${row.sender.id }">
-				<jstl:out value="${f:replaceAllPhoneAndEmail(row.sender.name, '***')}"/>
+				<jstl:out value="${f:replaceAllPhoneAndEmail(row.sender.name, '***')} ${f:replaceAllPhoneAndEmail(row.sender.surname, '***')}"/>
 			</a>
 		</display:column>
 		

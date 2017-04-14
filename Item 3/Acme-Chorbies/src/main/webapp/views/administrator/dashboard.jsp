@@ -138,3 +138,48 @@
 		</li>
 	</ul>
 </p>
+
+<spring:message  code="admin.dashboard.MinMaxAvgChirpsSentPerChorbi" />
+<ul>
+	<li>
+		<b><spring:message code="admin.dashboard.min"/>:</b>
+		<jstl:out value="${minMaxAvgChirpsSentPerChorbi[0]}"/>
+	</li>
+	<li>
+		<b><spring:message code="admin.dashboard.max"/>:</b>
+		<jstl:out value="${minMaxAvgChirpsSentPerChorbi[1]}"/>
+	</li>
+	<li>
+		<b><spring:message code="admin.dashboard.avg"/>:</b>
+		<jstl:out value="${minMaxAvgChirpsSentPerChorbi[2]}"/>
+	</li>
+</ul>
+
+<spring:message code="admin.dashboard.chorbiesMoreReceived" />
+<display:table name="chorbiWithMostReceivedChirps" id="row" requestURI="${requestURI }"
+	pagesize="5" class="displaytag">
+
+	<spring:message code="admin.dashboard.chorbi.name" var="nameHeader" />
+	<display:column title="${nameHeader}" sortable="true">
+		<jstl:out value="${f:replaceAllPhoneAndEmail(row[1].name, '***')} ${f:replaceAllPhoneAndEmail(row[1].surname, '***')}" />
+	</display:column>
+	<spring:message code="admin.dashboard.chorbi.quantity" var="quantityHeader" />
+	<display:column title="${quantityHeader}" sortable="true">
+		<jstl:out value="${row[0]}" />
+	</display:column>
+</display:table>
+
+<spring:message code="admin.dashboard.chorbiesMoreSent" />
+<display:table name="chorbiWithMostSentChirps" id="row" requestURI="${requestURI }"
+	pagesize="5" class="displaytag">
+
+	<spring:message code="admin.dashboard.chorbi.name" var="nameHeader" />
+	<display:column title="${nameHeader}" sortable="true">
+		<jstl:out value="${f:replaceAllPhoneAndEmail(row[1].name, '***')} ${f:replaceAllPhoneAndEmail(row[1].surname, '***')} " />
+	</display:column>
+	<spring:message code="admin.dashboard.chorbi.quantity" var="quantityHeader" />
+	<display:column title="${quantityHeader}" sortable="true">
+		<jstl:out value="${row[0]}" />
+	</display:column>
+</display:table>
+

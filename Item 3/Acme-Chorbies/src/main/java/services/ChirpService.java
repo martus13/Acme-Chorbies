@@ -156,6 +156,17 @@ public class ChirpService {
 		return result;
 	}
 	
+	public Double[] findMinMaxAvgSent() {
+		
+		final Double[] result = new Double[3];
+		
+		result[0] = this.chirpRepository.findMinChirpsSent();
+		result[1] = this.chirpRepository.findMaxChirpsSent();
+		result[2] = this.chirpRepository.findAvgChirpsSent();
+		
+		return result;
+	}
+	
 	//Devuelve true si la collection esta vacia o si las URLs contenidas en ellas son URLs validas
 	public Boolean validatorURL(final Collection<String> lista) {
 		Boolean res = false;
