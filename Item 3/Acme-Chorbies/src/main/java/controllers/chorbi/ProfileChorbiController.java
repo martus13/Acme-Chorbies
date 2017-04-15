@@ -65,7 +65,7 @@ public class ProfileChorbiController extends AbstractController {
 			} catch (final Throwable oops) {
 				System.out.println(oops);
 
-				result = this.createEditModelAndView(chorbiForm, "profile.commit.error");
+				result = this.createEditModelAndView(chorbiForm, "chorbi.commit.error");
 
 			}
 		return result;

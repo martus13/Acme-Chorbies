@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -12,33 +13,24 @@ import org.hibernate.validator.constraints.URL;
 public class Banner extends DomainEntity {
 
 	//Constructor-------------------------------
-	
-	public Banner(){
+
+	public Banner() {
 		super();
 	}
-	
+
+
 	//Attributes-----------------------------------
-	
-	
-	private String title;
-	private String picture;
-	
-	@NotBlank
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
+
+	private String	picture;
+
+
 	@NotBlank
 	@URL
 	public String getPicture() {
-		return picture;
+		return this.picture;
 	}
-	public void setPicture(String picture) {
+	public void setPicture(final String picture) {
 		this.picture = picture;
 	}
-	
-	
+
 }

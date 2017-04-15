@@ -12,8 +12,6 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	
-	<acme:input code="banner.title" path="title" />
-	
 	<acme:textarea code="banner.picture" path="picture" rows="3" />
 	
 	<acme:submit name="save" code="banner.save" />

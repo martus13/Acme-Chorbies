@@ -38,15 +38,15 @@ public class BannerServiceTest extends AbstractTest {
 	public void driverCreateAndSave() {
 		final Object testingData[][] = {
 			{	// Bien
-				"admin", "Pad-Thai prueba", "http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg", 47, null
+				"admin", "http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg", 47, null
 			}, {// Error no autenticado
-				null, "Pad-Thai prueba", "http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg", 47, IllegalArgumentException.class
+				null, "http://chefyan.ca/files/2014/07/pad-thai-Banner-1020-x-400-588x230.jpg", 47, IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			this.testCreate((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (Class<?>) testingData[i][4]);
-			this.testEdit((String) testingData[i][0], (int) testingData[i][3], (String) testingData[i][2], (Class<?>) testingData[i][4]);
+			this.testCreate((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][3]);
+			this.testEdit((String) testingData[i][0], (int) testingData[i][2], (String) testingData[i][1], (Class<?>) testingData[i][3]);
 		}
 	}
 
@@ -63,7 +63,7 @@ public class BannerServiceTest extends AbstractTest {
 			this.testDelete((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
 
-	protected void testCreate(final String username, final String title, final String picture, final Class<?> expected) {
+	protected void testCreate(final String username, final String picture, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -73,7 +73,6 @@ public class BannerServiceTest extends AbstractTest {
 			Banner banner;
 
 			banner = this.bannerService.create();
-			banner.setTitle(title);
 			banner.setPicture(picture);
 
 			Assert.notNull(banner);

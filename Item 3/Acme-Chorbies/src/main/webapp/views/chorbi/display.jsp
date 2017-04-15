@@ -92,7 +92,7 @@
 				<spring:message code="chorbi.like.givenBy" var="givenByHeader" />
 				<display:column title="${givenByHeader}" sortable="false">
 					<a href="chorbi/actor/display.do?chorbiId=${row.givenBy.id }">
-						<jstl:out value="${row.givenBy.name }" />
+						<jstl:out value="${f:replaceAllPhoneAndEmail(row.givenBy.name, '***') }" />
 					</a>
 				</display:column>
 				
@@ -122,12 +122,13 @@
 			</security:authorize>
 		</li>
 		
-		<jstl:if test="${principalUserAccount.id != chorbi.userAccount.id}">
-		<li>
-			<input type="submit" name="chirp" value="<spring:message code="chorbi.chirp" />" onclick="location='chirp/chorbi/create.do?receiverId=${chorbi.id}'"/>
-		</li>
-		</jstl:if>
-		
+		<security:authorize access="hasRole('CHORBI')" >
+			<jstl:if test="${principalUserAccount.id != chorbi.userAccount.id}">
+				<li>
+					<input type="submit" name="chirp" value="<spring:message code="chorbi.chirp" />" onclick="location='chirp/chorbi/create.do?receiverId=${chorbi.id}'"/>
+				</li>
+			</jstl:if>
+		</security:authorize>
 		
 	</ul>
 </div>

@@ -9,8 +9,6 @@
 
 <display:table name="banners" id="row" requestURI="${requestURI }">
 	
-	<acme:column code="banner.title" property="title" />
-	
 	<acme:columnImages code="banner.picture" properties="${row.picture}" maxHeight="150px" />
 	
 	<display:column>

@@ -81,7 +81,7 @@ public class SearchTemplate extends DomainEntity {
 
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	public Date getSearchTime() {
 		return this.searchTime;
 	}

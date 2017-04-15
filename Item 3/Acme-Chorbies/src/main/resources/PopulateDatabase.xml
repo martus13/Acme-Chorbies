@@ -127,17 +127,14 @@
 	<!-- Banner -->
 	
 	<bean id="banner1" class="domain.Banner">
-		<property name="title" value="Acme Pad-Thai"/>
 		<property name="picture" value="https://pbs.twimg.com/media/C8Pj_l8XcAAOyjG.jpg"/>
 	</bean>
 	
 	<bean id="banner2" class="domain.Banner">
-		<property name="title" value="Acme BnB"/>
 		<property name="picture" value="https://pbs.twimg.com/media/C8PjXs6XsAI1qoi.png"/>
 	</bean>
 	
 	<bean id="banner3" class="domain.Banner">
-		<property name="title" value="Acme CnG"/>
 		<property name="picture" value="https://pbs.twimg.com/media/C8PjEe9XoAAeJC6.jpg"/>
 	</bean>
 	

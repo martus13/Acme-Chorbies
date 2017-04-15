@@ -59,8 +59,9 @@ public class LikeService {
 		Like likeBefore;
 
 		principal = this.chorbiService.findByPrincipal();
-		// comprobar que haya un chorbi logueado y que no se vaya a dar like a sí mismo
+		// comprobar que haya un chorbi logueado, que no este baneado y que no se vaya a dar like a sí mismo
 		Assert.notNull(principal);
+		Assert.isTrue(!principal.getBanned());
 		Assert.isTrue(!principal.equals(givenTo));
 
 		// comprobar que no se habian dado like antes
@@ -85,6 +86,7 @@ public class LikeService {
 		Chorbi principal;
 
 		principal = this.chorbiService.findByPrincipal();
+		Assert.isTrue(!principal.getBanned());
 		Assert.isTrue(principal.equals(like.getGivenBy()));
 
 		like = this.likeRepository.save(like);
@@ -98,6 +100,7 @@ public class LikeService {
 		Chorbi principal;
 
 		principal = this.chorbiService.findByPrincipal();
+		Assert.isTrue(!principal.getBanned());
 		Assert.isTrue(principal.equals(like.getGivenBy()));
 
 		this.likeRepository.delete(like);

@@ -34,16 +34,15 @@ public interface ChirpRepository extends JpaRepository<Chirp, Integer> {
 	// A2: The minimum, the maximum, and the average number of chirps that a chorbi sends to other chorbies.
 
 	////Max:
-    @Query("select count (c) from Chirp c where c.copy=false group by c.sender having count (c) >= ALL (select count (c1) from Chirp c1 where copy = false group by c1.sender)")
+	@Query("select count(c) from Chirp c where c.copy=false group by c.sender having count(c) >= ALL (select count(c1) from Chirp c1 where c1.copy = false group by c1.sender)")
 	Double findMaxChirpsSent();
-    
-    ////Min:
-    @Query("select count (c) from Chirp c where c.copy=false group by c.sender having count (c) <= ALL (select count (c1) from Chirp c1 where copy = false group by c1.sender)")
-    Double findMinChirpsSent();
-    
-    ////Avg:
-    @Query("select 1.0*(select count(c) from Chirp c where c.copy=false)/ count (ch) from Chorbi ch)")
-    Double findAvgChirpsSent();
-    
-	
+
+	////Min:
+	@Query("select count(c) from Chirp c where c.copy=false group by c.sender having count(c) <= ALL (select count(c1) from Chirp c1 where c1.copy = false group by c1.sender)")
+	Double findMinChirpsSent();
+
+	////Avg:
+	@Query("select 1.0*(select count(c) from Chirp c where c.copy=false)/ count(ch) from Chorbi ch)")
+	Double findAvgChirpsSent();
+
 }

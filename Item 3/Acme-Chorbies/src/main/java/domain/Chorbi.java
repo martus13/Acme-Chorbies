@@ -9,7 +9,9 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -22,6 +24,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(columnList = "relationshipEngage"), @Index(columnList = "banned")
+})
 public class Chorbi extends Actor {
 
 	// Constructors -----------------------------------------------------------
@@ -61,6 +66,7 @@ public class Chorbi extends Actor {
 	}
 
 	@NotNull
+	@Valid
 	@Enumerated(EnumType.STRING)
 	public Genre getGenre() {
 		return this.genre;
@@ -92,6 +98,7 @@ public class Chorbi extends Actor {
 	}
 
 	@NotNull
+	@Valid
 	@Enumerated(EnumType.STRING)
 	public RelationshipType getRelationshipEngage() {
 		return this.relationshipEngage;

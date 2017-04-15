@@ -121,23 +121,37 @@
 	
 </display:table>
 
-<p>
-	<spring:message code="admin.dashboard.minMaxAvgLikesPerChorbi" />
-	<ul>
-		<li>
-			<b><spring:message code="admin.dashboard.min"/>:</b>
-			<jstl:out value="${minMaxAvgLikesPerChorbi[0]}"/>
-		</li>
-		<li>
-			<b><spring:message code="admin.dashboard.max"/>:</b>
-			<jstl:out value="${minMaxAvgLikesPerChorbi[1]}"/>
-		</li>
-		<li>
-			<b><spring:message code="admin.dashboard.avg"/>:</b>
-			<jstl:out value="${minMaxAvgLikesPerChorbi[2]}"/>
-		</li>
-	</ul>
-</p>
+<spring:message code="admin.dashboard.minMaxAvgLikesPerChorbi" />
+<ul>
+	<li>
+		<b><spring:message code="admin.dashboard.min"/>:</b>
+		<jstl:out value="${minMaxAvgLikesPerChorbi[0]}"/>
+	</li>
+	<li>
+		<b><spring:message code="admin.dashboard.max"/>:</b>
+		<jstl:out value="${minMaxAvgLikesPerChorbi[1]}"/>
+	</li>
+	<li>
+		<b><spring:message code="admin.dashboard.avg"/>:</b>
+		<jstl:out value="${minMaxAvgLikesPerChorbi[2]}"/>
+	</li>
+</ul>
+
+<spring:message  code="admin.dashboard.minMaxAvgReceivedChirps" />
+<ul>
+	<li>
+		<b><spring:message code="admin.dashboard.min"/>:</b>
+		<jstl:out value="${minMaxAvgReceivedChirps[0]}"/>
+	</li>
+	<li>
+		<b><spring:message code="admin.dashboard.max"/>:</b>
+		<jstl:out value="${minMaxAvgReceivedChirps[1]}"/>
+	</li>
+	<li>
+		<b><spring:message code="admin.dashboard.avg"/>:</b>
+		<jstl:out value="${minMaxAvgReceivedChirps[2]}"/>
+	</li>
+</ul>
 
 <spring:message  code="admin.dashboard.MinMaxAvgChirpsSentPerChorbi" />
 <ul>

@@ -118,11 +118,10 @@ public class ChirpChorbiController {
 	public ModelAndView reply(@RequestParam final int chirpId) {
 
 		ModelAndView result;
+		Chirp reply;
 		final Chirp chirp = this.chirpService.findOne(chirpId);
 
-		final Chorbi receiver = chirp.getSender();
-		final Chirp reply = this.chirpService.create(receiver);
-		reply.setSubject("Re: " + chirp.getSubject());
+		reply = this.chirpService.reply(chirp);
 
 		result = this.createEditModelAndView(reply);
 
@@ -137,45 +136,39 @@ public class ChirpChorbiController {
 		ModelAndView result;
 		final Chirp chirp = this.chirpService.findOne(chirpId);
 
-		final Chirp forwarded = this.chirpService.resend(chirp);
-
-		this.chirpService.save(forwarded);
+		this.chirpService.resend(chirp);
 
 		result = new ModelAndView("redirect:sentChirps.do");
 
 		return result;
 	}
 
-	@RequestMapping(value="/delete", method = RequestMethod.POST, params="delete")
-	public ModelAndView delete(@RequestParam int chirpId){
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@RequestParam final int chirpId) {
 		ModelAndView result = new ModelAndView();
-		
-		Chirp chirp = this.chirpService.findOne(chirpId);
-		Chorbi principal = this.chorbiService.findByPrincipal();
-		
-		try{
-			
-			if(principal.getId()==chirp.getRecipient().getId()){ 
+
+		final Chirp chirp = this.chirpService.findOne(chirpId);
+		final Chorbi principal = this.chorbiService.findByPrincipal();
+
+		try {
+
+			if (principal.getId() == chirp.getRecipient().getId()) {
 				this.chirpService.deleteReceivedChirp(chirp);
 				result = new ModelAndView("redirect:receivedChirps.do");
-			}else if(principal.getId()==chirp.getSender().getId()){
+			} else if (principal.getId() == chirp.getSender().getId()) {
 				this.chirpService.deleteSentChirp(chirp);
 				result = new ModelAndView("redirect:sentChirps.do");
 			}
-			
-			
-		
+
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 
 			result = this.createEditModelAndView(chirp, "chirp.commit.error");
 		}
-			
-		
+
 		return result;
 	}
-	
-	
+
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Chirp chirp) {
