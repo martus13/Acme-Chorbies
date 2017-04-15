@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import repositories.SearchTemplateRepository;
 import domain.Chorbi;
+import domain.Configuration;
 import domain.SearchTemplate;
 
 @Service
@@ -28,6 +29,9 @@ public class SearchTemplateService {
 
 	@Autowired
 	private CreditCardService			creditCardService;
+
+	@Autowired
+	private ConfigurationService		configurationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -55,7 +59,7 @@ public class SearchTemplateService {
 	}
 
 	public SearchTemplate create(final Chorbi chorbi) {
-		final Collection<Chorbi> results;
+		Collection<Chorbi> results;
 		final SearchTemplate searchTemplate = new SearchTemplate();
 
 		results = new ArrayList<Chorbi>();
@@ -90,6 +94,9 @@ public class SearchTemplateService {
 			searchTemplate.setProvince(null);
 		if (searchTemplate.getCity() == "")
 			searchTemplate.setCity(null);
+
+		searchTemplate.setSearchTime(null);
+		searchTemplate.getResults().clear();
 
 		searchTemplate = this.searchTemplateRepository.save(searchTemplate);
 
@@ -138,16 +145,33 @@ public class SearchTemplateService {
 			searchTemplate.setSearchTime(calendar.getTime());
 			searchTemplate.setResults(result);
 
-		} else if (searchTemplate.getSearchTime().after(calendar.getTime()) || searchTemplate.getSearchTime().equals(calendar.getTime()))
-			// si hace menos que el tiempo que tenemos en la configuracion: mostrar los resultados obtenidos
-			result = searchTemplate.getResults();
-		else {
-			// si hace mas tiempo: hacer la busqueda de nuevo
+		} else {
+			Calendar searchTimeCalendar;
+			Configuration configuration;
+			Calendar configurationCalendar;
 
-			result = this.chorbiService.findNotBannedBySearchTemplate(searchTemplate);
+			searchTimeCalendar = Calendar.getInstance();
+			configurationCalendar = Calendar.getInstance();
 
-			searchTemplate.setSearchTime(calendar.getTime());
-			searchTemplate.setResults(result);
+			configuration = this.configurationService.findConfiguration();
+			configurationCalendar.setTime(configuration.getCachedTime());
+
+			searchTimeCalendar.setTime(searchTemplate.getSearchTime());
+			searchTimeCalendar.add(Calendar.HOUR_OF_DAY, configurationCalendar.get(Calendar.HOUR_OF_DAY));
+			searchTimeCalendar.add(Calendar.MINUTE, configurationCalendar.get(Calendar.MINUTE));
+			searchTimeCalendar.add(Calendar.SECOND, configurationCalendar.get(Calendar.SECOND));
+
+			if (calendar.getTime().before(searchTimeCalendar.getTime()) || calendar.getTime().equals(searchTimeCalendar.getTime()))
+				// si la fecha actual es menor o igual que la fecha de busqueda mas cachedTime: devolver los resultados almacenados
+				result = searchTemplate.getResults();
+			else {
+				// si hace mas tiempo: hacer la busqueda de nuevo
+
+				result = this.chorbiService.findNotBannedBySearchTemplate(searchTemplate);
+
+				searchTemplate.setSearchTime(calendar.getTime());
+				searchTemplate.setResults(result);
+			}
 		}
 
 		searchTemplate = this.searchTemplateRepository.save(searchTemplate);
