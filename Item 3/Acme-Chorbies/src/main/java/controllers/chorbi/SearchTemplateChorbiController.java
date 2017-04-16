@@ -88,7 +88,7 @@ public class SearchTemplateChorbiController extends AbstractController {
 
 		if ((this.creditCardService.checkValidation(this.creditCardService.findByChorbi(this.chorbiService.findByPrincipal().getId()))) == false || (this.creditCardService.findByChorbi(this.chorbiService.findByPrincipal().getId())) == null) {
 			System.out.println("Invalid Credit Card");
-			result = new ModelAndView("creditCard/list");
+			result = new ModelAndView("master.page");
 			result.addObject("message", "searchTemplate.commit.errorCC");
 		} else {
 
