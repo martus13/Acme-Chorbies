@@ -10,6 +10,7 @@
 <form:form action="creditCard/chorbi/create.do" modelAttribute="creditCard">
 	
 	<form:hidden path="id" />
+	<form:hidden path="version" />
 	<form:hidden path="chorbi" />
 	
 	<acme:input path="holderName" code="creditCard.holderName" />
