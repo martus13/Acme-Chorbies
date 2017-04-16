@@ -88,7 +88,7 @@ CREATE TABLE `administrator` (
 
 LOCK TABLES `administrator` WRITE;
 /*!40000 ALTER TABLE `administrator` DISABLE KEYS */;
-INSERT INTO `administrator` VALUES (9,0,'admin1@gmail.com','Admin 1','+34 (954) 596093','Surname Admin 1',7);
+INSERT INTO `administrator` VALUES (21,0,'admin1@gmail.com','Admin 1','+34 (954) 596093','Surname Admin 1',13);
 /*!40000 ALTER TABLE `administrator` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +103,6 @@ CREATE TABLE `banner` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
   `picture` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -114,7 +113,7 @@ CREATE TABLE `banner` (
 
 LOCK TABLES `banner` WRITE;
 /*!40000 ALTER TABLE `banner` DISABLE KEYS */;
-INSERT INTO `banner` VALUES (10,0,'https://pbs.twimg.com/media/C8Pj_l8XcAAOyjG.jpg','Acme Pad-Thai'),(11,0,'https://pbs.twimg.com/media/C8PjXs6XsAI1qoi.png','Acme BnB'),(12,0,'https://pbs.twimg.com/media/C8PjEe9XoAAeJC6.jpg','Acme CnG');
+INSERT INTO `banner` VALUES (22,0,'https://pbs.twimg.com/media/C8Pj_l8XcAAOyjG.jpg'),(23,0,'https://pbs.twimg.com/media/C8PjXs6XsAI1qoi.png'),(24,0,'https://pbs.twimg.com/media/C8PjEe9XoAAeJC6.jpg');
 /*!40000 ALTER TABLE `banner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,6 +134,7 @@ CREATE TABLE `chirp` (
   `recipient_id` int(11) NOT NULL,
   `sender_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
+  KEY `UK_l58p5o8qwiecaote4fmuddbhw` (`copy`),
   KEY `FK_20arsrvo5x8fqqrj7o5tomu6f` (`recipient_id`),
   KEY `FK_7nnun85ngke6yiv2qnerep5uc` (`sender_id`),
   CONSTRAINT `FK_7nnun85ngke6yiv2qnerep5uc` FOREIGN KEY (`sender_id`) REFERENCES `chorbi` (`id`),
@@ -202,6 +202,8 @@ CREATE TABLE `chorbi` (
   `relationshipEngage` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_qrvmwkp25xc5exr6m3jgaxu4x` (`userAccount_id`),
+  KEY `UK_m86ftlpmqnfeuca5i10lh7rn0` (`relationshipEngage`),
+  KEY `UK_km8ak84t5ibyqk4lbi9a1uy5` (`banned`),
   CONSTRAINT `FK_qrvmwkp25xc5exr6m3jgaxu4x` FOREIGN KEY (`userAccount_id`) REFERENCES `useraccount` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -236,7 +238,7 @@ CREATE TABLE `configuration` (
 
 LOCK TABLES `configuration` WRITE;
 /*!40000 ALTER TABLE `configuration` DISABLE KEYS */;
-INSERT INTO `configuration` VALUES (8,0,'12:00:00');
+INSERT INTO `configuration` VALUES (20,0,'12:00:00');
 /*!40000 ALTER TABLE `configuration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,6 +261,8 @@ CREATE TABLE `creditcard` (
   `chorbi_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_584svqyk53nkaci4v621ae3kk` (`chorbi_id`),
+  KEY `UK_evhfhpjdhcmyygxjo8sa6opcy` (`expirationMonth`),
+  KEY `UK_12talwm2jns3cits0lnbbckl8` (`expirationYear`),
   CONSTRAINT `FK_584svqyk53nkaci4v621ae3kk` FOREIGN KEY (`chorbi_id`) REFERENCES `chorbi` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -410,7 +414,7 @@ CREATE TABLE `useraccount` (
 
 LOCK TABLES `useraccount` WRITE;
 /*!40000 ALTER TABLE `useraccount` DISABLE KEYS */;
-INSERT INTO `useraccount` VALUES (7,0,'21232f297a57a5a743894a0e4a801fc3','admin');
+INSERT INTO `useraccount` VALUES (13,0,'21232f297a57a5a743894a0e4a801fc3','admin'),(14,0,'3daa859a294cdefb20a84840240a76f5','chorbi1'),(15,0,'0c8746de81268518ff83490301db8652','chorbi2'),(16,0,'a2da05a88eead7e64593826cafc6a7a7','chorbi3'),(17,0,'a09dd233386632e297a7f4f461989563','chorbi4'),(18,0,'7e062f6f2a4c0f7ec5abacef2917e033','chorbi5'),(19,0,'1b3231655cebb7a1f783eddf27d254ca','super');
 /*!40000 ALTER TABLE `useraccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,7 +439,7 @@ CREATE TABLE `useraccount_authorities` (
 
 LOCK TABLES `useraccount_authorities` WRITE;
 /*!40000 ALTER TABLE `useraccount_authorities` DISABLE KEYS */;
-INSERT INTO `useraccount_authorities` VALUES (7,'ADMIN');
+INSERT INTO `useraccount_authorities` VALUES (13,'ADMIN'),(14,'CHORBI'),(15,'CHORBI'),(16,'CHORBI'),(17,'CHORBI'),(18,'CHORBI'),(19,'ADMIN'),(19,'CHORBI');
 /*!40000 ALTER TABLE `useraccount_authorities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -448,6 +452,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-09 21:13:04
+-- Dump completed on 2017-04-16  2:01:46
 
 commit;
