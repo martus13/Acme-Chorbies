@@ -17,6 +17,12 @@
 		</a>
 	</display:column>
 	
+	<display:column>
+		<form:form action="banner/administrator/delete.do?bannerId=${row.id}" modelAttribute="banner">
+			<acme:submit name="delete" code="banner.delete" />
+		</form:form>
+	</display:column>
+	
 </display:table>
 
 <a href="banner/administrator/create.do">
