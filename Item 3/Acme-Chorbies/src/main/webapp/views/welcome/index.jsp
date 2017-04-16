@@ -23,6 +23,8 @@
 <p><spring:message code="welcome.cookies" /></p>
 
 <security:authorize access="isAnonymous()">
-	<img src="${banner.picture}" style="max-height: 200px;" />
+	<jstl:if test="${banner != null}">
+		<img src="${banner.picture}" style="max-height: 200px;" />
+	</jstl:if>
 </security:authorize>
 

@@ -89,15 +89,20 @@ public class BannerService {
 
 	public Banner findRandom() {
 		final Collection<Banner> collectionBanners;
-		Random randomGenerator;
 		Banner[] banners;
 		Banner result;
 
 		collectionBanners = this.findAll();
-		randomGenerator = new Random();
-		banners = collectionBanners.toArray(new Banner[collectionBanners.size()]);
 
-		result = banners[randomGenerator.nextInt(collectionBanners.size())];
+		if (!collectionBanners.isEmpty()) {
+			Random randomGenerator;
+
+			randomGenerator = new Random();
+			banners = collectionBanners.toArray(new Banner[collectionBanners.size()]);
+
+			result = banners[randomGenerator.nextInt(collectionBanners.size())];
+		} else
+			result = null;
 
 		return result;
 	}
