@@ -28,33 +28,32 @@
 	
 	<jstl:choose>
 		<jstl:when test="${imSender}">
-		<spring:message code="chirp.recipient" var="recipientHeader" />
-		<display:column title="${recipientHeader}" sortable="true">
-			<a href="chorbi/actor/display.do?chorbiId=${row.recipient.id }">
-				<jstl:out value="${f:replaceAllPhoneAndEmail(row.recipient.name, '***')} ${f:replaceAllPhoneAndEmail(row.recipient.surname, '***')}"/>
-			</a>
-		</display:column>
-		<display:column>
-			<form:form action="chirp/chorbi/resend.do?chirpId=${row.id}" modelAttribute="chirp">
-				<acme:submit name="resend" code="chirp.resend" />
-			</form:form>
-		</display:column>
-	
-		
+			<spring:message code="chirp.recipient" var="recipientHeader" />
+			<display:column title="${recipientHeader}" sortable="true">
+				<a href="chorbi/actor/display.do?chorbiId=${row.recipient.id }">
+					<jstl:out value="${f:replaceAllPhoneAndEmail(row.recipient.name, '***')} ${f:replaceAllPhoneAndEmail(row.recipient.surname, '***')}"/>
+				</a>
+			</display:column>
+			<display:column>
+				<form:form action="chirp/chorbi/resend.do?chirpId=${row.id}" modelAttribute="chirp">
+					<acme:submit name="resend" code="chirp.resend" />
+				</form:form>
+			</display:column>
+			
 		</jstl:when>
 		<jstl:otherwise>
-		<spring:message code="chirp.sender" var="senderHeader" />
-		<display:column title="${senderHeader}" sortable="true">
-			<a href="chorbi/actor/display.do?chorbiId=${row.sender.id }">
-				<jstl:out value="${f:replaceAllPhoneAndEmail(row.sender.name, '***')} ${f:replaceAllPhoneAndEmail(row.sender.surname, '***')}"/>
-			</a>
-		</display:column>
-		
-		<display:column>
-			<form:form action="chirp/chorbi/reply.do?chirpId=${row.id}" modelAttribute="chirp">
-				<acme:submit name="reply" code="chirp.reply" />
-			</form:form>
-		</display:column>
+			<spring:message code="chirp.sender" var="senderHeader" />
+			<display:column title="${senderHeader}" sortable="true">
+				<a href="chorbi/actor/display.do?chorbiId=${row.sender.id }">
+					<jstl:out value="${f:replaceAllPhoneAndEmail(row.sender.name, '***')} ${f:replaceAllPhoneAndEmail(row.sender.surname, '***')}"/>
+				</a>
+			</display:column>
+			
+			<display:column>
+				<form:form action="chirp/chorbi/reply.do?chirpId=${row.id}" modelAttribute="chirp">
+					<acme:submit name="reply" code="chirp.reply" />
+				</form:form>
+			</display:column>
 		</jstl:otherwise>
 	</jstl:choose>
 	

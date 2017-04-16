@@ -40,26 +40,26 @@
 		<ul>
 			<li>
 				<spring:message code="chorbi.country" />: 
-				<jstl:out value="${row.coordinates.country }" />
+				<jstl:out value="${f:replaceAllPhoneAndEmail(row.coordinates.country, '***') }" />
 			</li>
 			
 			<jstl:if test="${not empty row.coordinates.state }">
 				<li>
 					<spring:message code="chorbi.state" />: 
-					<jstl:out value="${row.coordinates.state }" />
+					<jstl:out value="${f:replaceAllPhoneAndEmail(row.coordinates.state, '***') }" />
 				</li>
 			</jstl:if>
 			
 			<jstl:if test="${not empty row.coordinates.provice }">
 				<li>
 					<spring:message code="chorbi.provice" />: 
-					<jstl:out value="${row.coordinates.provice }" />
+					<jstl:out value="${f:replaceAllPhoneAndEmail(row.coordinates.provice, '***') }" />
 				</li>
 			</jstl:if>
 			
 			<li>
 				<spring:message code="chorbi.city" />: 
-				<jstl:out value="${row.coordinates.city }" />
+				<jstl:out value="${f:replaceAllPhoneAndEmail(row.coordinates.city, '***') }" />
 			</li>
 		</ul>
 	</display:column>  
