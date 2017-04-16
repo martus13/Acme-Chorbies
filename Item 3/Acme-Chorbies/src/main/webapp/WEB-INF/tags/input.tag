@@ -22,15 +22,24 @@
 
 <%-- Attributes --%> 
  
-<%@ attribute name="path" required="true" %>
-<%@ attribute name="code" required="true" %>
+<%@ attribute name="path" required="true"%>
+<%@ attribute name="code" required="true"%>
+
+<%@ attribute name="type" required="false"%>
+<%@ attribute name="step" required="false"%>
+<%@ attribute name="min" required="false"%>
+<%@ attribute name="max" required="false"%>
+
+<jstl:if test="${type == null}">
+	<jstl:set var="type" value="text" />
+</jstl:if>
 
 <%-- Definition --%>
 
 <div>
 	<form:label path="${path}">
-		<spring:message code="${code}" />
-	</form:label>	
-	<form:input path="${path}" />	
-	<form:errors path="${path}" cssClass="error" />
-</div>	
+		<spring:message code="${code}" />:
+	</form:label>
+	<form:input path="${path}" type="${type }" step="${step }" min="${min }" max="${max }" />
+	<form:errors class="error" cssClass="error" path="${path}" />
+</div>

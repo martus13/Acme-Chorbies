@@ -13,11 +13,24 @@
 	<form:hidden path="chorbi" />
 	
 	<acme:input path="holderName" code="creditCard.holderName" />
-	<acme:input path="brandName" code="creditCard.brandName" />
+	<div>
+		<form:label path="brandName">
+			<spring:message code="creditCard.brandName" />
+		</form:label>	
+		<form:select path="brandName">
+			<form:option value="${null }" label="----" />
+			<form:option value="VISA" label="VISA" />
+			<form:option value="MASTERCARD" label="MASTERCARD" />
+			<form:option value="DISCOVER" label="DISCOVER" />
+			<form:option value="DINNERS" label="DINNERS" />
+			<form:option value="AMEX" label="AMEX" />
+		</form:select>
+		<form:errors path="brandName" cssClass="error" />
+	</div>
 	<acme:input path="number" code="creditCard.number" />
-	<acme:input path="expirationMonth" code="creditCard.expirationMonth" />
-	<acme:input path="expirationYear" code="creditCard.expirationYear" />
-	<acme:input path="cvv" code="creditCard.cvv" />
+	<acme:input path="expirationMonth" code="creditCard.expirationMonth" type="number" min="1" max="12" />
+	<acme:input path="expirationYear" code="creditCard.expirationYear" type="number" />
+	<acme:input path="cvv" code="creditCard.cvv" type="number" />
 	
 	<acme:submit name="save" code="creditCard.save" />
 	<acme:cancel url="creditCard/chorbi/list.do" code="creditCard.cancel" />
