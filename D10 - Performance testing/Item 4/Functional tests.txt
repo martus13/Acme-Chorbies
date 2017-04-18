@@ -1,1 +1,0 @@
-Los tests funcionales se entregarán dentro del proyecto.
