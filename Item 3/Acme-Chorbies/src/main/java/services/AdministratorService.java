@@ -65,6 +65,7 @@ public class AdministratorService {
 
 	public Administrator findByUserAccountId(final int userAccountId) {
 		Assert.notNull(userAccountId);
+		Assert.isTrue(userAccountId != 0);
 
 		Administrator result;
 
